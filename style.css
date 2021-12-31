@@ -1,0 +1,381 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.container {
+  background-color: wheat;
+  /* overflow: hidden; */
+  height: 100vh;
+  width: 100%;
+}
+header {
+  height: 8%;
+  padding: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#header_title {
+  background-image: url("https://ifh.cc/g/3OhW5O.png");
+  background-size: contain;
+  background-position: center;
+  width: 100px;
+  height: 20px;
+}
+#left-control {
+  color: white;
+  font-size: 15px;
+  position: absolute;
+  left: 0;
+  margin-left: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+#right-control {
+  color: white;
+  font-size: 15px;
+  position: absolute;
+  right: 0;
+  margin: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+#menu-btn,
+#right-control > li {
+  width: 41px;
+  height: 41px;
+  border: 2px solid white;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+}
+#menu-btn {
+  font-size: 17px;
+}
+
+#menu-btn:hover,
+#right-control > li:hover {
+  background-color: white;
+  color: black;
+}
+
+#player-string:hover {
+  cursor: url("https://ifh.cc/g/KEaDXD.png"), auto;
+}
+/* #play-btn:hover {
+  cursor: url("https://ifh.cc/g/AbzUYP.png"), auto;
+}
+#pause-btn:hover {
+  cursor: url("https://ifh.cc/g/4Tg9hi.png"), auto;
+}
+#previous-btn:hover {
+  cursor: url("https://ifh.cc/g/Aiyz6h.png"), auto;
+}
+#next-btn:hover {
+  cursor: url("https://ifh.cc/g/8jkgTA.png"), auto;
+} */
+#menu-btn:hover {
+  cursor: url("https://ifh.cc/g/6WEmtx.png"), auto;
+}
+
+main {
+  width: 100%;
+  height: 84%;
+  display: flex;
+  align-items: center;
+}
+footer {
+  width: 100%;
+  height: 8%;
+}
+#playerContainer,
+#cd-player,
+#cdOutHallLine2,
+#cdOutHallLine,
+#cdOutHall,
+#cdImg {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#playerContainer {
+  width: 400px;
+  height: 400px;
+  margin: 0 auto;
+  margin-bottom: 170px;
+  display: flex;
+  flex-direction: column;
+}
+#cd-player {
+  width: 350px;
+  height: 350px;
+  background-color: #e8e3d7;
+  border: 3px #e9e9e0 solid;
+  border-radius: 40px;
+  z-index: 10;
+  box-shadow: 10px 10px 40px rgba(0, 0, 0, 0.3);
+}
+#cdOutHallLine2 {
+  width: 255px;
+  height: 255px;
+  border-radius: 50%;
+  box-shadow: inset 0px 0px 10px rgba(172, 171, 171, 0.2);
+}
+#cdOutHallLine {
+  width: 240px;
+  height: 240px;
+  border-radius: 50%;
+  box-shadow: inset -40px 40px 40px -30px rgba(192, 192, 192, 0.6);
+  /* box-shadow: inset -20px 0px 70px rgba(94, 94, 94, 0.4); */
+}
+
+#cdImg {
+  width: 200px;
+  height: 200px;
+  background-image: url("https://i.ytimg.com/vi/gset79KMmt0/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLA-hzH8zOQLp8GjFJoqM7s7wlvwqg");
+  background-size: cover;
+  background-position: center;
+  border-radius: 50%;
+  z-index: 15;
+  border: 2px solid #e9e9e0;
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
+  /* animation: cdRotate 14s linear infinite; */
+}
+#cdInHall {
+  width: 30px;
+  height: 30px;
+  background-color: #e9e9e0;
+  border: 2px solid rgba(230, 233, 217, 0.1);
+  box-shadow: inset 0px 0px 3px rgba(0, 0, 0, 0.3);
+  border-radius: 50%;
+}
+
+#player-string {
+  position: absolute;
+  left: 49%;
+  bottom: 20%;
+  width: 40px;
+  height: 600px;
+  /* background-image: url("https://ifh.cc/g/0ESzVe.png"); */
+  background-image: url("https://ifh.cc/g/TN33IT.png");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  /* animation: stringY 6s linear 2s infinite; */
+}
+.forStringAni {
+  animation: stringY 6s linear 2s infinite;
+}
+
+.forCdAni {
+  animation: cdRotate 14s linear infinite;
+}
+@keyframes stringRotate {
+  0% {
+    transform: none;
+  }
+  25% {
+    transform: rotate(6deg);
+    transform-origin: top;
+  }
+  50% {
+    transform: rotate(0deg);
+    transform-origin: top;
+  }
+  75% {
+    transform: rotate(-6deg);
+    transform-origin: top;
+  }
+  100% {
+    transform: rotate(0deg);
+    transform-origin: top;
+  }
+}
+@keyframes stringY {
+  0% {
+    transform: none;
+  }
+  50% {
+    transform: translateY(50px);
+  }
+  100% {
+    transform: none;
+  }
+}
+
+@keyframes cdRotate {
+  0% {
+    transform: none;
+  }
+  50% {
+    transform: rotate(180deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* 
+
+여기서부터 메뉴바
+
+*/
+.playlist-screen {
+  display: flex;
+  justify-content: center;
+}
+.cover {
+  margin-left: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  height: 500px;
+}
+
+.playlist-box {
+  color: #fff;
+  flex-wrap: wrap;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-start;
+  height: 320px;
+  width: 100%;
+  white-space: nowrap;
+  position: fixed;
+  bottom: 0;
+  padding: 0 60px 0 50px;
+  overflow-x: scroll;
+}
+
+.coverImg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 150px;
+  width: 150px;
+  overflow: hidden;
+  box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.5);
+  border-radius: 20px;
+  margin-bottom: -10px;
+}
+
+.coverImgLink {
+  object-fit: cover;
+}
+
+.coverImg > img {
+  transition: all 0.3s;
+  width: 100%;
+  height: 100%;
+}
+
+.coverImg:hover > img {
+  width: 107%;
+  height: 107%;
+}
+
+.coverImg:hover > .overlay {
+  opacity: 0.3;
+}
+
+.overlay {
+  opacity: 0;
+  transition: opacity 0.2s;
+  position: absolute;
+  height: 150px;
+  width: 150px;
+  background: black;
+  z-index: 2;
+  border-radius: 20px;
+}
+
+.coverImg:hover > .control {
+  opacity: 1;
+}
+
+.control > img {
+  display: block;
+  position: absolute;
+  height: 6.5rem;
+  width: 6.5rem;
+  z-index: 6;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.control > img:hover {
+  display: block;
+  position: absolute;
+  height: 7.5rem;
+  width: 7.5rem;
+  z-index: 6;
+}
+
+.control {
+  z-index: 6;
+  transition: opacity 0.3s;
+  opacity: 0;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 15rem;
+  width: 15rem;
+}
+
+.cover .cdText:nth-child(1) {
+  line-height: 5px;
+}
+.cover .cdText {
+  text-align: center;
+}
+.cdRank {
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+.cdTitle {
+  margin-top: 30px;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.cdArtist {
+  margin-top: 2px;
+  font-size: 12px;
+}
+/* 스크롤바 전체영역 css */
+::-webkit-scrollbar {
+  width: 1px;
+  height: 1px;
+}
+
+/* 순차등장애니메이션 */
+
+.cover-ani {
+  animation: showCover 0.5s;
+  animation-fill-mode: both;
+  animation-delay: 0.1s;
+}
+@keyframes showCover {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0px);
+    opacity: 1;
+  }
+}
