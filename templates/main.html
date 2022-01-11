@@ -132,7 +132,7 @@
             height: 40px;
             background-color: black;
             color: white;
-            font-size:18px ;
+            font-size:15px ;
             text-align: center;
             border-radius: 20px;
             padding: 5px 20px 5px 20px;
@@ -148,18 +148,18 @@
     }
 
     function showExhibits() {
-                $.ajax({
-                    type: "GET",
-                    url: "/exhibit",
-                    data: {},
-                    success: function (response) {
-                        let exhibits = response['all_exhibits']
-                        for (let i = 0; i < exhibits.length; i++){
-                            let title = exhibits[i]['title']
-                            let img = exhibits[i]['img']
-                            let link = exhibits[i]['link']
+        $.ajax({
+            type: "GET",
+            url: "/exhibit",
+            data: {},
+            success: function (response) {
+                let exhibits = response['all_exhibits']
+                for (let i = 0; i < exhibits.length; i++) {
+                    let title = exhibits[i]['title']
+                    let img = exhibits[i]['img']
+                    let link = exhibits[i]['link']
 
-                            let temp_html = `<div class="card">
+                    let temp_html = `<div class="card">
                                                 <img onclick="location.href='${link}'" class="card-img-top" src="${img}" alt="Card image cap">
                                                 <div class="card-body">
                                                     <h5 class="card-title" >${title}</h5>
@@ -168,11 +168,19 @@
                                                     </div>
                                                 </div>
                                             </div>`
-                            $('#card-box').append(temp_html);
-                        }
-                    }
-                })
+                    $('#card-box').append(temp_html);
+                }
             }
+        })
+    }
+    <!-- 로그아웃 토큰 삭제-->
+    function logout() {
+        $.removeCookie('mytoken');
+        alert('다음에 또 만나요!!')
+        window.location.href = '/login'
+    }
+
+
     </script>
 
 </head>
@@ -181,13 +189,15 @@
     <div class="wrap">
         <div class="btn-box">
             <button onclick='window.location.href = "/mypage"' class="btn-top">마이페이지</button>
+            <!-- 로그아웃-->
+            <button class="btn-top" id=btn3 onclick="logout()">로그아웃하기</button>
         </div>
         <div class="mainImage"></div>
         <div id="card-box" class="card-box">
         </div>
         <div class="bottom-box">
-            <p class="bottom-text">전시목록이 끝났습니다. 클릭하여 위로 올라가기 >
-                <span class="dir-top" onclick="window.scrollTo(0,0);">TOP</span>
+            <p class="bottom-text">전시목록이 끝났습니다.
+                <span class="dir-top" onclick="window.scrollTo(0,0);">위로 올라가기</span>
             </p>
         </div>
     </div>
