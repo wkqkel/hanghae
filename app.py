@@ -12,10 +12,10 @@ app.config["TEMPLATES_AUTO_RELOAD"] = True
 app.config['UPLOAD_FOLDER'] = "./static/profile_pics"
 
 SECRET_KEY = 'SPARTA'
-# client = MongoClient('mongodb://test:test@localhost', 27017)
-client = MongoClient('mongodb://54.180.147.13', 27017, username="test", password="test")
-db = client.dbsparta_plus_week4
-
+client = MongoClient('localhost', 27017)
+# client = MongoClient('mongodb://54.180.147.13', 27017, username="test", password="test")
+# db = client.dbsparta_plus_week4
+db = client.dbw1team9
 
 @app.route('/')
 def home():
@@ -23,7 +23,7 @@ def home():
     try:
         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
         user_info = db.users.find_one({"username": payload["id"]})
-        return render_template('index.html', user_info=user_info)
+        return render_template('main.html', user_info=user_info)
 
     except jwt.ExpiredSignatureError:
         return redirect(url_for("login", msg="로그인 시간이 만료되었습니다."))
@@ -35,6 +35,7 @@ def home():
 def login():
     msg = request.args.get("msg")
     return render_template('login.html', msg=msg)
+
 
 
 @app.route('/user/<username>')
@@ -94,6 +95,14 @@ def check_dup():
     exists = bool(db.users.find_one({"username": username_receive}))
     return jsonify({'result': 'success', 'exists': exists})
 
+@app.route('/main')
+def main():
+    return render_template('main.html')
+
+@app.route('/exhibit', methods=['GET'])
+def listing():
+    exhibits = list(db.exhibits.find({}, {'_id': False}))
+    return jsonify({'all_exhibits': exhibits})
 
 
 if __name__ == '__main__':

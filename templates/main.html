@@ -1,0 +1,195 @@
+<!Doctype html>
+<html lang="ko">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+
+    <title>전시 리스트 | 전시어때 </title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+
+    <style type="text/css">
+        * {
+            font-family: "Stylish", sans-serif;
+        }
+        .wrap {
+            width: 900px;
+            margin: auto;
+            position: relative;
+        }
+        .btn-box{
+            height: 60px;
+            width: 100%;
+            display: flex;
+            justify-content: flex-end;
+            padding: 5px;
+        }
+        .btn-top {
+            width: 100px;
+            height: 40px;
+            background-color: black;
+            background-position: right;
+            font-size: 15px;
+            color: white;
+            padding: 5px;
+            margin: 5px;
+            border-radius: 10px;
+            text-align: center;
+            display: block;
+            cursor: pointer;
+        }
+        .mainImage {
+            width: 920px;
+            height: 250px;
+            background-image: url("https://bit.ly/3t9vpoY");
+            background-size: cover;
+            background-position: top;
+            border-radius: 10px;
+            margin: 10px 0 20px 0;
+        }
+        .card-box{
+            display: flex;
+            flex-wrap: wrap;
+            width: 1000px;
+        }
+        .card{
+            width: 210px;
+            height: 400px;
+            padding-right:210px;
+            margin: 10px;
+        }
+        .card-img-top{
+            width: 210px;
+            height: 300px;
+            cursor: pointer;
+        }
+        .card-body{
+            width: 210px;
+            padding: 5px;
+        }
+        .card-title {
+            width: 200px;
+            height: 60px;
+            margin: auto;
+            /*white-space: nowrap;*/
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            line-height: 25px;
+            max-height: 50px;
+        }
+        .card-bottom{
+            height: 40px;
+            width: 100%;
+            display: flex;
+            justify-content: flex-end;
+        }
+        .btn-scrap {
+            width: 80px;
+            height: 30px;
+            background-color: lightgray;
+            font-size: 14px;
+            font-weight: bold;
+            border-radius: 10px;
+            border-width: 0px;
+            text-align: center;
+            margin: 5px;
+            cursor: pointer;
+        }
+        .bottom-box {
+            height: 100px;
+            width: 100%;
+            display: flex;
+            margin-bottom: 50px;
+            justify-content: center;
+        }
+        .bottom-text{
+            height: 80px;
+            padding: 40px;
+        }
+        .dir-top {
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            background-color: black;
+            color: white;
+            font-size:18px ;
+            text-align: center;
+            border-radius: 20px;
+            padding: 5px 20px 5px 20px;
+            margin: 10px;
+        }
+    </style>
+    <script>
+    $(document).ready(function () {
+                showExhibits();
+            });
+    function scrap() {
+        alert('보관함에 추가되었습니다!');
+    }
+
+    function showExhibits() {
+                $.ajax({
+                    type: "GET",
+                    url: "/exhibit",
+                    data: {},
+                    success: function (response) {
+                        let exhibits = response['all_exhibits']
+                        for (let i = 0; i < exhibits.length; i++){
+                            let title = exhibits[i]['title']
+                            let img = exhibits[i]['img']
+                            let link = exhibits[i]['link']
+
+                            let temp_html = `<div class="card">
+                                                <img onclick="location.href='${link}'" class="card-img-top" src="${img}" alt="Card image cap">
+                                                <div class="card-body">
+                                                    <h5 class="card-title" >${title}</h5>
+                                                    <div class="card-bottom">
+                                                        <button id onclick='scrap()' class="btn-scrap">보관함 추가</button>
+                                                    </div>
+                                                </div>
+                                            </div>`
+                            $('#card-box').append(temp_html);
+                        }
+                    }
+                })
+            }
+    </script>
+
+</head>
+
+<body>
+    <div class="wrap">
+        <div class="btn-box">
+            <button onclick='window.location.href = "/mypage"' class="btn-top">마이페이지</button>
+        </div>
+        <div class="mainImage"></div>
+        <div id="card-box" class="card-box">
+        </div>
+        <div class="bottom-box">
+            <p class="bottom-text">전시목록이 끝났습니다. 클릭하여 위로 올라가기 >
+                <span class="dir-top" onclick="window.scrollTo(0,0);">TOP</span>
+            </p>
+        </div>
+    </div>
+</body>
+</html>
