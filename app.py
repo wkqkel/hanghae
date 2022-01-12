@@ -155,13 +155,13 @@ def remove_bookmark():
         return redirect(url_for("home"))
 
 # 디테일페이지
-@app.route('/review')
+@app.route('/detail', methods=['GET'])
 def detail():
     return render_template('detail.html')
 
 
 ## API 역할을 하는 부분
-@app.route('/review2', methods=['POST'])
+@app.route('/detail2', methods=['POST'])
 def write_review():
     review_receive = request.form['review_give']
 
@@ -173,7 +173,7 @@ def write_review():
     return jsonify({'msg': '리뷰 저장 완료'})
 
 
-@app.route('/review3', methods=['POST'])
+@app.route('/detail3', methods=['POST'])
 def read_reviews():
     aa = list(db.displayReview.find({}, {'_id': False}))
 
@@ -194,5 +194,3 @@ def read_reviews():
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5000, debug=True)
 
-
-/**/

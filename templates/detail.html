@@ -159,7 +159,7 @@
 
             $.ajax({
                 type: "POST",
-                url: "/review2",
+                url: "/detail2",
                 data: {review_give: review},
                 success: function (response) {
                     alert(response["msg"]);
@@ -171,7 +171,7 @@
         function showReview(title) {
             $.ajax({
                 type: "POST",
-                url: "/review3",
+                url: "/detail3",
                 data: {title_give: title},
                 success: function (response) {
                     let reviews = response['all_reviews'];
@@ -277,5 +277,3 @@
 </body>
 
 </html>
-
-/**/
