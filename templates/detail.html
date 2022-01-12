@@ -169,7 +169,7 @@
         <a onclick='window.location.href = "/mypage"' class="btn-top">마이페이지</a>
     </p>
     <p class="level-item has-text-centered">
-        <a class="btn-top" id=btn3 onclick="logout()">로그아웃하기</a>
+        <a class="btn-top" id=btn3 onclick="logout()">로그아웃</a>
     </p>
 </nav>
 <div class="color">
@@ -182,14 +182,13 @@
 
 <textarea class="b" id="displayReview"
           cols="30"
-          rows="5" placeholder="여러분의 리뷰를 써주세요!"></textarea>
+          maxlength='390'
+          rows="5" placeholder="여러분의 리뷰를 써주세요!(390자제한)"></textarea>
 
 <div class="review-save" id="reviewSave">
-<<<<<<< HEAD
-    <button class="btn-scrap" onclick="makeReview(decodeURI(window.location.search.split('?')[1]))" type="button">저장</button>
-=======
+
     <button id="save-btn" onclick="makeReview(decodeURI(window.location.search.split('?')[1]))" type="button">저장</button>
->>>>>>> 4813f474a0fab5f191a34613be5480bc852c1e4c
+
 </div>
 <div class="color_rewiew">
     <div class="reviews-box">
@@ -222,7 +221,8 @@
     }
 
     .reviews-box {
-        overflow-x: hidden;
+        overflow: hidden;
+
     }
 
     .transfer-box {
@@ -259,6 +259,7 @@
         text-align: center;
         margin-right: 20px;
         font-size: 14px;
+
     }
 
     .card-title {
@@ -280,7 +281,15 @@
         border-bottom: 1px solid rgba(0, 0, 0, 0.2);
         color: rgba(0,0,0,0.3);
     }
-<<<<<<< HEAD
+    .card-desc{
+        width: 220px;
+    }
+    .card-review{
+        width: 220px;
+        word-wrap: break-word;
+        overflow: hidden;
+        max-height: 340px;
+    }
 
     .btn-scrap {
             font-family: "Stylish", sans-serif;
@@ -297,12 +306,10 @@
             cursor: pointer;
         }
 
-=======
     .btn-0 {
         color:black;
         font-weight:bold;
       }
->>>>>>> 4813f474a0fab5f191a34613be5480bc852c1e4c
     {#상원작성끝#}
 
     
