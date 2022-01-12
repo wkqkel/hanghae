@@ -1,19 +1,280 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script>
-        $("document").ready(function(){
-        let getLink = window.location.search;
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+
+    <title>Titlesdfsdf</title>
+
+    <style>
+
+        @font-face {
+            font-family: 'KOTRA_GOTHIC';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10-21@1.0/KOTRA_GOTHIC.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'KOTRA_GOTHIC';
+            scroll-behavior: smooth;
+        }
+
+        /*페이지꾸미기*/
+        /*body {*/
+        /*    width: 100vw;*/
+        /*    background: #bca087 url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz48IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4iICJodHRwOi8vd3d3LnczLm9yZy9HcmFwaGljcy9TVkcvMS4xL0RURC9zdmcxMS5kdGQiPjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iTGF5ZXJfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiIHdpZHRoPSI3OTguNzAycHgiIGhlaWdodD0iNzk4LjcwMnB4IiB2aWV3Qm94PSIwIDAgNzk4LjcwMiA3OTguNzAyIiBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCA3OTguNzAyIDc5OC43MDIiIHhtbDpzcGFjZT0icHJlc2VydmUiPjxnPjxyZWN0IGZpbGw9IiNFMDgyODMiIHdpZHRoPSI3OTguNzAyIiBoZWlnaHQ9Ijc5OC43MDIiLz48Zz48cGF0aCBmaWxsPSIjRTY5QzlEIiBkPSJNMTcxLjMzOSwxODAuMDUxaC02OS4xODVjLTYuNjE4LDAtMTIuMDMzLDUuNDE0LTEyLjAzMywxMi4wMzJ2MjIuNTZjMCw2LjYxOCw1LjQxNSwxMi4wMzMsMTIuMDMzLDEyLjAzM2g2OS4xODVjNi42MTcsMCwxMi4wMzItNS40MTUsMTIuMDMyLTEyLjAzM3YtMjIuNTZDMTgzLjM3MiwxODUuNDY1LDE3Ny45NTcsMTgwLjA1MSwxNzEuMzM5LDE4MC4wNTF6Ii8+PHBhdGggZmlsbD0iI0U2OUM5RCIgZD0iTTIwMi44ODcsMTIzLjM3Nmg2OS4xODVjNi42MTgsMCwxMi4wMzMtNS40MTQsMTIuMDMzLTEyLjAzMnYtMjIuNTZjMC02LjYxOS01LjQxNS0xMi4wMzMtMTIuMDMzLTEyLjAzM2gtNjkuMTg1Yy02LjYxNywwLTEyLjAzMiw1LjQxNC0xMi4wMzIsMTIuMDMzdjIyLjU2QzE5MC44NTQsMTE3Ljk2MiwxOTYuMjcsMTIzLjM3NiwyMDIuODg3LDEyMy4zNzZ6Ii8+PHBhdGggZmlsbD0iI0U2OUM5RCIgZD0iTTIxNy45NjQsMTI3LjcxMmgtNjkuMTg1Yy02LjYxOCwwLTEyLjAzMyw1LjQxNS0xMi4wMzMsMTIuMDMydjIyLjU2MWMwLDYuNjE4LDUuNDE1LDEyLjAzMiwxMi4wMzMsMTIuMDMyaDY5LjE4NWM2LjYxOCwwLDEyLjAzMi01LjQxNSwxMi4wMzItMTIuMDMydi0yMi41NjFDMjI5Ljk5NiwxMzMuMTI3LDIyNC41ODIsMTI3LjcxMiwyMTcuOTY0LDEyNy43MTJ6Ii8+PHBhdGggZmlsbD0iI0U2OUM5RCIgZD0iTTEyOS43MywxNjIuMzA1di0yMi41NjFjMC02LjYxOC01LjQxNS0xMi4wMzItMTIuMDMyLTEyLjAzMkg0OC41MTNjLTYuNjE4LDAtMTIuMDMyLDUuNDE1LTEyLjAzMiwxMi4wMzJ2MjIuNTYxYzAsNi42MTgsNS40MTQsMTIuMDMyLDEyLjAzMiwxMi4wMzJoNjkuMTg2QzEyNC4zMTYsMTc0LjMzNywxMjkuNzMsMTY4LjkyMywxMjkuNzMsMTYyLjMwNXoiLz48cGF0aCBmaWxsPSIjRTY5QzlEIiBkPSJNNTE1LjYwNCwxMDcuOTIxdjIyLjU2MWMwLDYuNjE4LDUuNDE1LDEyLjAzMiwxMi4wMzIsMTIuMDMyaDY5LjE4NmM2LjYxOCwwLDEyLjAzMi01LjQxNSwxMi4wMzItMTIuMDMydi0yMi41NjFjMC02LjYxOC01LjQxNC0xMi4wMzItMTIuMDMyLTEyLjAzMmgtNjkuMTg2QzUyMS4wMTksOTUuODg5LDUxNS42MDQsMTAxLjMwMyw1MTUuNjA0LDEwNy45MjF6Ii8+PHBhdGggZmlsbD0iI0U2OUM5RCIgZD0iTTYyNy4zNjgsMTQyLjUxNGg2OS4xODVjNi42MTgsMCwxMi4wMzQtNS40MTUsMTIuMDM0LTEyLjAzMnYtMjIuNTYxYzAtNi42MTgtNS40MTYtMTIuMDMyLTEyLjAzNC0xMi4wMzJoLTY5LjE4NWMtNi42MTksMC0xMi4wMzIsNS40MTUtMTIuMDMyLDEyLjAzMnYyMi41NjFDNjE1LjMzNSwxMzcuMDk5LDYyMC43NDksMTQyLjUxNCw2MjcuMzY4LDE0Mi41MTR6Ii8+PHBhdGggZmlsbD0iI0U2OUM5RCIgZD0iTTU3NC4yNjEsMTU1LjI4NGMtNi42MTcsMC0xMi4wMzEsNS40MTUtMTIuMDMxLDEyLjAzM3YyMi41NjFjMCw2LjYxNyw1LjQxNCwxMi4wMzIsMTIuMDMxLDEyLjAzMmg2OS4xODdjNi42MTcsMCwxMi4wMzEtNS40MTUsMTIuMDMxLTEyLjAzMnYtMjIuNTYxYzAtNi42MTgtNS40MTQtMTIuMDMzLTEyLjAzMS0xMi4wMzNINTc0LjI2MXoiLz48cGF0aCBmaWxsPSIjRTY5QzlEIiBkPSJNMzU0LjIwMyw0MTMuMDR2LTIyLjU2MWMwLTYuNjE4LTUuNDE0LTEyLjAzMi0xMi4wMzItMTIuMDMyaC02OS4xODZjLTYuNjE3LDAtMTIuMDMyLDUuNDE1LTEyLjAzMiwxMi4wMzJ2MjIuNTYxYzAsNi42MTcsNS40MTUsMTIuMDMyLDEyLjAzMiwxMi4wMzJoNjkuMTg2QzM0OC43ODksNDI1LjA3MiwzNTQuMjAzLDQxOS42NTcsMzU0LjIwMyw0MTMuMDR6Ii8+PHBhdGggZmlsbD0iI0U2OUM5RCIgZD0iTTQ0MS45MDEsMzc4LjQ0N2gtNjkuMTg1Yy02LjYxOSwwLTEyLjAzMiw1LjQxNS0xMi4wMzIsMTIuMDMydjIyLjU2MWMwLDYuNjE3LDUuNDEzLDEyLjAzMiwxMi4wMzIsMTIuMDMyaDY5LjE4NWM2LjYxOCwwLDEyLjAzNC01LjQxNSwxMi4wMzQtMTIuMDMydi0yMi41NjFDNDUzLjkzNSwzODMuODYxLDQ0OC41MTksMzc4LjQ0Nyw0NDEuOTAxLDM3OC40NDd6Ii8+PHBhdGggZmlsbD0iI0U2OUM5RCIgZD0iTTM4OC43OTYsNDM3Ljg0MkgzMTkuNjFjLTYuNjE3LDAtMTIuMDMxLDUuNDE0LTEyLjAzMSwxMi4wMzN2MjIuNTYxYzAsNi42MTcsNS40MTQsMTIuMDMxLDEyLjAzMSwxMi4wMzFoNjkuMTg3YzYuNjE3LDAsMTIuMDMxLTUuNDE0LDEyLjAzMS0xMi4wMzF2LTIyLjU2MUM0MDAuODI4LDQ0My4yNTYsMzk1LjQxNCw0MzcuODQyLDM4OC43OTYsNDM3Ljg0MnoiLz48cGF0aCBmaWxsPSIjRTY5QzlEIiBkPSJNNzQzLjE3Nyw2NTYuMTg4aC02OS4xODVjLTYuNjE5LDAtMTIuMDMzLDUuNDE1LTEyLjAzMywxMi4wMzJ2MjIuNTZjMCw2LjYyLDUuNDE0LDEyLjAzMiwxMi4wMzMsMTIuMDMyaDY5LjE4NWM2LjYxNywwLDEyLjAzMy01LjQxMiwxMi4wMzMtMTIuMDMydi0yMi41NkM3NTUuMjEsNjYxLjYwMyw3NDkuNzk0LDY1Ni4xODgsNzQzLjE3Nyw2NTYuMTg4eiIvPjxwYXRoIGZpbGw9IiNFNjlDOUQiIGQ9Ik02OTYuNTUyLDcxMS4zMzNoLTY5LjE4NWMtNi42MTksMC0xMi4wMzIsNS40MTUtMTIuMDMyLDEyLjAzMnYyMi41NjFjMCw2LjYxNyw1LjQxMywxMi4wMzEsMTIuMDMyLDEyLjAzMWg2OS4xODVjNi42MTgsMCwxMi4wMzEtNS40MTQsMTIuMDMxLTEyLjAzMXYtMjIuNTYxQzcwOC41ODMsNzE2Ljc0OCw3MDMuMTcsNzExLjMzMyw2OTYuNTUyLDcxMS4zMzN6Ii8+PHBhdGggZmlsbD0iI0U2OUM5RCIgZD0iTTU5Ni44MjIsNzExLjMzM2gtNjkuMTg2Yy02LjYxNywwLTEyLjAzMiw1LjQxNS0xMi4wMzIsMTIuMDMydjIyLjU2MWMwLDYuNjE3LDUuNDE1LDEyLjAzMSwxMi4wMzIsMTIuMDMxaDY5LjE4NmM2LjYxOCwwLDEyLjAzMi01LjQxNCwxMi4wMzItMTIuMDMxdi0yMi41NjFDNjA4Ljg1NCw3MTYuNzQ4LDYwMy40NCw3MTEuMzMzLDU5Ni44MjIsNzExLjMzM3oiLz48cGF0aCBmaWxsPSIjRTY5QzlEIiBkPSJNNTU0LjkyNiw3OS41OTdWNTcuMDM2YzAtNi42MTctNS40MTUtMTIuMDMyLTEyLjAzMi0xMi4wMzJoLTY5LjE4N2MtNi42MTcsMC0xMi4wMzEsNS40MTUtMTIuMDMxLDEyLjAzMnYyMi41NjFjMCw2LjYxOCw1LjQxNCwxMi4wMzIsMTIuMDMxLDEyLjAzMmg2OS4xODdDNTQ5LjUxMSw5MS42MjksNTU0LjkyNiw4Ni4yMTUsNTU0LjkyNiw3OS41OTd6Ii8+PC9nPjwvZz48L3N2Zz4=) repeat;*/
+        /*    background-size: 30%;*/
+        /*    overflow-x: hidden;*/
+        /*}*/
+
+
+        /** {*/
+        /*    font-family: 'Jua', sans-serif;*/
+        /*}*/
+
+        /*.first-box{*/
+        /*    margin-top:20px;*/
+        /*}*/
+
+        .posting-box {
+            width: 800px;
+            height: 500px;
+            /*margin-left: 500px;*/
+            margin: 80px auto 0px auto;
+            border: 2px solid black;
+            padding: 30px;
+
+        }
+
+        .tool-box {
+            border: 2px solid black;
+            height: 430px;
+            margin: auto;
+            padding: 30px;
+        }
+
+        .image-box {
+            padding: 30px;
+        }
+
+        .text-box {
+            border: 2px solid black;
+            height: 300px;
+            margin-left: 300px;
+            padding: 30px;
+        }
+
+        .card {
+            margin: auto;
+        }
+
+        .mybtn {
+            width: 100px;
+            margin-left: 250px;
+            margin-top: 200px;
+            display: block;
+
+        }
+
+        .a {
+            margin-top: 20px;
+            margin-left: 600px;
+            display: block;
+
+        }
+
+        .b {
+            width: 800px;
+            height: 300px;
+            /*margin-top:20px;*/
+            margin: 20px auto 20px auto;
+            display: block;
+
+        }
+
+        .review-save {
+            width: 100px;
+            margin: 20px auto 100px auto;
+            display: block;
+        }
+
+        .reviews {
+            width: 300px;
+            height: 200px;
+            margin: auto;
+        }
+
+    </style>
+
+    <script type="text/javascript">
+
+         {#$('#reviews-box').empty()#}
+
+        $(document).ready(function () {
+            let getLink = window.location.search;
         let title = decodeURI(getLink.split("?")[1]);
-        $("#hi").text(title)
-    })
+
+            showReview(title);
+
+        });
+
+
+        function openclose() {
+            let status = $('#displayReview').css('display');
+            if (status == 'block') {
+                $('#displayReview').hide()
+                $('#reviewng-box-btn').text('리뷰하기')
+                $('#reviewSave').hide()
+            } else {
+                $('#displayReview').show()
+                $('#reviewng-box-btn').text('닫기')
+                $('#reviewSave').show()
+            }
+        }
+
+
+        function makeReview() {
+            let review = $('#displayReview').val()
+
+            $.ajax({
+                type: "POST",
+                url: "/review2",
+                data: {review_give: review},
+                success: function (response) {
+                    alert(response["msg"]);
+                    window.location.reload();
+                }
+            })
+        }
+
+        function showReview(title) {
+            $.ajax({
+                type: "POST",
+                url: "/review3",
+                data: {title_give: title},
+                success: function (response) {
+                    let reviews = response['all_reviews'];
+                    // console.log(reviews)
+                    for (let i = 0; i < reviews.length; i++) {
+                        let review = reviews[i]['review']
+                        console.log(review)
+                        let temp_html = `<tr>
+                                             <td>${review}</td>
+                                             </tr>`
+                        $('#reviews-box').append(temp_html)
+                    }
+                }
+            })
+        }
 
     </script>
+
+
 </head>
+
 <body>
-    <div id="hi">hi</div>
+<!--<div class="first-box">-->
+<!--&lt;!&ndash;    <div class="card" style="width: 100rem;">&ndash;&gt;-->
+
+
+<div class="posting-box">
+    <div class="tool-box">
+        <div class="image-box">
+            <img src="http://ticketimage.interpark.com/rz/image/play/goods/poster/21/21010653_p_s.jpg"
+                 width=230 height=300 align="left">
+            <div class="text-box">
+                <p>제목</p>
+                <p>기간</p>
+                <p>장소</p>
+                <div class="mybtn">
+                    <button id="reviewing-box-btn" onclick="openclose()"> 리뷰하기</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--<div class="a">-->
+<!--<a>리뷰 쓰기</a>-->
+<!--</div>-->
+
+<!--<input class="b" id="displayReview" type="text"/>-->
+<textarea class="b" id="displayReview"
+          cols="30"
+          rows="5" placeholder="여러분의 리뷰를 써주세요!"></textarea>
+
+<div class="review-save" id="reviewSave">
+    <button onclick="makeReview()" type="button">저장</button>
+    <!--    class="btn btn-primary"-->
+</div>
+
+<!--<div class="reviews">-->
+<!--    <table class="table">-->
+<!--        <thead>-->
+<!--        <tr>-->
+<!--            <th scope="col">리뷰</th>-->
+<!--        </tr>-->
+<!--        </thead>-->
+<!--        <tbody id="reviews-box">-->
+<!--        </tbody>-->
+<!--    </table>-->
+<!--</div>-->
+
+<!--<div class="reviews" id="reviews-box">-->
+<!--    <div class="card">-->
+<!--        <div class="card-body">-->
+<!--            <p class="card-text"></p>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+<style>
+    .rounded {
+        background: silver;
+        height: 500px;
+        width: 300px;
+        border-radius: 20px;
+    }
+</style>
+<div class='rounded' id="reviews-box"></div>
+
+
+
+{#<div class="text-center">#}
+{#     <ul class="pagination">#}
+{#         <li><a href="#">1</a></li>#}
+{#         <li><a href="#">2</a></li>#}
+{#         <li><a href="#">3</a></li>#}
+{#         <li><a href="#">4</a></li>#}
+{#         <li><a href="#">5</a></li>#}
+{##}
+{#     </ul>#}
+{#</div>#}
+
+
+
 </body>
+
 </html>
+
