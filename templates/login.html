@@ -75,8 +75,8 @@
 
     <script>
         // {% if msg %}
-            //     alert("{{ msg }}")
-            // {% endif %}
+        //     alert("{{ msg }}")
+        // {% endif %}
 
         function sign_in() {
             let username = $("#input-username").val()
@@ -221,6 +221,12 @@
             });
         }
 
+        //엔터키
+        $(document).keypress(function (e){
+            if (e.keyCode === 13) {
+                sign_in();
+            }
+        });
     </script>
 
 </head>
@@ -264,7 +270,7 @@
                     </div>
                     <div id="div-sign-in-or-up" class="has-text-centered">
                         <nav class="level is-mobile">
-                            <button class="level-item button is-sparta" onclick="sign_in()">
+                            <button class="level-item button is-sparta" id="enterkey" onclick="sign_in()">
                                 로그인
                             </button>
 
