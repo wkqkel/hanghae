@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
@@ -225,7 +226,6 @@
                         let img = results[i]["img"];
                         let place = results[i]["place"];
                         let temp_html = `  <div class="card-box">
-
                                                   <img class="card-img" src=${img}>
                                                   <div class="card-content">
                                                     <div class="card-desc">
@@ -271,7 +271,7 @@
         <a onclick='window.location.href = "/main"' class="link is-info">홈페이지</a>
     </p>
     <p class="level-item has-text-centered">
-        <a onclick='window.location.href = "/review"' class="link is-info">리뷰페이지</a>
+        <a onclick='window.location.href = "/detail"' class="link is-info">리뷰페이지</a>
     </p>
     <p class="level-item has-text-centered">
         <a class="title" href="/main">
@@ -299,5 +299,3 @@
 
 </body>
 </html>
-
-
