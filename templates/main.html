@@ -144,9 +144,7 @@
     $(document).ready(function () {
                 showExhibits();
             });
-    function scrap() {
-        alert('보관함에 추가되었습니다!');
-    }
+
 
     function showExhibits() {
         $.ajax({
@@ -159,13 +157,14 @@
                     let title = exhibits[i]['title']
                     let img = exhibits[i]['img']
                     let link = exhibits[i]['link']
-
+                    let encodeStr = encodeURI(title)
+                    console.log(encodeStr)
                     let temp_html = `<div class="card">
-                                                <img onclick="location.href='${link}'" class="card-img-top" src="${img}" alt="Card image cap">
+                                                <img onclick="location.href='/detail?${title}'" class="card-img-top" src="${img}" alt="Card image cap">
                                                 <div class="card-body">
                                                     <h5 class="card-title" >${title}</h5>
                                                     <div class="card-bottom">
-                                                        <button id onclick='scrap()' class="btn-scrap">보관함 추가</button>
+                                                        <button class="btn-scrap uncheck-bookmark">보관함 추가</button>
                                                     </div>
                                                 </div>
                                             </div>`
@@ -174,6 +173,27 @@
             }
         })
     }
+
+    {#북마크 버튼추가#}
+    $(document).ready(function () {
+        $(document).on("click", ".btn-scrap", function (event) {
+            let selected_title = $(this).parent('.card-bottom').siblings(".card-title").text()
+            let btn = $(this)
+                $.ajax({
+                    type: "POST",
+                    url: "/main/bookmark",
+                    data: {title_give: selected_title, action_give: "uncheck"},
+                    success: function (response) {
+                        btn.text("보관함 추가")
+                        alert(response["result"])
+                    },
+                })
+
+        });
+    });
+
+
+
     <!-- 로그아웃 토큰 삭제-->
     function logout() {
         $.removeCookie('mytoken');

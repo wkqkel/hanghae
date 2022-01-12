@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+      @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700&display=swap");
+
+      * {
+        margin: 0;
+        padding: 0;
+        font-size: 15px;
+        font-weight: 600;
+        box-sizing: border-box;
+        font-family: "Roboto", "Noto Sans KR", sans-serif;
+      }
+
+      body {
+        width: 100%;
+        min-height: 100vh;
+      }
+
+      .container {
+        width: 100%;
+        min-height: 100vh;
+        display: flex;
+        background-color: white;
+        flex-direction: column;
+        align-items: center;
+      }
+      .banner-box {
+        width: 100%;
+        height: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        background-color: white;
+        border-bottom: rgba(0, 0, 0, 0.4) 1px solid;
+        color: rgba(0, 0, 0, 0.7);
+      }
+
+      .banner-text {
+        font-size: 42px;
+      }
+      .center-box {
+        width: 80%;
+        min-height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        background-color: white;
+      }
+      .scrap-box {
+        width: 100%;
+        min-height: 490px;
+      }
+      .review-box {
+        width: 100%;
+        min-height: 330px;
+      }
+      .review-titlebox,
+      .scrap-titlebox {
+        height: 100px;
+        display: flex;
+        padding-left: 30px;
+        align-items: center;
+        background-color: white;
+        border-bottom: rgba(0, 0, 0, 0.4) 1px solid;
+      }
+
+      .review-title,
+      .scrap-title {
+        font-size: 24px;
+      }
+
+      .review-contents,
+      .scrap-contents {
+        max-width: 100%;
+        min-height: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        padding: 20px 0px;
+        margin-left: 30px;
+      }
+
+      .card-box {
+        width: 250px;
+        height: 350px;
+        background-color: white;
+        box-shadow: 5px 0px 10px rgba(0, 0, 0, 0.3);
+        margin: 10px 20px 30px 10px;
+        position: relative;
+      }
+
+      .card-img {
+        width: 240px;
+        height: 330px;
+        background-image: url("//ticketimage.interpark.com/Play/image/large/21/21012026_p.gif");
+        background-position: center;
+        background-size: cover;
+      }
+
+
+
+      .bookmark-btn {
+        width: 36px;
+        height: 54px;
+        position: absolute;
+        background-image: url("https://ifh.cc/g/TWpMsS.png");
+        background-position: center;
+        background-size: cover;
+        top: -10px;
+        left: -5px;
+      }
+      .card-content{
+          position: absolute;
+          width: 250px;
+          height: 350px;
+          background-color: rgba(0,0,0,0.6);
+          top:0;
+          color: white;
+          justify-content: space-between;
+          padding: 10px;
+          display: none;
+      }
+
+      .card-title{ font-size:25px;
+                writing-mode: tb-rl;
+                position:relative;
+                width: 10px;
+      }
+      .card-desc{
+          display: flex;
+          flex-direction: column;
+          justify-content: flex-end;
+      }
+      .card-date{font-size: 14px;
+          opacity: 0.7;
+      }
+      .card-place{font-size:16px;
+            opacity: 0.4;
+      }
+      .card-box:hover .card-content {
+          display: flex;
+      }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+      <script>
+           document.addEventListener("DOMContentLoaded", () => {
+           mypage_load()
+           })
+
+
+           function mypage_load() {
+               $.ajax({
+                   type: "GET",
+                   url: "/mypage/load_bookmark",
+                   data: {},
+                   success: function (response) {
+                       let results = response["exhibitions"].reverse();
+                       console.log(results)
+                       for (let i = 0; i < results.length; i++) {
+                           let title = results[i]["title"];
+                           let link = results[i]["link"];
+                           let date = results[i]["date"];
+                           let img = results[i]["img"];
+                           let place = results[i]["place"];
+                           let temp_html = `  <div class="card-box">
+
+                                                  <img class="card-img" src=${img}>
+                                                  <div class="card-content">
+                                                    <div class="card-desc">
+                                                          <div class="card-date"}>${date}</div>
+                                                          <div class="card-place"}>${place}</div>
+                                                    </div>
+                                                    <div class="card-title" id="${title}">${title}</div>
+                                                  </div>
+                                                    <div class="bookmark-btn"></div>
+                                                </div>`;
+                           $(".scrap-contents").append(temp_html);
+                       }
+                   }
+               })
+           }
+
+           $(document).ready(function () {
+               $(document).on("click", ".bookmark-btn", function (event) {
+                   let selected_title = $(this).siblings('.card-content').children(".card-title").text()
+                   $.ajax({
+                       type: "POST",
+                       url: "/mypage/remove_bookmark",
+                       data: {title_give: selected_title},
+                       success: function (response) {
+                            window.location.reload()
+                            alert(response["result"])
+                       },
+                   });
+
+               });
+           });
+
+      </script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="banner-box">
+        <div class="banner-text">전시어때</div>
+      </div>
+      <div class="center-box">
+        <div class="scrap-box">
+          <div class="scrap-titlebox">
+            <div class="scrap-title">스크랩한 전시</div>
+          </div>
+          <div class="scrap-contents">
+
+
+          </div>
+        </div>
+        <div class="review-box">
+          <div class="review-titlebox">
+            <div class="review-title">리뷰남긴 전시</div>
+          </div>
+          <div class="review-contents">
+            <div class="card-box">
+              <img class="card-img">
+              <div class="card-content">
+                <div class="card-title"></div>
+                <div class="card-desc"></div>
+                <div class="delete-btn"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+
+

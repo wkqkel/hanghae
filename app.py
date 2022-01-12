@@ -15,7 +15,7 @@ SECRET_KEY = 'SPARTA'
 client = MongoClient('localhost', 27017)
 # client = MongoClient('mongodb://54.180.147.13', 27017, username="test", password="test")
 # db = client.dbsparta_plus_week4
-db = client.dbw1team9
+db = client.week1_project
 
 # 메인페이지
 @app.route('/')
@@ -95,8 +95,69 @@ def main():
 
 @app.route('/exhibit', methods=['GET'])
 def listing():
-    exhibits = list(db.exhibits.find({}, {'_id': False}))
+    exhibits = list(db.exhibitions.find({}, {'_id': False}))
     return jsonify({'all_exhibits': exhibits})
+
+# 메인페이지 북마크 추가
+@app.route('/main/bookmark', methods=['POST'])
+def mainpage_bookmark():
+    token_receive = request.cookies.get('mytoken')
+    try:
+        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+        username = payload["id"]
+        title_receieve = request.form['title_give']
+        doc = {
+            "username": username,
+            "title_receieve": title_receieve,
+        }
+        if bool(db.bookmarks.find_one({"username": username, "title_receieve": title_receieve,})):
+            result ="마이페이지에서 확인하세요"
+        else:
+            db.bookmarks.insert_one(doc)
+            result ="보관함에 추가되었습니다."
+        return jsonify({"result":result})
+    except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
+        return redirect(url_for("home"))
+
+# 마이페이지
+@app.route('/mypage')
+def mypage():
+    return render_template('mypage.html')
+
+#마이페이지 북마크 불러오기
+@app.route('/mypage/load_bookmark', methods=['GET'])
+def load_bookmark():
+    token_receive = request.cookies.get('mytoken')
+    try:
+        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+        username = payload["id"]
+        mybookmarks = list(db.bookmarks.find({"username":username}, {'_id': False, 'username':False}))
+        exhibitions=[]
+        for mybookmark in mybookmarks:
+            title = mybookmark["title_receieve"]
+            exhibition = db.exhibitions.find_one({'title': title}, {'_id': False})
+            exhibitions.append(exhibition)
+        return jsonify({"exhibitions":exhibitions})
+    except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
+        return redirect(url_for("home"))
+
+#마이페이지에서 북마크 삭제하기
+@app.route('/mypage/remove_bookmark', methods=['POST'])
+def remove_bookmark():
+    token_receive = request.cookies.get('mytoken')
+    try:
+        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+        username = payload["id"]
+        title_receieve = request.form['title_give']
+        db.bookmarks.delete_one({"username": username, "title_receieve": title_receieve, })
+        return jsonify({"result":"보관함에서 삭제되었습니다."})
+    except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
+        return redirect(url_for("home"))
+
+# 디테일페이지
+@app.route('/detail')
+def detail():
+    return render_template('detail.html')
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5000, debug=True)
