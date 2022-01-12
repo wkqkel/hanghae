@@ -187,7 +187,7 @@
         <a onclick='window.location.href = "/main"' class="link is-info">홈페이지</a>
     </p>
     <p class="level-item has-text-centered">
-        <a onclick='window.location.href = "/detail/{{ word }}"' class="link is-info">리뷰페이지</a>
+        <a onclick='window.location.href = "/detail"' class="link is-info">리뷰페이지</a>
     </p>
     <p class="level-item has-text-centered">
         <a class="title" href="/main">
@@ -215,7 +215,7 @@
           rows="5" placeholder="여러분의 리뷰를 써주세요!"></textarea>
 
 <div class="review-save" id="reviewSave">
-    <button onclick="makeReview(decodeURI(window.location.search.split('?')[1]))" type="button">저장</button>
+    <button id="save-btn" onclick="makeReview(decodeURI(window.location.search.split('?')[1]))" type="button">저장</button>
 </div>
 <div class="color_rewiew">
     <div class="reviews-box">
@@ -225,7 +225,7 @@
 
 </div>
 </div>
-    
+
 
 <div class="bottom-box">
     <p class="bottom-text">전시목록이 끝났습니다.
@@ -306,8 +306,12 @@
     .pagebtn {
         margin-left: 20px;
         border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+        color: rgba(0,0,0,0.3);
     }
-
+    .btn-0 {
+        color:black;
+        font-weight:bold;
+      }
     {#상원작성끝#}
 </style>
 
@@ -319,6 +323,12 @@
         let title = decodeURI(getLink.split("?")[1]);
         showReview();
         load(title);
+        if(!getLink){
+            $(".posting-box").hide()
+            $("#displayReview").hide()
+            $("#save-btn").hide()
+            $(".reviews-box").css('border-top','none')
+        }
     });
 
     function openclose() {
@@ -340,12 +350,10 @@
             url: "/detail4",
             data: {title_give: title},
             success: function (response) {
-
                 let title = response['title']['title'];
                 let date = response['title']['date'];
                 let place = response['title']['place'];
                 let image = response['title']['img'];
-
                 let temp_html = `<div class="image-box">
             <img id="load" src="${image}"
                  width=230 height=300 align="left">
@@ -400,7 +408,7 @@
                     $('.transfer-box').append(temp_html)
                 }
                 for (let i = 0; i < Math.ceil(reviews.length / 6); i++) {
-                    let temp_html = `<div class="pagebtn">${i + 1}</div>`
+                    let temp_html = `<div class="pagebtn btn-${i}">${i + 1}</div>`
                     $('.pagebtn-box').append(temp_html)
                 }
 
@@ -410,6 +418,10 @@
 
     $(document).ready(function () {
         $(document).on("click", ".pagebtn", function (event) {
+            $(".pagebtn").css('font-weight','normal')
+            $(".pagebtn").css('color','rgba(0,0,0,0.3)')
+            $(this).css('font-weight','bold')
+            $(this).css('color','black')
             let $transfer_box = document.querySelector(".transfer-box")
             let pagenumber = $(this).text()
             let transferWidth = (pagenumber - 1) * 1110
