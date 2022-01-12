@@ -25,30 +25,64 @@
     <title>전시 리스트 | 전시어때 </title>
 
     <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+<!--타이틀폰트-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jua&family=Kirang+Haerang&family=Nanum+Gothic&family=Stylish&family=Yeon+Sung&display=swap"
+          rel="stylesheet">
+<!--기본폰트-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kirang+Haerang&family=Nanum+Gothic&family=Yeon+Sung&display=swap"
+          rel="stylesheet">
 
     <style type="text/css">
+        body {
+            background-color: moccasin;
+            min-height: 100vh;
+        }
+
         * {
             font-family: "Stylish", sans-serif;
         }
+
+        .is-sparta {
+            color: #ce7f3d;
+            font-family: 'Jua', sans-serif;
+            font-family: 'Kirang Haerang', cursive;
+            font-family: 'Nanum Gothic', sans-serif;
+            font-family: 'Stylish', sans-serif;
+            font-family: 'Yeon Sung', cursive;
+        }
+
         .wrap {
             width: 900px;
             margin: auto;
             position: relative;
         }
-        .btn-box{
+
+        .btn-box {
             height: 60px;
             width: 100%;
             display: flex;
-            justify-content: flex-end;
+            justify-content: space-between;
             padding: 5px;
         }
+
+        .is-logout {
+            display: flex;
+            padding-top: 20px;
+        }
+
         .btn-top {
+            font-family: 'Nanum Gothic', sans-serif;
+            font-family: 'Yeon Sung', cursive;
             width: 100px;
-            height: 40px;
-            background-color: black;
+            height: 30px;
+            background-color: #ffffff;
             background-position: right;
             font-size: 15px;
-            color: white;
+            color: #000000;
             padding: 5px;
             margin: 5px;
             border-radius: 10px;
@@ -56,6 +90,7 @@
             display: block;
             cursor: pointer;
         }
+
         .mainImage {
             width: 920px;
             height: 250px;
@@ -65,26 +100,31 @@
             border-radius: 10px;
             margin: 10px 0 20px 0;
         }
-        .card-box{
+
+        .card-box {
             display: flex;
             flex-wrap: wrap;
             width: 1000px;
         }
-        .card{
+
+        .card {
             width: 210px;
             height: 400px;
-            padding-right:210px;
+            padding-right: 210px;
             margin: 10px;
         }
-        .card-img-top{
+
+        .card-img-top {
             width: 210px;
             height: 300px;
             cursor: pointer;
         }
-        .card-body{
+
+        .card-body {
             width: 210px;
             padding: 5px;
         }
+
         .card-title {
             width: 200px;
             height: 60px;
@@ -98,12 +138,14 @@
             line-height: 25px;
             max-height: 50px;
         }
-        .card-bottom{
+
+        .card-bottom {
             height: 40px;
             width: 100%;
             display: flex;
             justify-content: flex-end;
         }
+
         .btn-scrap {
             width: 80px;
             height: 30px;
@@ -116,6 +158,7 @@
             margin: 5px;
             cursor: pointer;
         }
+
         .bottom-box {
             height: 100px;
             width: 100%;
@@ -123,43 +166,52 @@
             margin-bottom: 50px;
             justify-content: center;
         }
-        .bottom-text{
+
+        .bottom-text {
             height: 80px;
             padding: 40px;
         }
+
         .dir-top {
+            font-family: 'Nanum Gothic', sans-serif;
+            font-family: 'Yeon Sung', cursive;
             cursor: pointer;
-            width: 40px;
+            width: 100px;
             height: 40px;
-            background-color: black;
-            color: white;
-            font-size:15px ;
+            background-color: #ffffff;;
+            color: #000000;
+            font-size: 15px;
             text-align: center;
             border-radius: 20px;
             padding: 5px 20px 5px 20px;
             margin: 10px;
+
+        }
+
+        .logout {
+            display: flex;
         }
     </style>
     <script>
-    $(document).ready(function () {
-                showExhibits();
-            });
+        $(document).ready(function () {
+            showExhibits();
+        });
 
 
-    function showExhibits() {
-        $.ajax({
-            type: "GET",
-            url: "/exhibit",
-            data: {},
-            success: function (response) {
-                let exhibits = response['all_exhibits']
-                for (let i = 0; i < exhibits.length; i++) {
-                    let title = exhibits[i]['title']
-                    let img = exhibits[i]['img']
-                    let link = exhibits[i]['link']
-                    let encodeStr = encodeURI(title)
-                    console.log(encodeStr)
-                    let temp_html = `<div class="card">
+        function showExhibits() {
+            $.ajax({
+                type: "GET",
+                url: "/exhibit",
+                data: {},
+                success: function (response) {
+                    let exhibits = response['all_exhibits']
+                    for (let i = 0; i < exhibits.length; i++) {
+                        let title = exhibits[i]['title']
+                        let img = exhibits[i]['img']
+                        let link = exhibits[i]['link']
+                        let encodeStr = encodeURI(title)
+                        console.log(encodeStr)
+                        let temp_html = `<div class="card">
                                                 <img onclick="location.href='/detail?${title}'" class="card-img-top" src="${img}" alt="Card image cap">
                                                 <div class="card-body">
                                                     <h5 class="card-title" >${title}</h5>
@@ -168,17 +220,21 @@
                                                     </div>
                                                 </div>
                                             </div>`
-                    $('#card-box').append(temp_html);
+                        $('#card-box').append(temp_html);
+                    }
                 }
-            }
-        })
-    }
+            })
+        }
 
-    {#북마크 버튼추가#}
-    $(document).ready(function () {
-        $(document).on("click", ".btn-scrap", function (event) {
-            let selected_title = $(this).parent('.card-bottom').siblings(".card-title").text()
-            let btn = $(this)
+        {
+            #북마크
+            버튼추가
+        #
+        }
+        $(document).ready(function () {
+            $(document).on("click", ".btn-scrap", function (event) {
+                let selected_title = $(this).parent('.card-bottom').siblings(".card-title").text()
+                let btn = $(this)
                 $.ajax({
                     type: "POST",
                     url: "/main/bookmark",
@@ -189,17 +245,16 @@
                     },
                 })
 
+            });
         });
-    });
 
 
-
-    <!-- 로그아웃 토큰 삭제-->
-    function logout() {
-        $.removeCookie('mytoken');
-        alert('다음에 또 만나요!!')
-        window.location.href = '/login'
-    }
+        <!-- 로그아웃 토큰 삭제-->
+        function logout() {
+            $.removeCookie('mytoken');
+            alert('다음에 또 만나요!!')
+            window.location.href = '/login'
+        }
 
 
     </script>
@@ -207,20 +262,26 @@
 </head>
 
 <body>
-    <div class="wrap">
-        <div class="btn-box">
+<div class="wrap">
+    <div class="btn-box">
+        <a class="title" href="/main">
+            <strong class="is-sparta"
+                    style="font-family: 'Stylish', sans-serif;font-size: 40px;">전시어때</strong>
+        </a>
+        <div class="is-logout">
             <button onclick='window.location.href = "/mypage"' class="btn-top">마이페이지</button>
             <!-- 로그아웃-->
             <button class="btn-top" id=btn3 onclick="logout()">로그아웃하기</button>
         </div>
-        <div class="mainImage"></div>
-        <div id="card-box" class="card-box">
-        </div>
-        <div class="bottom-box">
-            <p class="bottom-text">전시목록이 끝났습니다.
-                <span class="dir-top" onclick="window.scrollTo(0,0);">위로 올라가기</span>
-            </p>
-        </div>
     </div>
+    <div class="mainImage"></div>
+    <div id="card-box" class="card-box">
+    </div>
+    <div class="bottom-box">
+        <p class="bottom-text">전시목록이 끝났습니다.
+            <span class="dir-top" onclick="window.scrollTo(0,0);">위로 올라가기</span>
+        </p>
+    </div>
+</div>
 </body>
 </html>
