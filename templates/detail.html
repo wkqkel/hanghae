@@ -39,12 +39,7 @@
 
     <style>
 
-        {#@font-face {#}
-        {#    font-family: 'KOTRA_GOTHIC';#}
-        {#    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10-21@1.0/KOTRA_GOTHIC.woff') format('woff');#}
-        {#    font-weight: normal;#}
-        {#    font-style: normal;#}
-        {#}#}
+
 
         * {
             font-family: "Stylish", sans-serif;
@@ -112,16 +107,17 @@
         .text-box {
             background-color: bisque;
             height: 300px;
-            margin-left: 300px;
+            margin-left: 250px;
             padding: 30px;
             border-radius: 10px;
+            margin-bottom: 50px;
         }
 
-        .mybtn {
-            {#width: 100px;#}
-            {#margin-left: 250px;#}
-            {#margin-top: 200px;#}
-            {#display: block;#}
+        .btn-sleep{
+            width: 100px;
+            margin: auto;
+            margin-top: 200px;
+            display: block;
         }
 
         .a {
@@ -133,7 +129,7 @@
         .b {
             width: 800px;
             height: 150px;
-            /*margin-top:20px;*/
+            border-radius: 10px;
             margin: 20px auto 20px auto;
             display: block;
         }
@@ -189,7 +185,7 @@
           rows="5" placeholder="여러분의 리뷰를 써주세요!"></textarea>
 
 <div class="review-save" id="reviewSave">
-    <button onclick="makeReview(decodeURI(window.location.search.split('?')[1]))" type="button">저장</button>
+    <button class="btn-scrap" onclick="makeReview(decodeURI(window.location.search.split('?')[1]))" type="button">저장</button>
 </div>
 <div class="color_rewiew">
     <div class="reviews-box">
@@ -280,10 +276,30 @@
         border-bottom: 1px solid rgba(0, 0, 0, 0.2);
     }
 
+    .btn-scrap {
+            font-family: "Stylish", sans-serif;
+            width: 80px;
+            color: white;
+            height: 30px;
+            background-color: #9a511e;
+            font-size: 13px;
+            font-weight: bold;
+            border-radius: 10px;
+            border-width: 0px;
+            text-align: center;
+            margin: auto;
+            cursor: pointer;
+        }
+
     {#상원작성끝#}
 </style>
 
 <script type="text/javascript">
+     function logout() {
+            $.removeCookie('mytoken');
+            alert('다음에 또 만나요!!')
+            window.location.href = '/login'
+        }
 
 
     $(document).ready(function () {
@@ -322,11 +338,11 @@
             <img id="load" class="exh-image" src="${image}"
                  width=230 height=300 align="left">
             <div class="text-box">
-                <span id="load2" class="loadTitle()">제목 : ${title}</span>
-                <span id="load3" class="loadDate()">기간 : ${date}</span>
-                <span id="load4" class="loadPlace()">장소 : ${place}</span>
+                <p id="load2" class="loadTitle()">제목 : ${title}</p>
+                <p id="load3" class="loadDate()">기간 : ${date}</p>
+                <p id="load4" class="loadPlace()">장소 : ${place}</p>
                 <div class="mybtn">
-                    <button id="reviewing-box-btn" onclick="openclose()"> 리뷰하기</button>
+                    <button class="btn-scrap" id="reviewing-box-btn" onclick="openclose()"> 리뷰하기</button>
                 </div>
             </div>
         </div>`
