@@ -160,31 +160,33 @@ def detail():
     return render_template('detail.html')
 
 
-## API 역할을 하는 부분
+## 디테일페이지 댓글 저장하기
 @app.route('/detail2', methods=['POST'])
 def write_review():
-    review_receive = request.form['review_give']
+    token_receive = request.cookies.get('mytoken')
+    try:
+        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+        username = payload["id"]
+        review_receive = request.form['review_give']
+        title_receive = request.form['title_give']
+        doc = {
+            'username':username,
+            'review': review_receive,
+            'title':title_receive
+        }
+        db.displayReview.insert_one(doc)
+        return jsonify({'msg': '리뷰 저장 완료'})
+    except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
+        return redirect(url_for("home"))
 
-    doc = {
-        'review': review_receive
-    }
-    db.displayReview.insert_one(doc)
-
-    return jsonify({'msg': '리뷰 저장 완료'})
-
-
-@app.route('/detail3', methods=['POST'])
+## 디테일페이지 댓글 불러오기
+@app.route('/detail3', methods=['GET'])
 def read_reviews():
     aa = list(db.displayReview.find({}, {'_id': False}))
-
-    title_receive = request.form['title_give']
-    # print(title_receive)
+    print(aa)
     return jsonify({'all_reviews': aa})
 
-
-user = db.s.find_one({'name':'bobby'})
-print(user)
-
+#디테일페이지 전시정보불러오기
 @app.route('/detail4', methods=['POST'])
 def detail4():
     title_receive = request.form['title_give']
@@ -192,13 +194,7 @@ def detail4():
     print(title)
     return jsonify({'title': title})
 
-# @app.route('/api/delete_review', methods=['POST'])
-# def delete_word():
-#     # 리뷰 삭제하기
-#     review_receive = request.form["review_give"]
-#     db.btnDelete.delete_one({"review": review_receive})
-#     return jsonify({'result': 'success', 'msg': f'리뷰 {review_receive} 삭제'})
-#
+
 
 
 if __name__ == '__main__':
