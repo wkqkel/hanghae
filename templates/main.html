@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
           crossorigin="anonymous">
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -25,92 +25,60 @@
     <title>전시 리스트 | 전시어때 </title>
 
     <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
-<!--타이틀폰트-->
+    <!--타이틀폰트-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Jua&family=Kirang+Haerang&family=Nanum+Gothic&family=Stylish&family=Yeon+Sung&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Jua&family=Kirang+Haerang&family=Nanum+Gothic&family=Nanum+Myeongjo:wght@800&family=Song+Myung&family=Stylish&family=Yeon+Sung&display=swap"
           rel="stylesheet">
-<!--기본폰트-->
+    <!--기본폰트-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Kirang+Haerang&family=Nanum+Gothic&family=Yeon+Sung&display=swap"
           rel="stylesheet">
 
     <style type="text/css">
-        body {
-            background-color: moccasin;
-            min-height: 100vh;
-        }
+
 
         * {
             font-family: "Stylish", sans-serif;
         }
 
-        .is-sparta {
+        .level {
+            padding-top: 20px;
+        }
+
+        .title {
             color: #ce7f3d;
             font-family: 'Jua', sans-serif;
             font-family: 'Kirang Haerang', cursive;
             font-family: 'Nanum Gothic', sans-serif;
+            font-family: 'Nanum Myeongjo', serif;
+            font-family: 'Song Myung', serif;
             font-family: 'Stylish', sans-serif;
             font-family: 'Yeon Sung', cursive;
         }
 
-        .wrap {
-            width: 900px;
-            margin: auto;
-            position: relative;
-        }
-
-        .btn-box {
-            height: 60px;
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            padding: 5px;
-        }
-
-        .is-logout {
-            display: flex;
-            padding-top: 20px;
-        }
-
-        .btn-top {
-            font-family: 'Nanum Gothic', sans-serif;
-            font-family: 'Yeon Sung', cursive;
-            width: 100px;
-            height: 30px;
-            background-color: #ffffff;
-            background-position: right;
-            font-size: 15px;
-            color: #000000;
-            padding: 5px;
-            margin: 5px;
-            border-radius: 10px;
-            text-align: center;
-            display: block;
-            cursor: pointer;
-        }
 
         .mainImage {
-            width: 920px;
+            width: 1000px;
             height: 250px;
             background-image: url("https://bit.ly/3t9vpoY");
             background-size: cover;
             background-position: top;
             border-radius: 10px;
-            margin: 10px 0 20px 0;
+            margin: auto;
         }
 
         .card-box {
             display: flex;
             flex-wrap: wrap;
             width: 1000px;
+            margin: auto;
         }
 
         .card {
             width: 210px;
             height: 400px;
-            padding-right: 210px;
             margin: 10px;
         }
 
@@ -149,8 +117,8 @@
         .btn-scrap {
             width: 80px;
             height: 30px;
-            background-color: lightgray;
-            font-size: 14px;
+            background-color: moccasin;
+            font-size: 10px;
             font-weight: bold;
             border-radius: 10px;
             border-width: 0px;
@@ -178,7 +146,7 @@
             cursor: pointer;
             width: 100px;
             height: 40px;
-            background-color: #ffffff;;
+            background-color: #ce7f3d;;
             color: #000000;
             font-size: 15px;
             text-align: center;
@@ -187,6 +155,12 @@
             margin: 10px;
 
         }
+
+        .color {
+            background-color: moccasin;
+            margin: auto;
+        }
+
 
     </style>
     <script>
@@ -222,7 +196,7 @@
                 }
             })
         }
-        
+
         $(document).ready(function () {
             $(document).on("click", ".btn-scrap", function (event) {
                 let selected_title = $(this).parent('.card-bottom').siblings(".card-title").text()
@@ -254,18 +228,27 @@
 </head>
 
 <body>
-<div class="wrap">
-    <div class="btn-box">
+<nav class="level">
+    <p class="level-item has-text-centered">
+        <a onclick='window.location.href = "/main"' class="link is-info">홈페이지</a>
+    </p>
+    <p class="level-item has-text-centered">
+        <a onclick='window.location.href = "/review"' class="link is-info">리뷰페이지</a>
+    </p>
+    <p class="level-item has-text-centered">
         <a class="title" href="/main">
             <strong class="is-sparta"
-                    style="font-family: 'Stylish', sans-serif;font-size: 40px;">전시어때</strong>
+                    style="font-family: 'Stylish', sans-serif;font-size: 45px;">전시어때</strong>
         </a>
-        <div class="is-logout">
-            <button onclick='window.location.href = "/mypage"' class="btn-top">마이페이지</button>
-            <!-- 로그아웃-->
-            <button class="btn-top" id=btn3 onclick="logout()">로그아웃하기</button>
-        </div>
-    </div>
+    </p>
+    <p class="level-item has-text-centered">
+        <a onclick='window.location.href = "/mypage"' class="btn-top">마이페이지</a>
+    </p>
+    <p class="level-item has-text-centered">
+        <a class="btn-top" id=btn3 onclick="logout()">로그아웃하기</a>
+    </p>
+</nav>
+<div class="color">
     <div class="mainImage"></div>
     <div id="card-box" class="card-box">
     </div>
@@ -275,5 +258,6 @@
         </p>
     </div>
 </div>
+
 </body>
 </html>
