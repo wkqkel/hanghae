@@ -13,13 +13,15 @@
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
             integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
             crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
             integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
             crossorigin="anonymous"></script>
+
+    <!-- Bulma CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
 
     <title>Titlesdfsdf</title>
 
@@ -40,23 +42,6 @@
             font-family: 'KOTRA_GOTHIC';
             scroll-behavior: smooth;
         }
-
-        /*페이지꾸미기*/
-        /*body {*/
-        /*    width: 100vw;*/
-        /*    background: #bca087 url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz48IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4iICJodHRwOi8vd3d3LnczLm9yZy9HcmFwaGljcy9TVkcvMS4xL0RURC9zdmcxMS5kdGQiPjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iTGF5ZXJfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiIHdpZHRoPSI3OTguNzAycHgiIGhlaWdodD0iNzk4LjcwMnB4IiB2aWV3Qm94PSIwIDAgNzk4LjcwMiA3OTguNzAyIiBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCA3OTguNzAyIDc5OC43MDIiIHhtbDpzcGFjZT0icHJlc2VydmUiPjxnPjxyZWN0IGZpbGw9IiNFMDgyODMiIHdpZHRoPSI3OTguNzAyIiBoZWlnaHQ9Ijc5OC43MDIiLz48Zz48cGF0aCBmaWxsPSIjRTY5QzlEIiBkPSJNMTcxLjMzOSwxODAuMDUxaC02OS4xODVjLTYuNjE4LDAtMTIuMDMzLDUuNDE0LTEyLjAzMywxMi4wMzJ2MjIuNTZjMCw2LjYxOCw1LjQxNSwxMi4wMzMsMTIuMDMzLDEyLjAzM2g2OS4xODVjNi42MTcsMCwxMi4wMzItNS40MTUsMTIuMDMyLTEyLjAzM3YtMjIuNTZDMTgzLjM3MiwxODUuNDY1LDE3Ny45NTcsMTgwLjA1MSwxNzEuMzM5LDE4MC4wNTF6Ii8+PHBhdGggZmlsbD0iI0U2OUM5RCIgZD0iTTIwMi44ODcsMTIzLjM3Nmg2OS4xODVjNi42MTgsMCwxMi4wMzMtNS40MTQsMTIuMDMzLTEyLjAzMnYtMjIuNTZjMC02LjYxOS01LjQxNS0xMi4wMzMtMTIuMDMzLTEyLjAzM2gtNjkuMTg1Yy02LjYxNywwLTEyLjAzMiw1LjQxNC0xMi4wMzIsMTIuMDMzdjIyLjU2QzE5MC44NTQsMTE3Ljk2MiwxOTYuMjcsMTIzLjM3NiwyMDIuODg3LDEyMy4zNzZ6Ii8+PHBhdGggZmlsbD0iI0U2OUM5RCIgZD0iTTIxNy45NjQsMTI3LjcxMmgtNjkuMTg1Yy02LjYxOCwwLTEyLjAzMyw1LjQxNS0xMi4wMzMsMTIuMDMydjIyLjU2MWMwLDYuNjE4LDUuNDE1LDEyLjAzMiwxMi4wMzMsMTIuMDMyaDY5LjE4NWM2LjYxOCwwLDEyLjAzMi01LjQxNSwxMi4wMzItMTIuMDMydi0yMi41NjFDMjI5Ljk5NiwxMzMuMTI3LDIyNC41ODIsMTI3LjcxMiwyMTcuOTY0LDEyNy43MTJ6Ii8+PHBhdGggZmlsbD0iI0U2OUM5RCIgZD0iTTEyOS43MywxNjIuMzA1di0yMi41NjFjMC02LjYxOC01LjQxNS0xMi4wMzItMTIuMDMyLTEyLjAzMkg0OC41MTNjLTYuNjE4LDAtMTIuMDMyLDUuNDE1LTEyLjAzMiwxMi4wMzJ2MjIuNTYxYzAsNi42MTgsNS40MTQsMTIuMDMyLDEyLjAzMiwxMi4wMzJoNjkuMTg2QzEyNC4zMTYsMTc0LjMzNywxMjkuNzMsMTY4LjkyMywxMjkuNzMsMTYyLjMwNXoiLz48cGF0aCBmaWxsPSIjRTY5QzlEIiBkPSJNNTE1LjYwNCwxMDcuOTIxdjIyLjU2MWMwLDYuNjE4LDUuNDE1LDEyLjAzMiwxMi4wMzIsMTIuMDMyaDY5LjE4NmM2LjYxOCwwLDEyLjAzMi01LjQxNSwxMi4wMzItMTIuMDMydi0yMi41NjFjMC02LjYxOC01LjQxNC0xMi4wMzItMTIuMDMyLTEyLjAzMmgtNjkuMTg2QzUyMS4wMTksOTUuODg5LDUxNS42MDQsMTAxLjMwMyw1MTUuNjA0LDEwNy45MjF6Ii8+PHBhdGggZmlsbD0iI0U2OUM5RCIgZD0iTTYyNy4zNjgsMTQyLjUxNGg2OS4xODVjNi42MTgsMCwxMi4wMzQtNS40MTUsMTIuMDM0LTEyLjAzMnYtMjIuNTYxYzAtNi42MTgtNS40MTYtMTIuMDMyLTEyLjAzNC0xMi4wMzJoLTY5LjE4NWMtNi42MTksMC0xMi4wMzIsNS40MTUtMTIuMDMyLDEyLjAzMnYyMi41NjFDNjE1LjMzNSwxMzcuMDk5LDYyMC43NDksMTQyLjUxNCw2MjcuMzY4LDE0Mi41MTR6Ii8+PHBhdGggZmlsbD0iI0U2OUM5RCIgZD0iTTU3NC4yNjEsMTU1LjI4NGMtNi42MTcsMC0xMi4wMzEsNS40MTUtMTIuMDMxLDEyLjAzM3YyMi41NjFjMCw2LjYxNyw1LjQxNCwxMi4wMzIsMTIuMDMxLDEyLjAzMmg2OS4xODdjNi42MTcsMCwxMi4wMzEtNS40MTUsMTIuMDMxLTEyLjAzMnYtMjIuNTYxYzAtNi42MTgtNS40MTQtMTIuMDMzLTEyLjAzMS0xMi4wMzNINTc0LjI2MXoiLz48cGF0aCBmaWxsPSIjRTY5QzlEIiBkPSJNMzU0LjIwMyw0MTMuMDR2LTIyLjU2MWMwLTYuNjE4LTUuNDE0LTEyLjAzMi0xMi4wMzItMTIuMDMyaC02OS4xODZjLTYuNjE3LDAtMTIuMDMyLDUuNDE1LTEyLjAzMiwxMi4wMzJ2MjIuNTYxYzAsNi42MTcsNS40MTUsMTIuMDMyLDEyLjAzMiwxMi4wMzJoNjkuMTg2QzM0OC43ODksNDI1LjA3MiwzNTQuMjAzLDQxOS42NTcsMzU0LjIwMyw0MTMuMDR6Ii8+PHBhdGggZmlsbD0iI0U2OUM5RCIgZD0iTTQ0MS45MDEsMzc4LjQ0N2gtNjkuMTg1Yy02LjYxOSwwLTEyLjAzMiw1LjQxNS0xMi4wMzIsMTIuMDMydjIyLjU2MWMwLDYuNjE3LDUuNDEzLDEyLjAzMiwxMi4wMzIsMTIuMDMyaDY5LjE4NWM2LjYxOCwwLDEyLjAzNC01LjQxNSwxMi4wMzQtMTIuMDMydi0yMi41NjFDNDUzLjkzNSwzODMuODYxLDQ0OC41MTksMzc4LjQ0Nyw0NDEuOTAxLDM3OC40NDd6Ii8+PHBhdGggZmlsbD0iI0U2OUM5RCIgZD0iTTM4OC43OTYsNDM3Ljg0MkgzMTkuNjFjLTYuNjE3LDAtMTIuMDMxLDUuNDE0LTEyLjAzMSwxMi4wMzN2MjIuNTYxYzAsNi42MTcsNS40MTQsMTIuMDMxLDEyLjAzMSwxMi4wMzFoNjkuMTg3YzYuNjE3LDAsMTIuMDMxLTUuNDE0LDEyLjAzMS0xMi4wMzF2LTIyLjU2MUM0MDAuODI4LDQ0My4yNTYsMzk1LjQxNCw0MzcuODQyLDM4OC43OTYsNDM3Ljg0MnoiLz48cGF0aCBmaWxsPSIjRTY5QzlEIiBkPSJNNzQzLjE3Nyw2NTYuMTg4aC02OS4xODVjLTYuNjE5LDAtMTIuMDMzLDUuNDE1LTEyLjAzMywxMi4wMzJ2MjIuNTZjMCw2LjYyLDUuNDE0LDEyLjAzMiwxMi4wMzMsMTIuMDMyaDY5LjE4NWM2LjYxNywwLDEyLjAzMy01LjQxMiwxMi4wMzMtMTIuMDMydi0yMi41NkM3NTUuMjEsNjYxLjYwMyw3NDkuNzk0LDY1Ni4xODgsNzQzLjE3Nyw2NTYuMTg4eiIvPjxwYXRoIGZpbGw9IiNFNjlDOUQiIGQ9Ik02OTYuNTUyLDcxMS4zMzNoLTY5LjE4NWMtNi42MTksMC0xMi4wMzIsNS40MTUtMTIuMDMyLDEyLjAzMnYyMi41NjFjMCw2LjYxNyw1LjQxMywxMi4wMzEsMTIuMDMyLDEyLjAzMWg2OS4xODVjNi42MTgsMCwxMi4wMzEtNS40MTQsMTIuMDMxLTEyLjAzMXYtMjIuNTYxQzcwOC41ODMsNzE2Ljc0OCw3MDMuMTcsNzExLjMzMyw2OTYuNTUyLDcxMS4zMzN6Ii8+PHBhdGggZmlsbD0iI0U2OUM5RCIgZD0iTTU5Ni44MjIsNzExLjMzM2gtNjkuMTg2Yy02LjYxNywwLTEyLjAzMiw1LjQxNS0xMi4wMzIsMTIuMDMydjIyLjU2MWMwLDYuNjE3LDUuNDE1LDEyLjAzMSwxMi4wMzIsMTIuMDMxaDY5LjE4NmM2LjYxOCwwLDEyLjAzMi01LjQxNCwxMi4wMzItMTIuMDMxdi0yMi41NjFDNjA4Ljg1NCw3MTYuNzQ4LDYwMy40NCw3MTEuMzMzLDU5Ni44MjIsNzExLjMzM3oiLz48cGF0aCBmaWxsPSIjRTY5QzlEIiBkPSJNNTU0LjkyNiw3OS41OTdWNTcuMDM2YzAtNi42MTctNS40MTUtMTIuMDMyLTEyLjAzMi0xMi4wMzJoLTY5LjE4N2MtNi42MTcsMC0xMi4wMzEsNS40MTUtMTIuMDMxLDEyLjAzMnYyMi41NjFjMCw2LjYxOCw1LjQxNCwxMi4wMzIsMTIuMDMxLDEyLjAzMmg2OS4xODdDNTQ5LjUxMSw5MS42MjksNTU0LjkyNiw4Ni4yMTUsNTU0LjkyNiw3OS41OTd6Ii8+PC9nPjwvZz48L3N2Zz4=) repeat;*/
-        /*    background-size: 30%;*/
-        /*    overflow-x: hidden;*/
-        /*}*/
-
-
-        /** {*/
-        /*    font-family: 'Jua', sans-serif;*/
-        /*}*/
-
-        /*.first-box{*/
-        /*    margin-top:20px;*/
-        /*}*/
 
         .posting-box {
             width: 800px;
@@ -107,7 +92,7 @@
 
         .b {
             width: 800px;
-            height: 300px;
+            height: 150px;
             /*margin-top:20px;*/
             margin: 20px auto 20px auto;
             display: block;
@@ -116,8 +101,9 @@
 
         .review-save {
             width: 100px;
-            margin: 20px auto 100px auto;
+            margin: 20px auto 50px auto;
             display: block;
+
         }
 
         .reviews {
@@ -126,49 +112,115 @@
             margin: auto;
         }
 
-        .wrap {
-            width: 900px;
-            margin: auto;
-            position: relative;
-        }
-
-        .btn-box {
-            height: 60px;
-            width: 100%;
-            display: flex;
-            justify-content: flex-end;
-            padding: 5px;
-        }
-
-        .btn-top {
-            width: 100px;
-            height: 40px;
-            background-color: black;
-            background-position: right;
-            font-size: 15px;
-            color: white;
-            padding: 5px;
-            margin: 5px;
-            border-radius: 10px;
-            text-align: center;
-            display: block;
-            cursor: pointer;
-        }
-
     </style>
+
+
+</head>
+<body>
+
+
+<div class="posting-box">
+    <div class="tool-box">
+
+    </div>
+</div>
+
+
+<textarea class="b" id="displayReview"
+          cols="30"
+          rows="5" placeholder="여러분의 리뷰를 써주세요!"></textarea>
+
+<div class="review-save" id="reviewSave">
+    <button onclick="makeReview(decodeURI(window.location.search.split('?')[1]))" type="button">저장</button>
+</div>
+
+<div  class="reviews-box">
+     <div class="transfer-box"></div>
+</div>
+<div class="pagebtn-box">
+
+</div>
+
+
+
+</body>
+
+<style>
+    {#상원작성#}
+
+    body{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .reviews-box{
+        overflow-x: hidden;
+        border-top: 8px solid rgba(0,0,0,0.1);
+        border-radius: 10px;
+    }
+    .transfer-box {
+        width: 1110px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        height: 550px;
+        flex-wrap: wrap;
+        align-content: start;
+        padding-top:30px;
+    }
+    .card-box{
+        width: 350px;
+        min-height: 220px;
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0px 10px 10px rgba(0,0,0,0.1);
+        border: 1px solid rgba(0,0,0,0.1);
+        display: flex;
+        align-items: center;
+        padding: 20px;
+        margin: 10px;
+    }
+    .card-username{
+        width: 70px;
+        height: 70px;
+        background-color: #50bcdf;
+        border-radius: 100px;
+        padding: 25px 0px;
+        text-align: center;
+        margin-right: 20px;
+        font-size: 14px;
+    }
+    .card-title{
+        font-weight: bold;
+        font-size: 16px;
+    }
+    .pagebtn-box{
+        width: 600px;
+        height: 20px;
+        position: relative;
+        bottom:30px;
+        display: flex;
+        justify-content: center;
+    }
+    .pagebtn{
+        margin-left: 20px;
+        border-bottom: 1px solid rgba(0,0,0,0.2) ;
+    }
+
+        {#상원작성끝#}
+</style>
 
     <script type="text/javascript">
 
-        $('#reviews-box').empty()
 
         $(document).ready(function () {
             let getLink = window.location.search;
             let title = decodeURI(getLink.split("?")[1]);
-
+            showReview();
             load(title);
-            showReview(title);
         });
-
 
         function openclose() {
             let status = $('#displayReview').css('display');
@@ -181,40 +233,6 @@
                 $('#reviewng-box-btn').text('닫기')
                 $('#reviewSave').show()
             }
-        }
-
-
-        function makeReview() {
-            let review = $('#displayReview').val()
-
-            $.ajax({
-                type: "POST",
-                url: "/detail2",
-                data: {review_give: review},
-                success: function (response) {
-                    alert(response["msg"]);
-                    window.location.reload();
-                }
-            })
-        }
-
-        function showReview(title) {
-            $.ajax({
-                type: "POST",
-                url: "/detail3",
-                data: {title_give: title},
-                success: function (response) {
-                    let reviews = response['all_reviews'];
-                    // console.log(reviews)
-                    for (let i = 0; i < reviews.length; i++) {
-                        let review = reviews[i]['review']
-                        let temp_html = `<tr>
-                                             <td>${review}</td>
-                                             </tr>`
-                        $('#reviews-box').append(temp_html)
-                    }
-                }
-            })
         }
 
         function load(title) {
@@ -246,97 +264,59 @@
                 }
             })
         }
+{#상원작성#}
 
-        /*/detail4?title_give="+title*/
-
-        <!-- 로그아웃 토큰 삭제-->
-        function logout() {
-            $.removeCookie('mytoken');
-            alert('다음에 또 만나요!!')
-            window.location.href = '/login'
+        function makeReview(title) {
+            let review = $('#displayReview').val()
+            $.ajax({
+                type: "POST",
+                url: "/detail2",
+                data: {review_give: review, title_give: title},
+                success: function (response) {
+                    alert(response["msg"]);
+                    window.location.reload();
+                }
+            })
         }
 
+        function showReview() {
+            $.ajax({
+                type: "GET",
+                url: "/detail3",
+                data: {},
+                success: function (response) {
+                    let reviews = response['all_reviews'].reverse();
+                    for (let i = 0; i < reviews.length; i++) {
+                        let review = reviews[i]['review']
+                        let title = reviews[i]['title']
+                        let username = reviews[i]['username']
+                        let temp_html = `<div class="card-box">
+                                                <div class="card-username">${username}</div>
+                                                <div class="card-desc">
+                                                     <div class="card-title">${title}</div>
+                                                     <div class="card-review">${review}</div>
+                                                </div>
+                                         </div>`
+                        $('.transfer-box').append(temp_html)
+                    }
+                      for (let i = 0; i < Math.ceil(reviews.length/6); i++) {
+                        let temp_html = `<div class="pagebtn">${i+1}</div>`
+                        $('.pagebtn-box').append(temp_html)
+                    }
 
+                }
+            })
+        }
+        $(document).ready(function () {
+               $(document).on("click", ".pagebtn", function (event) {
+                   let $transfer_box = document.querySelector(".transfer-box")
+                   let pagenumber = $(this).text()
+                   let transferWidth = (pagenumber-1) *1110
+                   $transfer_box.style.transform = `translateX(-${transferWidth}px)`;
+               })
+        })
+  {#상원작성끝#}
     </script>
 
-
-</head>
-
-<body>
-<!--<div class="first-box">-->
-<!--&lt;!&ndash;    <div class="card" style="width: 100rem;">&ndash;&gt;-->
-
-<div class="wrap">
-    <div class="btn-box">
-        <button onclick='window.location.href = "/mypage"' class="btn-top">마이페이지</button>
-        <!-- 로그아웃-->
-        <button class="btn-top" id=btn3 onclick="logout()">로그아웃하기</button>
-    </div>
-</div>
-
-
-<div class="posting-box">
-    <div class="tool-box">
-    </div>
-</div>
-
-<!--<div class="a">-->
-<!--<a>리뷰 쓰기</a>-->
-<!--</div>-->
-
-<!--<input class="b" id="displayReview" type="text"/>-->
-<textarea class="b" id="displayReview"
-          cols="30"
-          rows="5" placeholder="여러분의 리뷰를 써주세요!"></textarea>
-
-<div class="review-save" id="reviewSave">
-    <button onclick="makeReview()" type="button">저장</button>
-    <!--    class="btn btn-primary"-->
-</div>
-
-<!--<div class="reviews">-->
-<!--    <table class="table">-->
-<!--        <thead>-->
-<!--        <tr>-->
-<!--            <th scope="col">리뷰</th>-->
-<!--        </tr>-->
-<!--        </thead>-->
-<!--        <tbody id="reviews-box">-->
-<!--        </tbody>-->
-<!--    </table>-->
-<!--</div>-->
-
-<!--<div class="reviews" id="reviews-box">-->
-<!--    <div class="card">-->
-<!--        <div class="card-body">-->
-<!--            <p class="card-text"></p>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
-
-<style>
-    .rounded {
-        background: silver;
-        height: 500px;
-        width: 300px;
-        border-radius: 20px;
-    }
-</style>
-<div class='rounded' id="reviews-box"></div>
-
-
-{#<div class="text-center">#}
-{#     <ul class="pagination">#}
-{#         <li><a href="#">1</a></li>#}
-{#         <li><a href="#">2</a></li>#}
-{#         <li><a href="#">3</a></li>#}
-{#         <li><a href="#">4</a></li>#}
-{#         <li><a href="#">5</a></li>#}
-{##}
-{#     </ul>#}
-{#</div>#}
-
-
-</body>
 
 </html>
