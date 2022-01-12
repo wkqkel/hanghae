@@ -178,8 +178,19 @@ def read_reviews():
     aa = list(db.displayReview.find({}, {'_id': False}))
 
     title_receive = request.form['title_give']
-    print(title_receive)
+    # print(title_receive)
     return jsonify({'all_reviews': aa})
+
+
+user = db.s.find_one({'name':'bobby'})
+print(user)
+
+@app.route('/detail4', methods=['POST'])
+def detail4():
+    title_receive = request.form['title_give']
+    title = db.exhibitions.find_one({'title': title_receive}, {'_id': False})
+    print(title)
+    return jsonify({'title': title})
 
 # @app.route('/api/delete_review', methods=['POST'])
 # def delete_word():
@@ -193,4 +204,3 @@ def read_reviews():
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5000, debug=True)
-

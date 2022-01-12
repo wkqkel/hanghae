@@ -13,6 +13,7 @@
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
             integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
             crossorigin="anonymous"></script>
@@ -125,18 +126,47 @@
             margin: auto;
         }
 
+        .wrap {
+            width: 900px;
+            margin: auto;
+            position: relative;
+        }
+
+        .btn-box {
+            height: 60px;
+            width: 100%;
+            display: flex;
+            justify-content: flex-end;
+            padding: 5px;
+        }
+
+        .btn-top {
+            width: 100px;
+            height: 40px;
+            background-color: black;
+            background-position: right;
+            font-size: 15px;
+            color: white;
+            padding: 5px;
+            margin: 5px;
+            border-radius: 10px;
+            text-align: center;
+            display: block;
+            cursor: pointer;
+        }
+
     </style>
 
     <script type="text/javascript">
 
-         {#$('#reviews-box').empty()#}
+        $('#reviews-box').empty()
 
         $(document).ready(function () {
             let getLink = window.location.search;
-        let title = decodeURI(getLink.split("?")[1]);
+            let title = decodeURI(getLink.split("?")[1]);
 
+            load(title);
             showReview(title);
-
         });
 
 
@@ -178,7 +208,6 @@
                     // console.log(reviews)
                     for (let i = 0; i < reviews.length; i++) {
                         let review = reviews[i]['review']
-                        console.log(review)
                         let temp_html = `<tr>
                                              <td>${review}</td>
                                              </tr>`
@@ -187,6 +216,46 @@
                 }
             })
         }
+
+        function load(title) {
+            $.ajax({
+                type: "POST",
+                url: "/detail4",
+                data: {title_give: title},
+                success: function (response) {
+
+                    let title = response['title']['title'];
+                    let date = response['title']['date'];
+                    let place = response['title']['place'];
+                    let image = response['title']['img'];
+
+                    let temp_html = `<div class="image-box">
+            <img id="load" src="${image}"
+                 width=230 height=300 align="left">
+            <div class="text-box">
+                <span id="load2" class="loadTitle()">제목 : ${title}</span>
+                <span id="load3" class="loadDate()">기간 : ${date}</span>
+                <span id="load4" class="loadPlace()">장소 : ${place}</span>
+                <div class="mybtn">
+                    <button id="reviewing-box-btn" onclick="openclose()"> 리뷰하기</button>
+                </div>
+            </div>
+        </div>`
+                    $('.tool-box').append(temp_html)
+
+                }
+            })
+        }
+
+        /*/detail4?title_give="+title*/
+
+        <!-- 로그아웃 토큰 삭제-->
+        function logout() {
+            $.removeCookie('mytoken');
+            alert('다음에 또 만나요!!')
+            window.location.href = '/login'
+        }
+
 
     </script>
 
@@ -197,21 +266,17 @@
 <!--<div class="first-box">-->
 <!--&lt;!&ndash;    <div class="card" style="width: 100rem;">&ndash;&gt;-->
 
+<div class="wrap">
+    <div class="btn-box">
+        <button onclick='window.location.href = "/mypage"' class="btn-top">마이페이지</button>
+        <!-- 로그아웃-->
+        <button class="btn-top" id=btn3 onclick="logout()">로그아웃하기</button>
+    </div>
+</div>
+
 
 <div class="posting-box">
     <div class="tool-box">
-        <div class="image-box">
-            <img src="http://ticketimage.interpark.com/rz/image/play/goods/poster/21/21010653_p_s.jpg"
-                 width=230 height=300 align="left">
-            <div class="text-box">
-                <p>제목</p>
-                <p>기간</p>
-                <p>장소</p>
-                <div class="mybtn">
-                    <button id="reviewing-box-btn" onclick="openclose()"> 리뷰하기</button>
-                </div>
-            </div>
-        </div>
     </div>
 </div>
 
@@ -260,7 +325,6 @@
 <div class='rounded' id="reviews-box"></div>
 
 
-
 {#<div class="text-center">#}
 {#     <ul class="pagination">#}
 {#         <li><a href="#">1</a></li>#}
@@ -271,7 +335,6 @@
 {##}
 {#     </ul>#}
 {#</div>#}
-
 
 
 </body>
