@@ -312,7 +312,6 @@
         font-weight:bold;
       }
 
-    
 </style>
 
 <script type="text/javascript">
@@ -331,8 +330,8 @@
         let title = decodeURI(getLink.split("?")[1]);
         showReview();
         load(title);
-            $("#displayReview").hide()
-            $("#save-btn").hide()
+        $("#displayReview").hide()
+        $("#save-btn").hide()
         if(!getLink){
             $(".posting-box").hide()
             $(".reviews-box").css('border-top','none')
@@ -346,10 +345,12 @@
             $('#displayReview').hide()
             $('#reviewng-box-btn').text('리뷰하기')
             $('#reviewSave').hide()
+              $("#save-btn").hide()
         } else {
             $('#displayReview').show()
             $('#reviewng-box-btn').text('닫기')
             $('#reviewSave').show()
+            $("#save-btn").show()
         }
     }
     //전시 정보값 받아와서 화면에 그려줌
