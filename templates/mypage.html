@@ -48,13 +48,7 @@
 
         .title {
             color: #ce7f3d;
-            font-family: 'Jua', sans-serif;
-            font-family: 'Kirang Haerang', cursive;
-            font-family: 'Nanum Gothic', sans-serif;
-            font-family: 'Nanum Myeongjo', serif;
-            font-family: 'Song Myung', serif;
             font-family: 'Stylish', sans-serif;
-            font-family: 'Yeon Sung', cursive;
         }
 
 
@@ -222,8 +216,8 @@
                         let img = results[i]["img"];
                         let place = results[i]["place"];
                         let temp_html = `  <div class="card-box">
-                                                  <img class="card-img" src=${img}>
-                                                  <div class="card-content">
+                                                  <img class="card-img"  src=${img}>
+                                                  <div class="card-content" onclick="location.href='/detail?${title}'" >
                                                     <div class="card-desc">
                                                           <div class="card-date"}>${date}</div>
                                                           <div class="card-place"}>${place}</div>
@@ -250,8 +244,8 @@
                         alert(response["result"])
                     },
                 });
-
             });
+
         });
 
         function logout() {
@@ -261,6 +255,7 @@
         }
 
     </script>
+
 </head>
 <body>
 <nav class="level">
@@ -293,6 +288,7 @@
         </p>
     </div>
 </div>
+
 
 </body>
 </html>

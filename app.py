@@ -119,6 +119,7 @@ def mainpage_bookmark():
     except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
         return redirect(url_for("home"))
 
+
 # 마이페이지
 @app.route('/mypage')
 def mypage():
