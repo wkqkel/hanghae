@@ -19,7 +19,7 @@ SECRET_KEY = 'SPARTA'
 client = MongoClient('mongodb://test:test@localhost/?authSource=admin', 27017)
 db = client.week1_project
 
-# 메인페이지
+# 기본 사이트 Url로 접속시 첫 페이지 연결(메인페이지)
 @app.route('/')
 def home():
     token_receive = request.cookies.get('mytoken')
@@ -91,6 +91,7 @@ def logout():
     user.pop('username', None)
     return redirect('/')
 
+#토큰 유무 판단하고 있으면 메인페이지로 바로 연결, 없으면 로그인페이지로 연결
 @app.route('/main')
 def main():
     token_receive = request.cookies.get('mytoken')
@@ -105,6 +106,7 @@ def main():
         return redirect(url_for("login", msg="로그인 정보가 존재하지 않습니다."))
     return render_template('main.html')
 
+#DB에 저장된 전시 정보 가져오기
 @app.route('/exhibit', methods=['GET'])
 def listing():
     exhibits = list(db.exhibitions.find({}, {'_id': False}))

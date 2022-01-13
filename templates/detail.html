@@ -147,6 +147,20 @@
             margin: auto;
         }
 
+        .btn-save {
+            font-family: "Stylish", sans-serif;
+            width: 80px;
+            color: white;
+            height: 30px;
+            background-color: #9a511e;
+            font-size: 13px;
+            font-weight: bold;
+            border-radius: 10px;
+            border-width: 0px;
+            text-align: center;
+            margin: auto;
+            cursor: pointer;
+        }
     </style>
 
 
@@ -187,7 +201,7 @@
 
 <div class="review-save" id="reviewSave">
 
-    <button id="save-btn" onclick="makeReview(decodeURI(window.location.search.split('?')[1]))" type="button">저장</button>
+    <button id="save-btn" class="btn-save" onclick="makeReview(decodeURI(window.location.search.split('?')[1]))" type="button">저장</button>
 
 
 </div>
