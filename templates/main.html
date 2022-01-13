@@ -198,11 +198,6 @@
                     url: "/main/bookmark",
                     data: {title_give: selected_title, action_give: "uncheck"},
                     success: function (response) {
-                        if(!response["result"]){
-                            window.location.href = '/login'
-                            alert("다시 로그인해주세요")
-                            return
-                        }
                         btn.text("보관함 추가")
                         alert(response["result"])
                     },
