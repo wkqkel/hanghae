@@ -116,9 +116,10 @@ def mainpage_bookmark():
             db.bookmarks.insert_one(doc)
             result ="보관함에 추가되었습니다."
         return jsonify({"result":result})
-    except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
-        return redirect(url_for("home"))
-
+    except jwt.ExpiredSignatureError:
+        return redirect(url_for("login", msg="로그인 시간이 만료되었습니다."))
+    except jwt.exceptions.DecodeError:
+        return redirect(url_for("login", msg="로그인 정보가 존재하지 않습니다."))
 
 # 마이페이지
 @app.route('/mypage')
@@ -139,8 +140,11 @@ def load_bookmark():
             exhibition = db.exhibitions.find_one({'title': title}, {'_id': False})
             exhibitions.append(exhibition)
         return jsonify({"exhibitions":exhibitions})
-    except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
-        return redirect(url_for("home"))
+
+    except jwt.ExpiredSignatureError:
+        return redirect(url_for("login", msg="로그인 시간이 만료되었습니다."))
+    except jwt.exceptions.DecodeError:
+        return redirect(url_for("login", msg="로그인 정보가 존재하지 않습니다."))
 
 #마이페이지에서 북마크 삭제하기
 @app.route('/mypage/remove_bookmark', methods=['POST'])
@@ -152,8 +156,10 @@ def remove_bookmark():
         title_receieve = request.form['title_give']
         db.bookmarks.delete_one({"username": username, "title_receieve": title_receieve})
         return jsonify({"result":"보관함에서 삭제되었습니다."})
-    except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
-        return redirect(url_for("home"))
+    except jwt.ExpiredSignatureError:
+        return redirect(url_for("login", msg="로그인 시간이 만료되었습니다."))
+    except jwt.exceptions.DecodeError:
+        return redirect(url_for("login", msg="로그인 정보가 존재하지 않습니다."))
 
 # 디테일페이지
 @app.route('/detail', methods=['GET'])
@@ -177,8 +183,10 @@ def write_review():
         }
         db.displayReview.insert_one(doc)
         return jsonify({'msg': '리뷰 저장 완료'})
-    except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
-        return redirect(url_for("home"))
+    except jwt.ExpiredSignatureError:
+        return redirect(url_for("login", msg="로그인 시간이 만료되었습니다."))
+    except jwt.exceptions.DecodeError:
+        return redirect(url_for("login", msg="로그인 정보가 존재하지 않습니다."))
 
 ## 디테일페이지 댓글 불러오기
 @app.route('/detail3', methods=['GET'])
