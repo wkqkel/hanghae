@@ -214,7 +214,7 @@
 
 <style>
 
-    {# 게시물을 왼쪽상단부터 최신순으로 배열하고,    #}
+    {# 게시물을 왼쪽상단부터 최신순으로 배열하고, 넓이를 넘어가는 요소는 숨김처리   #}
     .color_rewiew {
         display: flex;
         flex-direction: column;
@@ -311,12 +311,13 @@
         color:black;
         font-weight:bold;
       }
-    {#상원작성끝#}
 
     
 </style>
 
 <script type="text/javascript">
+
+    // 로그아웃 함수
      let logout = function (name) {
             document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
             alert('다음에 또 만나요!!')
@@ -324,20 +325,21 @@
         };
 
 
-
+    // 페이지로딩시 주소창에서 타이틀 값을 가져오고, 함수들 실행
     $(document).ready(function () {
         let getLink = window.location.search;
         let title = decodeURI(getLink.split("?")[1]);
         showReview();
         load(title);
-        if(!getLink){
-            $(".posting-box").hide()
             $("#displayReview").hide()
             $("#save-btn").hide()
+        if(!getLink){
+            $(".posting-box").hide()
             $(".reviews-box").css('border-top','none')
         }
     });
 
+    //리뷰창 열고 닫기
     function openclose() {
         let status = $('#displayReview').css('display');
         if (status == 'block') {
@@ -350,7 +352,7 @@
             $('#reviewSave').show()
         }
     }
-
+    //전시 정보값 받아와서 화면에 그려줌
     function load(title) {
         $.ajax({
             type: "POST",
@@ -380,7 +382,7 @@
     }
 
     {#상원작성#}
-
+    // 리뷰 버튼 클릭시 서버로 인풋값과 타이틀 값을 전달해주고 성공 시 알림창띄우고 페이지리로드
     function makeReview(title) {
         let review = $('#displayReview').val()
         $.ajax({
@@ -394,6 +396,7 @@
         })
     }
 
+    // 리뷰 목록을 받아와서 서버에 그려줌 + 리뷰목록/컨텐츠수 만큼 페이지버튼 생성
     function showReview() {
         $.ajax({
             type: "GET",
@@ -423,6 +426,7 @@
         })
     }
 
+    //페이지번호버튼 클릭시 선택자 굵게 처리 및 화면 박스크기만큼 컨텐츠요소를 x축으로 이동시켜 보이는 영역을 바꿔주는 코드.
     $(document).ready(function () {
         $(document).on("click", ".pagebtn", function (event) {
             $(".pagebtn").css('font-weight','normal')

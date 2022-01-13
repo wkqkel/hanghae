@@ -110,7 +110,7 @@ def listing():
     exhibits = list(db.exhibitions.find({}, {'_id': False}))
     return jsonify({'all_exhibits': exhibits})
 
-# 메인페이지 북마크 추가
+# 메인페이지 북마크 추가(쿠키에서 id값도 빼와서 해당 유저 정보에 따른 데이터 저장)
 @app.route('/main/bookmark', methods=['POST'])
 def mainpage_bookmark():
     token_receive = request.cookies.get('mytoken')
@@ -147,7 +147,7 @@ def mypage():
     except jwt.exceptions.DecodeError:
         return redirect(url_for("login", msg="로그인 정보가 존재하지 않습니다."))
 
-#마이페이지 북마크 불러오기
+#마이페이지 북마크 불러오기(쿠키에서 id값도 빼와서 해당 유저 정보에 따른 데이터 찾아와서 리턴해주는 코드)
 @app.route('/mypage/load_bookmark', methods=['GET'])
 def load_bookmark():
     token_receive = request.cookies.get('mytoken')
@@ -167,7 +167,7 @@ def load_bookmark():
     except jwt.exceptions.DecodeError:
         return redirect(url_for("login", msg="로그인 정보가 존재하지 않습니다."))
 
-#마이페이지에서 북마크 삭제하기
+#마이페이지에서 북마크 삭제하기(쿠키에서 id값도 빼와서 해당 유저 정보에 따른 데이터 찾아서 db에서 삭제)
 @app.route('/mypage/remove_bookmark', methods=['POST'])
 def remove_bookmark():
     token_receive = request.cookies.get('mytoken')
@@ -197,7 +197,7 @@ def detail():
         return redirect(url_for("login", msg="로그인 정보가 존재하지 않습니다."))
 
 
-## 디테일페이지 댓글 저장하기
+## 디테일페이지 댓글 저장하기(쿠키에서 id값도 빼와서 해당 유저 정보에 따른 데이터 db에 저장)
 @app.route('/detail2', methods=['POST'])
 def write_review():
     token_receive = request.cookies.get('mytoken')

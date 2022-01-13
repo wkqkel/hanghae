@@ -178,7 +178,7 @@
                                                 <div class="card-body">
                                                     <h5 class="card-title" >${title}</h5>
                                                     <div class="card-bottom">
-                                                        <button class="btn-scrap uncheck-bookmark">보관함 추가</button>
+                                                        <button class="btn-scrap uncheck-bookmark">보관함 담기</button>
                                                     </div>
                                                 </div>
                                             </div>`
@@ -188,7 +188,7 @@
             })
         }
 
-
+        // 보관한 담기버튼 클릭시 해당 버튼 전시의 타이틀 값을 서버로 전달해줌.
         $(document).ready(function () {
             $(document).on("click", ".btn-scrap", function (event) {
                 let selected_title = $(this).parent('.card-bottom').siblings(".card-title").text()
@@ -198,7 +198,6 @@
                     url: "/main/bookmark",
                     data: {title_give: selected_title, action_give: "uncheck"},
                     success: function (response) {
-                        btn.text("보관함 추가")
                         alert(response["result"])
                     },
                 })
