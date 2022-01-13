@@ -169,7 +169,7 @@
         <a onclick='window.location.href = "/mypage"' class="btn-top">마이페이지</a>
     </p>
     <p class="level-item has-text-centered">
-        <a class="btn-top" id=btn3 onclick="logout('mytoken')">로그아웃</a>
+        <a class="btn-top" id=btn3 onclick="logout('mytoken')">{{user_info}}님 로그아웃</a>
     </p>
 </nav>
 <div class="color">
@@ -213,8 +213,8 @@
 </body>
 
 <style>
-    {#상원작성#}
 
+    {# 게시물을 왼쪽상단부터 최신순으로 배열하고,    #}
     .color_rewiew {
         display: flex;
         flex-direction: column;
@@ -224,7 +224,6 @@
 
     .reviews-box {
         overflow: hidden;
-
     }
 
     .transfer-box {

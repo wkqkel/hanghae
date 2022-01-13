@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
           crossorigin="anonymous">
+    <!-- Bulma CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -51,7 +52,6 @@
             font-family: 'Stylish', sans-serif;
         }
 
-
         .mainImage {
             width: 1000px;
             height: 250px;
@@ -62,14 +62,12 @@
             margin: auto;
         }
 
-
         .card-title {
             font-size: 25px;
             writing-mode: tb-rl;
             position: relative;
             width: 10px;
         }
-
 
         .bottom-box {
             height: 100px;
@@ -99,7 +97,6 @@
             margin: 10px;
 
         }
-
 
         .scrap-title {
             padding-left: 20px;
@@ -196,11 +193,13 @@
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
+        // 페이지 로드시 북마크 불러오기
         document.addEventListener("DOMContentLoaded", () => {
             mypage_load()
         })
 
-
+        // 북마크 불러오는 함수 정의
+        // 서버에서 사용자id값의 북마크 db를 찾아서 전시정보를 제공받아 화면에 출력
         function mypage_load() {
             $.ajax({
                 type: "GET",
@@ -211,7 +210,6 @@
                     console.log(results)
                     for (let i = 0; i < results.length; i++) {
                         let title = results[i]["title"];
-                        let link = results[i]["link"];
                         let date = results[i]["date"];
                         let img = results[i]["img"];
                         let place = results[i]["place"];
@@ -232,6 +230,8 @@
             })
         }
 
+        // 북마트 버튼 클릭시 디비에서 삭제 후 페이지 리로드
+        // 북마크 버튼 클릭 시 해당 클릭한 버튼의 제목을 서버로 보냄.
         $(document).ready(function () {
             $(document).on("click", ".bookmark-btn", function (event) {
                 let selected_title = $(this).siblings('.card-content').children(".card-title").text()
@@ -248,12 +248,7 @@
 
         });
 
-        /*function logout() {
-            $.removeCookie('mytoken');
-            alert('다음에 또 만나요!!')
-            window.location.href = '/login'
-        }*/
-
+        // 로그아웃 버튼 클릭시 쿠키 삭제후 로그인 페이지로
         let logout = function (name) {
             document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
             alert('다음에 또 만나요!!')
@@ -282,7 +277,7 @@
         <a onclick='window.location.href = "/mypage"' class="btn-top">마이페이지</a>
     </p>
     <p class="level-item has-text-centered">
-        <a class="btn-top" id=btn3 onclick="logout('mytoken')">로그아웃</a>
+        <a class="btn-top" id=btn3 onclick="logout('mytoken')">{{user_info}}님 로그아웃</a>
     </p>
 </nav>
 <div class="color">

@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
           crossorigin="anonymous">
+    <!-- Bulma CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -242,7 +243,7 @@
         <a onclick='window.location.href = "/mypage"' class="btn-top">마이페이지</a>
     </p>
     <p class="level-item has-text-centered">
-        <a class="btn-top" id=btn3 onclick="logout()">로그아웃</a>
+        <a class="btn-top" id=btn3 onclick="logout()">{{user_info}}님 로그아웃</a>
     </p>
 </nav>
 <div class="color">

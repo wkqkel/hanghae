@@ -24,8 +24,8 @@ def home():
     try:
         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
         user_info = db.users.find_one({"username": payload["id"]})
-        return render_template('main.html', user_info=user_info)
-
+        user =user_info["username"]
+        return render_template('main.html', user_info=user)
     except jwt.ExpiredSignatureError:
         return redirect(url_for("login", msg="로그인 시간이 만료되었습니다."))
     except jwt.exceptions.DecodeError:
@@ -91,6 +91,16 @@ def logout():
 
 @app.route('/main')
 def main():
+    token_receive = request.cookies.get('mytoken')
+    try:
+        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+        user_info = db.users.find_one({"username": payload["id"]})
+        user = user_info["username"]
+        return render_template('main.html', user_info=user)
+    except jwt.ExpiredSignatureError:
+        return redirect(url_for("login", msg="로그인 시간이 만료되었습니다."))
+    except jwt.exceptions.DecodeError:
+        return redirect(url_for("login", msg="로그인 정보가 존재하지 않습니다."))
     return render_template('main.html')
 
 @app.route('/exhibit', methods=['GET'])
@@ -115,7 +125,7 @@ def mainpage_bookmark():
         else:
             db.bookmarks.insert_one(doc)
             result ="보관함에 추가되었습니다."
-        return jsonify({"result":result})
+        return jsonify({"result":result}, user_info=username)
     except jwt.ExpiredSignatureError:
         return redirect(url_for("login", msg="로그인 시간이 만료되었습니다."))
     except jwt.exceptions.DecodeError:
@@ -124,7 +134,16 @@ def mainpage_bookmark():
 # 마이페이지
 @app.route('/mypage')
 def mypage():
-    return render_template('mypage.html')
+    token_receive = request.cookies.get('mytoken')
+    try:
+        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+        user_info = db.users.find_one({"username": payload["id"]})
+        user = user_info["username"]
+        return render_template('mypage.html', user_info=user)
+    except jwt.ExpiredSignatureError:
+        return redirect(url_for("login", msg="로그인 시간이 만료되었습니다."))
+    except jwt.exceptions.DecodeError:
+        return redirect(url_for("login", msg="로그인 정보가 존재하지 않습니다."))
 
 #마이페이지 북마크 불러오기
 @app.route('/mypage/load_bookmark', methods=['GET'])
@@ -164,7 +183,16 @@ def remove_bookmark():
 # 디테일페이지
 @app.route('/detail', methods=['GET'])
 def detail():
-    return render_template('detail.html')
+    token_receive = request.cookies.get('mytoken')
+    try:
+        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+        user_info = db.users.find_one({"username": payload["id"]})
+        user = user_info["username"]
+        return render_template('detail.html', user_info=user)
+    except jwt.ExpiredSignatureError:
+        return redirect(url_for("login", msg="로그인 시간이 만료되었습니다."))
+    except jwt.exceptions.DecodeError:
+        return redirect(url_for("login", msg="로그인 정보가 존재하지 않습니다."))
 
 
 ## 디테일페이지 댓글 저장하기
