@@ -25,8 +25,10 @@
 - 사이트 링크
    <br> https://cukimon.shop
 - 시연영상 링크
+   <br> https://youtu.be/ZQfQkKi0pJk
+   <br>
+![썸네일280*160](https://user-images.githubusercontent.com/97425636/149284760-6441294b-0a36-4478-bde4-fe8fc15931e5.jpg)
 
-<br>
 
 ## 기술 스택
 - phthon 3
@@ -77,7 +79,7 @@
 <br>
 
 ## 개인회고
-- https://naho199345.tistory.com/104
+- 김승호 https://naho199345.tistory.com/104
 -
 -
 -
