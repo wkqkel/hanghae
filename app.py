@@ -12,9 +12,11 @@ app.config["TEMPLATES_AUTO_RELOAD"] = True
 app.config['UPLOAD_FOLDER'] = "./static/profile_pics"
 
 SECRET_KEY = 'SPARTA'
-client = MongoClient('localhost', 27017)
-# client = MongoClient('mongodb://54.180.147.13', 27017, username="test", password="test")
-# db = client.dbsparta_plus_week4
+
+# # local 서버에서 사용
+# client = MongoClient('localhost', 27017)
+# ec2 등록 시 사용
+client = MongoClient('mongodb://test:test@localhost/?authSource=admin', 27017)
 db = client.week1_project
 
 # 메인페이지
