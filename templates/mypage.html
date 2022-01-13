@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-      <meta charset="utf-8">
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
@@ -64,10 +64,10 @@
 
 
         .card-title {
-             font-size:25px;
-                writing-mode: tb-rl;
-                position:relative;
-                width: 10px;
+            font-size: 25px;
+            writing-mode: tb-rl;
+            position: relative;
+            width: 10px;
         }
 
 
@@ -248,11 +248,18 @@
 
         });
 
-        function logout() {
+        /*function logout() {
             $.removeCookie('mytoken');
             alert('다음에 또 만나요!!')
             window.location.href = '/login'
-        }
+        }*/
+
+        let logout = function (name) {
+            document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+            alert('다음에 또 만나요!!')
+            window.location.href = '/login'
+        };
+
 
     </script>
 
@@ -275,7 +282,7 @@
         <a onclick='window.location.href = "/mypage"' class="btn-top">마이페이지</a>
     </p>
     <p class="level-item has-text-centered">
-        <a class="btn-top" id=btn3 onclick="logout()">로그아웃</a>
+        <a class="btn-top" id=btn3 onclick="logout('mytoken')">로그아웃</a>
     </p>
 </nav>
 <div class="color">

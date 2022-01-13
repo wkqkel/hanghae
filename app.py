@@ -150,7 +150,7 @@ def remove_bookmark():
         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
         username = payload["id"]
         title_receieve = request.form['title_give']
-        db.bookmarks.delete_one({"username": username, "title_receieve": title_receieve, })
+        db.bookmarks.delete_one({"username": username, "title_receieve": title_receieve})
         return jsonify({"result":"보관함에서 삭제되었습니다."})
     except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
         return redirect(url_for("home"))
