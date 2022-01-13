@@ -127,7 +127,7 @@ def mainpage_bookmark():
         else:
             db.bookmarks.insert_one(doc)
             result ="보관함에 추가되었습니다."
-        return jsonify({"result":result}, user_info=username)
+        return jsonify({"result":result})
     except jwt.ExpiredSignatureError:
         return redirect(url_for("login", msg="로그인 시간이 만료되었습니다."))
     except jwt.exceptions.DecodeError:
