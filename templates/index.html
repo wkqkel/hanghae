@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no,width=device-width"
+    />
+    <!-- content에 자신의 OAuth2.0 클라이언트ID를 넣습니다. -->
+    <meta
+      name="google-signin-client_id"
+      content="367947354819-jiad97s8vqgia1ja8tibp45pfhiqe16l.apps.googleusercontent.com"
+    />
+
+    <!--    meta og tag-->
+    <meta property="og:title" content="대한민국 100대 명산: 등산력" />
+    <meta property="og:image" content="https://ifh.cc/g/dj8eOD.png" />
+    <meta property="og:description" content="당신의 등산력을 얼마인가요?" />
+
+    <!-- // 구글api 클라이언트 코드 -->
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+      integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm"
+      crossorigin="anonymous"
+    />
+
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+      @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700&display=swap");
+
+      * {
+        margin: 0;
+        padding: 0;
+        font-size: 15px;
+        font-weight: 600;
+        box-sizing: border-box;
+        font-family: "Roboto", "Noto Sans KR", sans-serif;
+      }
+
+      body {
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .container {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .iphone-background {
+        height: 812px;
+        width: 375px;
+        background-image: url("https://ifh.cc/g/eAPE1r.jpg");
+        background-size: initial;
+        animation: background_change 20s ease-in-out infinite;
+      }
+
+      .status-bar {
+        display: flex;
+        justify-content: space-between;
+        margin: 17px 32px;
+        color: #000;
+      }
+
+      .status-bar-time {
+        font-size: 15px;
+      }
+
+      .status-bar-icons {
+        position: relative;
+        left: 10px;
+      }
+
+      .logo-box {
+        margin: 80px 118px;
+        text-align: center;
+        color: #ffffff;
+      }
+
+      .logo-subtitle {
+        font-size: 18px;
+        font-weight: 300;
+        font-style: normal;
+        line-height: 1.11;
+        letter-spacing: -1.24px;
+        margin-top: 5px;
+        width: 150px;
+      }
+
+      .logo-title {
+        font-weight: 600;
+        font-size: 24px;
+        line-height: 20px;
+        white-space: nowrap;
+        width: 170px;
+        margin-top: 5px;
+        position: relative;
+        right: 10px;
+      }
+
+      .box-shape {
+        width: 302px;
+        height: 40px;
+        border: none;
+        margin-top: 20px;
+        border-radius: 11px;
+        opacity: 0.6;
+        padding-left: 20px;
+      }
+
+      input:focus {
+        outline: none;
+      }
+
+      input::placeholder {
+        color: #000;
+        font-weight: 500;
+      }
+
+      input:focus::-webkit-input-placeholder {
+        color: transparent;
+      }
+
+      .email-input,
+      .password-input {
+        font-size: 12px;
+        font-weight: 600;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 1.67;
+        letter-spacing: -0.4px;
+      }
+
+      .login-box {
+        margin-top: 115px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+      }
+
+      .password-box {
+        position: relative;
+      }
+
+      .password-icon {
+        position: absolute;
+        right: 18px;
+        top: 33px;
+        opacity: 0.6;
+        cursor: pointer;
+      }
+
+      .forgot-btn {
+        font-weight: 400;
+        font-size: 12px;
+        letter-spacing: -0.4px;
+        color: #fff;
+        margin-top: 12px;
+        position: relative;
+        left: 88px;
+        cursor: pointer;
+      }
+
+      .login-button {
+        text-align: center;
+        padding: 8px 0px 0px 0px;
+        font-size: 18px;
+        background-color: #ff647c;
+        opacity: 1;
+        color: #fff;
+        margin-top: 32px;
+        font-weight: 400;
+        cursor: pointer;
+      }
+
+      .signup-box {
+        color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        margin-top: 36px;
+      }
+
+      .signup-sentence {
+        text-align: center;
+      }
+
+      .signup-sentence > p {
+        font-weight: 400;
+        letter-spacing: 0.4px;
+        margin-bottom: 18px;
+      }
+
+      .signup-btn {
+        color: #ff647c;
+      }
+
+      .signupwith {
+        margin: 20px;
+      }
+
+      .signup-icons {
+        display: flex;
+        width: 110px;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .slider-circle {
+        display: flex;
+        justify-content: center;
+        margin-top: 30px;
+      }
+
+      .circle {
+        width: 9px;
+        height: 9px;
+        background-color: white;
+        border-radius: 50%;
+        margin: 3px;
+        opacity: 0.6;
+      }
+
+      .circle_selected {
+        opacity: 1;
+      }
+
+      .alert-message {
+        position: absolute;
+        bottom: 220px;
+        color: #ff647c;
+      }
+
+      /* 배경이 바뀌는 애니메이션 */
+      @keyframes background_change {
+        0% {
+          background-image: url("https://ifh.cc/g/eAPE1r.jpg");
+          background-size: initial;
+        }
+        33% {
+          background-image: url("https://ifh.cc/g/IRmiNA.jpg");
+          background-size: initial;
+        }
+        66% {
+          background-image: url("https://ifh.cc/g/cDfovn.jpg");
+          background-size: initial;
+        }
+        99% {
+          background-image: url("https://ifh.cc/g/eAPE1r.jpg");
+          background-size: initial;
+        }
+      }
+
+      .alertShake {
+        animation: alert_shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+      }
+
+      /* 입력 틀릴 시 글자가 흔들리는 애니메이션 */
+      @keyframes alert_shake {
+        10%,
+        90% {
+          transform: translate3d(-2px, 0, 0);
+        }
+
+        20%,
+        80% {
+          transform: translate3d(2px, 0, 0);
+        }
+
+        30%,
+        50%,
+        70% {
+          transform: translate3d(-2px, 0, 0);
+        }
+
+        40%,
+        60% {
+          transform: translate3d(2px, 0, 0);
+        }
+      }
+
+      .forgot-container {
+        height: 812px;
+        width: 375px;
+        position: absolute;
+        z-index: 99;
+        background-color: rgba(0, 0, 0, 50%);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        font-size: 32px;
+        overflow-y: hidden;
+      }
+
+      .forgot-box {
+        width: 375px;
+        height: 328px;
+        background-color: #fff;
+        position: absolute;
+        bottom: 0;
+        border-radius: 32px 32px 0px 0px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .forgot-topSmallBar {
+        width: 34px;
+        height: 5px;
+        border-radius: 8px;
+        background-color: #c4c4c4;
+        margin-top: 7px;
+      }
+
+      .forgot-textBox {
+        margin-top: 50px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+      }
+
+      .forgot-text1 {
+        font-size: 14px;
+        line-height: 1.43;
+        text-align: center;
+        color: #5a5a5a;
+        font-weight: 500;
+      }
+
+      .forgot-text2 {
+        font-size: 12px;
+        color: #4d4d4d;
+        font-weight: 300;
+        margin-top: 11px;
+      }
+
+      .forgot-input {
+        background-color: #eaeaea;
+        font-size: 12px;
+        font-weight: 600;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 1.67;
+        letter-spacing: -0.4px;
+        margin-top: 36px;
+      }
+
+      .forgot-confirm-btn {
+        width: 144px;
+        height: 39px;
+        margin-top: 30px;
+        border-radius: 44px;
+        background-color: #ff647c;
+        text-align: center;
+        padding-top: 9px;
+        font-size: 18px;
+        font-weight: 400;
+        color: #fff;
+        letter-spacing: 0.3px;
+        cursor: pointer;
+      }
+
+      .forgot-bottomLongBar {
+        width: 130px;
+        height: 6px;
+        border-radius: 200px;
+        margin-top: 60px;
+        background-color: rgb(214, 214, 214);
+      }
+
+      .forgot-box-move {
+        animation: forgot-box-move 0.3s linear;
+      }
+
+      @keyframes forgot-box-move {
+        from {
+          transform: translateY(400px);
+        }
+        to {
+          transform: translateY(0px);
+        }
+      }
+
+      .forgot-alert-message {
+        font: 12pt;
+        position: absolute;
+        top: 55px;
+        color: #ff647c;
+      }
+
+      .iphone11 {
+        display: none;
+      }
+
+      .iphone11-top {
+        display: none;
+      }
+
+      .status-bar {
+        opacity: 0;
+      }
+
+      @media (min-width: 870px) {
+        body {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+        .iphone11 {
+          position: absolute;
+          z-index: -3;
+          display: flex;
+        }
+
+        .iphone-background {
+          border-radius: 47px;
+        }
+
+        .status-bar {
+          opacity: 1;
+        }
+
+        .forgot-box {
+          border-bottom-left-radius: 47px;
+          border-bottom-right-radius: 47px;
+        }
+
+        .forgot-container {
+          border-radius: 47px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <img class="iphone11" src="https://ifh.cc/g/Z1ZmAY.png" alt="" />
+    <div>
+      <div class="container">
+        <div class="forgot-container">
+          <div class="forgot-box">
+            <div class="forgot-topSmallBar"></div>
+            <div class="forgot-textBox">
+              <p class="forgot-text1">혹시 비밀번호를 잊어버리셨나요?</p>
+              <p class="forgot-text2">
+                아이디를 입력하시면 확인 후 비밀번호 재설정을 도와드립니다.
+              </p>
+              <p class="forgot-alert-message"></p>
+            </div>
+            <input
+              class="forgot-input box-shape"
+              type="text"
+              placeholder="Email"
+            />
+            <div class="forgot-confirm-btn">Confirm</div>
+            <div class="forgot-bottomLongBar"></div>
+          </div>
+        </div>
+
+        <div class="iphone-background">
+          <div class="status-bar">
+            <div class="status-bar-time">9:41</div>
+            <div class="status-bar-icons">
+              <img src="https://ifh.cc/g/mzBoBW.png" alt="" />
+              <i class="fas fa-wifi"></i>
+              <i class="fas fa-battery-half"></i>
+            </div>
+          </div>
+          <div class="logo-box">
+            <img class="logo" src="https://ifh.cc/g/MNbRfr.png" />
+            <p class="logo-subtitle">대한민국 100대 명산</p>
+            <h1 class="logo-title">등 산 력</h1>
+          </div>
+          <div class="login-box" id="login_form">
+            <div class="alert-message"></div>
+            <input
+              class="email-input box-shape"
+              type="text"
+              placeholder="Email"
+            />
+            <div class="password-box">
+              <input
+                class="password-input box-shape"
+                type="password"
+                placeholder="Password"
+              />
+              <img
+                class="password-icon"
+                src="https://ifh.cc/g/OVw3FA.png"
+                alt=""
+              />
+            </div>
+            <div class="forgot-btn">Forgot your password?</div>
+            <div class="login-button box-shape">Login</div>
+          </div>
+          <div class="signup-box">
+            <div class="signup-sentence">
+              <p>
+                Don't have an account yet?
+                <a href="/signup" style="text-decoration: none"
+                  ><span class="signup-btn">Sign up</span></a
+                >
+              </p>
+              <p>Or</p>
+              <p class="signupwith">Sign up with</p>
+            </div>
+            <div class="signup-icons">
+              <a
+                href="javascript:void(0)"
+                id="GgCustomLogin"
+                onclick="alert('죄송해요. 아직 서비스 준비중이에요!')"
+              >
+                <img src="https://ifh.cc/g/5NsbWT.png" alt="" />
+              </a>
+              <a href="javascript:kakaoLogin()">
+                <img src="https://ifh.cc/g/mDpgxI.png" />
+              </a>
+            </div>
+          </div>
+          <div class="slider-circle">
+            <div class="circle circle_selected"></div>
+            <div class="circle"></div>
+            <div class="circle"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+      integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm"
+      crossorigin="anonymous"
+    />
+    <script>
+      // //우클릭 드래그 방지
+      // window.document.oncontextmenu = new Function("return false");
+      // window.document.onselectstart = new Function("return false");
+      // window.document.ondragstart = new Function("return false");
+
+      //로그인 버튼 클릭시 db에서 확인하는 코드
+      const login_btn = document.querySelector(".login-button");
+      const email_input = document.querySelector(".email-input");
+      const password_input = document.querySelector(".password-input");
+      const alert_message = document.querySelector(".alert-message");
+
+      function loginID() {
+        if (!email_input.value) {
+          alert_message.innerHTML = `<i class="fas fa-exclamation-circle"></i> 아이디를 입력해주세요`;
+          alert_message.classList.add("alertShake");
+          return;
+        } else if (!password_input.value) {
+          alert_message.innerHTML = `<i class="fas fa-exclamation-circle"></i> 비밀번호를 입력해주세요`;
+          alert_message.classList.add("alertShake");
+          return;
+        }
+        $.ajax({
+          type: "GET",
+          url: `/loginpage/login?id=${email_input.value}&password=${password_input.value}`,
+          data: {},
+          success: function (response) {
+            if (response["result"]) {
+              window.location.href =
+                "/mainpage?user=" +
+                response["result"]["id"] +
+                "&" +
+                response["result"]["name"];
+              // alert(response["result"]["id"] + response["result"]["password"]);
+            } else {
+              alert_message.innerHTML = `<i class="fas fa-exclamation-circle"></i> 아이디 또는 비밀번호가 틀렸습니다`;
+              alert_message.classList.add("alertShake");
+            }
+          },
+        });
+      }
+
+      login_btn.addEventListener("click", loginID);
+      email_input.addEventListener("input", () => {
+        alert_message.innerHTML = "";
+        alert_message.classList.remove("alertShake");
+      });
+      password_input.addEventListener("input", () => {
+        alert_message.innerHTML = "";
+        alert_message.classList.remove("alertShake");
+      });
+
+      //눈아이콘버튼누르면 비밀번호를 별표로! 자체로 type="password" 지원함
+      function encryptPassword() {
+        // console.log(encryptN);
+        if (password_input.type === "text") {
+          password_input.type = "password";
+          document.querySelector(".password-icon").src =
+            "https://ifh.cc/g/OVw3FA.png";
+        } else if (password_input.type === "password") {
+          password_input.type = "text";
+          document.querySelector(".password-icon").src =
+            "https://ifh.cc/g/Lxi1fK.png";
+        }
+      }
+
+      document
+        .querySelector(".password-icon")
+        .addEventListener("click", encryptPassword);
+
+      ///////////forgot에서 confirm 버튼 클릭시 이메일이 db에 존재하나 확인
+
+      const forgot_input = document.querySelector(".forgot-input");
+      const forgot_confirm_btn = document.querySelector(".forgot-confirm-btn");
+      let forgot_alert_message = document.querySelector(
+        ".forgot-alert-message"
+      );
+
+      var confirmId;
+
+      function confirmID() {
+        if (!forgot_input.value) {
+          forgot_alert_message.innerHTML = `<i class="fas fa-exclamation-circle"></i> 아이디를 입력해주세요`;
+          forgot_alert_message.classList.add("alertShake");
+          return;
+        }
+        $.ajax({
+          type: "GET",
+          url: `/loginpage/confirm?id=${forgot_input.value}`,
+          data: {},
+          success: function (response) {
+            if (response["result"]) {
+              // forgot_alert_message.innerHTML = `${response["result"]["id"]}입니다.`;
+              // 아이디가 맞을 시 id 값을 저장하고 입력창을 pw 창으로 바꾸고, 다시 입력을 달라고하고
+              // 이때 아이디확인 버튼클릭이벤트의 confirmId는 실행되면 안됨 -> 조건추가(input타입이 텍스트일때만)
+              //그렇게 id,pw를 서버에 보내고 수정후 완료메시지 띄움.
+              let confirmId = response["result"]["id"];
+              forgot_input.type = "password";
+              forgot_input.value = "";
+              forgot_alert_message.innerText = "바꾸실 패스워드를 입력해주세요";
+              forgot_input.placeholder = "Password";
+            } else {
+              forgot_alert_message.innerHTML = `<i class="fas fa-exclamation-circle"></i> 아이디가 존재하지않습니다.`;
+              forgot_alert_message.classList.add("alertShake");
+            }
+          },
+        });
+        confirmId = forgot_input.value;
+      }
+
+      forgot_confirm_btn.addEventListener("click", () => {
+        if (forgot_input.type === "password") {
+          changePw();
+        }
+      });
+      forgot_confirm_btn.addEventListener("click", () => {
+        if (forgot_input.type === "text") {
+          confirmID();
+        }
+      });
+      forgot_input.addEventListener("input", () => {
+        forgot_alert_message.innerHTML = "";
+        forgot_alert_message.classList.remove("alertShake");
+      });
+
+      /// 비밀번호 confirm 함수 정의
+      function changePw() {
+        if (!forgot_input.value) {
+          forgot_alert_message.innerHTML = `<i class="fas fa-exclamation-circle"></i> 비밀번호를 입력해주세요`;
+          forgot_alert_message.classList.add("alertShake");
+          return;
+        }
+        const confirmPw = forgot_input.value;
+        $.ajax({
+          type: "GET",
+          url: `/loginpage/change_pw?id=${confirmId}&pw=${confirmPw}`,
+          data: {},
+          success: function (response) {
+            document.querySelector(".forgot-container").style.display = "none";
+            forgot_alert_message.innerText = "";
+            alert_message.innerHTML = response["result"];
+            forgot_input.value = "";
+            forgot_input.placeholder = "Email";
+            forgot_input.type = "text";
+            forgot_alert_message.innerHTML = "";
+            forgot_alert_message.classList.remove("alertShake");
+          },
+        });
+      }
+
+      ////// forgot 버튼 클릭시 밑에서 위로 비밀번호 찾기창 올라오는거 구현
+      document.querySelector(".forgot-btn").addEventListener("click", () => {
+        document.querySelector(".forgot-container").style.display = "block";
+        document.querySelector(".forgot-box").classList.add("forgot-box-move");
+      });
+
+      /// 바깥클릭시 창꺼지는거 구현
+      document
+        .querySelector(".forgot-container")
+        .addEventListener("click", (e) => {
+          if (e.target !== e.currentTarget) {
+            return;
+          }
+          document.querySelector(".forgot-container").style.display = "none";
+          forgot_input.value = "";
+          forgot_input.placeholder = "Email";
+          forgot_input.type = "text";
+          forgot_alert_message.innerHTML = "";
+          forgot_alert_message.classList.remove("alertShake");
+        });
+      // 엔터키 눌러서 로그인 하는 기능
+      $("#login_form").keypress(function (e) {
+        if (e.keyCode === 13) {
+          loginID();
+        }
+      });
+    </script>
+
+    <!-- 카카오 api -->
+    <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+    <script>
+      window.Kakao.init("552a97e14bf2f0606880725115492e3e");
+
+      function kakaoLogin() {
+        window.Kakao.Auth.login({
+          scope: "profile_nickname, account_email", //동의항목 페이지에 있는 개인정보 보호 테이블의 활성화된 ID값을 넣습니다.
+          success: function (response) {
+            window.Kakao.API.request({
+              // 사용자 정보 가져오기
+              url: "/v2/user/me",
+              success: (res) => {
+                // const kakao_account = res.kakao_account;
+                const kakao_nickname =
+                  res["kakao_account"]["profile"]["nickname"];
+                window.location.href =
+                  "/mainpage?user=" + kakao_nickname + "&" + kakao_nickname;
+              },
+            });
+          },
+          fail: function (error) {
+            alert("로그인 실패. 다른 로그인 방법을 이용해주세요");
+          },
+        });
+      }
+    </script>
+  </body>
+</html>

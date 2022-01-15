@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8"/>
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <meta
+            name="google-signin-client_id"
+            content="367947354819-jiad97s8vqgia1ja8tibp45pfhiqe16l.apps.googleusercontent.com"
+    />
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"
+    ></script>
+    <script
+            src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"
+    ></script>
+
+    <!--    폰트-->
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link
+            href="https://fonts.googleapis.com/css2?family=Jua&display=swap"
+            rel="stylesheet"
+    />
+    <link
+            rel="stylesheet"
+            href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+            integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm"
+            crossorigin="anonymous"
+    />
+    <title>마이 마운틴 - 마이 페이지</title>
+
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+        @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700&display=swap");
+
+        * {
+            margin: 0;
+            padding: 0;
+            font-size: 15px;
+            font-weight: 600;
+            box-sizing: border-box;
+            font-family: "Roboto", "Noto Sans KR", sans-serif;
+            line-height: 1.67;
+            letter-spacing: -0.24px;
+        }
+
+        body {
+            width: 100%;
+            height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .iphone-background {
+            height: 812px;
+            width: 375px;
+            background-color: #fff;
+            border: black 1px solid;
+            box-sizing: content-box;
+            position: relative;
+        }
+
+        .status-bar {
+            display: flex;
+            justify-content: space-between;
+            margin: 17px 32px;
+            color: #000;
+        }
+
+        .status-bar-time {
+            font-size: 15px;
+        }
+
+        .status-bar-icons {
+            position: relative;
+            left: 5px;
+        }
+
+        .header {
+            width: 151px;
+            height: 20px;
+            margin: 23px 13px 10px 48px;
+            font-size: 22px;
+            font-weight: bold;
+            letter-spacing: -0.24px;
+            text-align: center;
+            color: #000;
+        }
+
+        .user > p,
+        #user {
+            font-size: 22px;
+            font-weight: bold;
+            letter-spacing: -0.24px;
+        }
+
+        .user {
+            display: flex;
+            width: 300px;
+        }
+
+        #hand-icon {
+            width: 24px;
+            height: 24px;
+            margin-left: 13px;
+            margin-top: 3px;
+        }
+
+        .input-group {
+            width: 286px;
+            margin-left: 45px;
+            height: 30px;
+            margin-top: 14px;
+        }
+
+        #value.form-control {
+            /* 검색창 */
+            width: 286px;
+            height: 36px;
+            border: none;
+            border-bottom: 1px solid black;
+        }
+
+        #basic-addon1 {
+            /* 돋보기버튼 */
+            background-image: url(https://ifh.cc/g/wDIxzP.png);
+            display: block;
+            width: 17px;
+            height: 17px;
+            position: absolute;
+            right: 50px;
+            top: 23px;
+        }
+
+        #value::placeholder {
+            color: #9e9e9e;
+            font-weight: 400;
+            font-size: 12px;
+            padding-left: 6px;
+        }
+
+        .search-bar {
+            display: flex;
+            position: relative;
+        }
+
+        .btn-box {
+            display: flex;
+            justify-content: center;
+            margin-top: 40px;
+            font-size: 18px;
+            font-weight: 500;
+            margin-right: 35px;
+        }
+
+        .top100-btn {
+            font-size: 18px;
+            font-weight: 500;
+            margin-right: 30px;
+        }
+
+        .mypics-btn {
+            font-size: 18px;
+            font-weight: 500;
+            color: #bdbdbd;
+            margin-right: 30px;
+        }
+
+        .weather-btn {
+            font-size: 18px;
+            font-weight: 500;
+            color: #bdbdbd;
+        }
+
+        .btn-picked {
+            display: flex;
+            margin-left: 66px;
+            margin-top: 4px;
+            width: 23px;
+            height: 4px;
+            background-color: #000;
+        }
+
+        .bottom-background {
+            width: 375px;
+            height: 580px;
+            background-color: #f89eac;
+            /* background-color: #4caf50; */
+            margin-top: 15px;
+            border-top-left-radius: 30px;
+        }
+
+        #mt100 {
+            display: flex;
+            width: 375px;
+            height: 580px;
+            position: absolute;
+            padding: 50px;
+            overflow-x: scroll;
+            overflow-y: hidden;
+        }
+
+        #visited {
+            display: none;
+            width: 375px;
+            height: 580px;
+            position: absolute;
+            padding: 50px;
+            overflow-x: scroll;
+            overflow-y: hidden;
+        }
+
+        #weather {
+            display: none;
+            width: 375px;
+            height: 580px;
+            position: absolute;
+            padding: 50px;
+        }
+
+        .mountainCards {
+            width: 272px;
+            height: 462px;
+            background-color: #f1f1f1;
+            border-radius: 31px;
+            box-shadow: 9px 11px 4px 0 rgba(0, 0, 0, 0.25);
+            margin-left: 30px;
+            box-sizing: border-box;
+            position: relative;
+            right: 25px;
+        }
+
+        .card-img-top {
+            border-top-left-radius: 31px;
+            border-top-right-radius: 31px;
+            width: 272px;
+            height: 183px;
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .top100-textbox {
+            height: 100px;
+        }
+
+        .card-text-desc {
+            font-size: 12px;
+            color: #616161;
+            margin-top: 15px;
+        }
+
+        .card-body {
+            padding: 15px 21px 21px 21px;
+            position: relative;
+            height: 140px;
+            overflow: scroll;
+            overflow-x: hidden;
+        }
+
+        .card-text-height {
+            font-size: 12px;
+            color: #adadad;
+            margin-left: 13px;
+            margin-top: 8px;
+        }
+
+        .card-text-top {
+            display: flex;
+        }
+
+        .star-box {
+            display: flex;
+        }
+
+        .list-group-item {
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            top: 50px;
+            align-items: center;
+        }
+
+        .btn-card {
+            width: 70px;
+            height: 36px;
+            border-radius: 15px;
+            background-color: #ff647c;
+            border: none;
+            margin: 0 auto;
+        }
+
+        .btn-delete {
+            width: 70px;
+            height: 36px;
+            border-radius: 15px;
+            background-color: #616161;
+            border: none;
+            margin: 0 auto;
+            color: white;
+            position: relative;
+            bottom: -35px;
+        }
+
+        .star-box > p {
+            font-size: 18px;
+        }
+
+        .course-text {
+            color: #7a7a7a;
+            font-size: 13px;
+        }
+
+        .custom-select,
+        .comment-input {
+            width: 230px;
+            margin: 0 auto;
+        }
+
+        .logout > a > img {
+            position: absolute;
+            font-size: 25px;
+            opacity: 30%;
+            text-decoration: none;
+            top: 45px;
+            left: 15px;
+            width: 24px;
+            height: 24px;
+            transform: rotate(180deg);
+        }
+
+        .course-title {
+            margin: 10px 0 5px 0;
+        }
+
+        .card-comment {
+            font-size: 14px;
+        }
+
+        .top100-bottom-box {
+            transform: translateY(-19px);
+        }
+
+        .dropbtn {
+            background-color: #ff647c;
+            color: white;
+            padding: 4px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            height: 30px;
+            position: absolute;
+            left: 300px;
+            top: -30px;
+            border-radius: 5px;
+        }
+
+        .dropbtn:hover,
+        .dropbtn:focus {
+            background-color: #651621;
+        }
+
+        .dropdown {
+            position: absolute;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f1f1f1;
+            min-width: 160px;
+            overflow: auto;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            left: 190px;
+            top: 5px;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown a:hover {
+            background-color: #ddd;
+        }
+
+        .show {
+            display: block;
+        }
+
+        /* 날씨 */
+
+        .temp {
+            font-size: 72px;
+            position: relative;
+            left: 12px;
+            bottom: 28px;
+        }
+
+        .weather {
+            font-size: 24px;
+            font-weight: 800;
+        }
+
+        .wrap {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            bottom: 10px;
+        }
+
+        .status {
+            width: 150px;
+            height: 130px;
+            opacity: 0;
+        }
+
+        .weather-textbox {
+            display: flex;
+            position: relative;
+            bottom: 10px;
+            right: 05px;
+        }
+
+        .dust-titlebox > p {
+            font-weight: 400;
+        }
+
+        .dust-contentbox {
+            margin-left: 20px;
+        }
+
+        .dust-titlebox > p {
+            margin-bottom: 10px;
+        }
+
+        .dust-contentbox > p {
+            margin-bottom: 10px;
+        }
+
+        .status-ani {
+            animation: status-ani 0.7s linear forwards;
+        }
+
+        @keyframes status-ani {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /*등산력 시작*/
+        .hiking_power {
+            position: absolute;
+            top: 161px;
+            left: 134px;
+        }
+
+        /*등산력 끝*/
+
+        .iphone11 {
+            display: none;
+        }
+
+        .iphone11-top {
+            display: none;
+        }
+
+        .status-bar {
+            opacity: 0;
+        }
+
+        @media (min-width: 870px) {
+            body {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .iphone11 {
+                position: absolute;
+                z-index: -3;
+                display: flex;
+            }
+
+            .iphone-background {
+                border-radius: 47px;
+            }
+
+            .bottom-background {
+                border-bottom-left-radius: 46px;
+                border-bottom-right-radius: 46px;
+            }
+
+            .status-bar {
+                opacity: 1;
+            }
+
+            #mt100, #visited {
+                height: 542px;
+            }
+
+        }
+
+    </style>
+
+    <script>
+
+        $(document).ready(function () {
+            let getLink = window.location.search;
+            let loginUserId = decodeURI(getLink.split("&")[1]);
+            document.querySelector("#user").innerText = loginUserId;
+            showVisited();
+            show100mt();
+            power();
+        });
+
+        function deleteReview(name) {
+            let getLink = window.location.search;
+            $.ajax({
+                type: "POST",
+                url: "/review/delete",
+                data: {
+                    name_give: name,
+                    id_give: decodeURI(getLink.split("=")[1].split("&")[0]),
+                },
+                success: function (response) {
+                    // 성공하면
+                    alert(response["msg"]);
+                    window.location.reload();
+                },
+            });
+        }
+
+        function power() {
+            let getLink = window.location.search;
+            $.ajax({
+                type: "GET",
+                url:
+                    "/power?id_give=" + decodeURI(getLink.split("=")[1].split("&")[0]),
+                data: {},
+                success: function (response) {
+                    let count = response["count"];
+                    $("#power").text(`등산력 LV.${count} 🥾`);
+                },
+            });
+        }
+
+        /*등산력 끝*/
+        function showVisited() {
+            let getLink = window.location.search;
+            $.ajax({
+                type: "GET",
+                url:
+                    "/visited?id_give=" +
+                    decodeURI(getLink.split("=")[1].split("&")[0]),
+                data: {},
+                success: function (response) {
+                    let mt100 = response["mt100"];
+                    let user_review = response["user_review"];
+                    for (let i = 0; i < mt100.length; i++) {
+                        let name = mt100[i]["name"];
+                        let height = mt100[i]["height"];
+                        let desc = mt100[i]["desc"];
+                        let course = mt100[i]["course"];
+                        let imgurl = mt100[i]["imgurl"];
+                        let star = user_review[i]["star"];
+                        let comment = user_review[i]["comment"];
+                        let temp_url = `    <div class="card mountainCards item">
+                                              <img class="card-img-top" src="${imgurl}" alt="Card image cap" />
+                                              <div class="card-body top100-card-body">
+                                                <div class="card-text-top">
+                                                  <h5 class="card-title name">${name}</h5>
+                                                  <p class="card-text-height">높이: ${height}m</p>
+                                                </div>
+
+                                                <div class="star-box">
+                                                  <p id="${name}star" class="starCheck">${star}</p>
+                                                </div>
+
+                                                <div class="comment-box">
+                                                  <p id="${name}comment" class="card-text-desc card-comment">${comment}</p>
+                                                </div>
+                                              </div>
+
+
+
+                                              <div class="list-group-item">
+                                                <button
+                                                  type="button"
+                                                  class="btn btn-light btn-delete"
+                                                  onclick="deleteReview('${name}')"
+                                                >
+                                                  삭제
+                                                </button>
+                                              </div>
+                                      </div>`;
+                        $("#visited").append(temp_url);
+                    }
+                },
+            });
+        }
+
+        function show100mt() {
+            let getLink = window.location.search;
+            $.ajax({
+                type: "GET",
+                url:
+                    "/mt100?id_give=" + decodeURI(getLink.split("=")[1].split("&")[0]),
+                data: {},
+                success: function (response) {
+                    let mt100 = response["mt100"];
+                    let user_review = response["user_review"];
+                    let visited_mt = [];
+                    for (let i = 0; i < user_review.length; i++) {
+                        visited_mt.push(user_review[i]["name"]);
+                    }
+                    for (let i = 0; i < mt100.length; i++) {
+                        let name = mt100[i]["name"];
+                        let height = mt100[i]["height"];
+                        let desc = mt100[i]["desc"];
+                        let course = mt100[i]["course"];
+                        let imgurl = mt100[i]["imgurl"];
+                        if (visited_mt.includes(name) == false) {
+                            let temp_url = `     <div class="card mountainCards item">
+                                          <img class="card-img-top" src="${imgurl}" alt="Card image cap" />
+                                          <div class="card-body">
+                                            <div class="card-text-top">
+                                              <h5 class="card-title name">${name}</h5>
+                                              <p class="card-text-height">높이: ${height}m</p>
+                                            </div>
+                                            <div class="top100-textbox">
+                                              <p class="card-text-desc">${desc}</p>
+                                              <p class="course-title">코스<p>
+                                              <h6 class="course-text">${course}</h6>
+                                            </div>
+                                          </div>
+
+                                          <div class="list-group-item top100-bottom-box">
+                                            <select class="custom-select" id="${name}star" style="padding-left: 3px;">
+                                              <option selected>이 산은 어땠나요?</option>
+                                              <option value="5">⭐️⭐️⭐️⭐️⭐️</option>
+                                              <option value="4">⭐⭐️⭐️⭐️️</option>
+                                              <option value="3">⭐️⭐️⭐️</option>
+                                              <option value="2">⭐️⭐️</option>
+                                              <option value="1">⭐️</option>
+                                            </select>
+
+                                            <div style="height: 5px"></div>
+
+                                            <input
+                                              id="${name}comment"
+                                              type="text"
+                                              class="form-control comment-input"
+                                              placeholder="경험을 기록하세요."
+                                              aria-label="Recipient's username"
+                                              aria-describedby="basic-addon2"
+                                              style="padding-left: 6px;"
+                                            />
+
+                                            <div style="height: 5px"></div>
+
+                                            <button
+                                              class="btn btn-outline-secondary btn-card"
+                                              type="button"
+                                              onclick="postReview('${name}')"
+                                            >
+                                              등록
+                                            </button>
+                                          </div>
+                                        </div>`;
+                            $("#mt100").append(temp_url);
+                        }
+                    }
+                },
+            });
+        }
+
+        function postReview(name) {
+            let getLink = window.location.search;
+            $.ajax({
+                type: "POST",
+                url: "/review",
+                data: {
+                    id_give: decodeURI(getLink.split("=")[1].split("&")[0]),
+                    name_give: name,
+                    star_give: $("#" + name + "star").val(),
+                    comment_give: $("#" + name + "comment").val(),
+                },
+                success: function (response) {
+                    // 성공하면
+                    alert(response["msg"]);
+                    window.location.reload();
+                },
+            });
+        }
+
+        function filter() {
+            var value, name, mountainCards, i;
+
+            value = document.getElementById("value").value.toUpperCase();
+            item = document.getElementsByClassName("mountainCards");
+
+            for (i = 0; i < item.length; i++) {
+                name = item[i].getElementsByClassName("name");
+                if (name[0].innerHTML.toUpperCase().indexOf(value) > -1) {
+                    item[i].style.display = "block";
+                } else {
+                    item[i].style.display = "none";
+                }
+            }
+        }
+
+        function withdrawal() {
+            let getLink = window.location.search;
+            if (!confirm("정말 탈퇴하시겠습니까?")) {
+                // 취소(아니오) 버튼 클릭 시 이벤트
+            } else {
+                // 확인(예) 버튼 클릭 시 이벤트
+                $.ajax({
+                    type: "POST",
+                    url: "/withdrawal",
+                    data: {
+                        id_give: decodeURI(getLink.split("=")[1].split("&")[0]),
+                    },
+                    success: function (response) {
+                        alert(response["msg"]);
+                        window.location.replace("/");
+                    },
+                });
+            }
+        }
+
+        /* When the user clicks on the button,
+  toggle between hiding and showing the dropdown content */
+        function myFunction() {
+            document.getElementById("myDropdown").classList.toggle("show");
+        }
+
+        // Close the dropdown if the user clicks outside of it
+        window.onclick = function (event) {
+            if (!event.target.matches(".dropbtn")) {
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                var i;
+                for (i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains("show")) {
+                        openDropdown.classList.remove("show");
+                    }
+                }
+            }
+        };
+    </script>
+</head>
+
+<body>
+
+
+<img class="iphone11" src="https://ifh.cc/g/Z1ZmAY.png" alt=""/>
+<!-- /////
+
+    정호님코드시작
+
+    //// -->
+
+<div class="container">
+    <div class="iphone-background">
+        <div class="status-bar">
+            <div class="status-bar-time">9:41</div>
+            <div class="status-bar-icons">
+                <img src="https://ifh.cc/g/mzBoBW.png" alt=""/>
+                <i class="fas fa-wifi"></i>
+                <i class="fas fa-battery-half"></i>
+            </div>
+        </div>
+
+        <!--등산력 시작-->
+        <div class="hiking_power" id="power">등산력 LV.0 🥾</div>
+        <!--        등산력 끝-->
+
+        <div class="header">
+          <span class="user">
+            <p>Hello, <span id="user"></span></p>
+            <img id="hand-icon" src="https://ifh.cc/g/Gg6bR3.png" alt=""/>
+          </span>
+        </div>
+        <div class="dropdown">
+            <button onclick="myFunction()" class="dropbtn">Menu</button>
+            <div id="myDropdown" class="dropdown-content">
+                <a class="logout-btn">로그아웃</a>
+                <a onclick="withdrawal()">회원탈퇴</a>
+            </div>
+        </div>
+        <div class="search-bar">
+            <div class="input-group mb-3">
+                <input
+                        id="value"
+                        onkeyup="filter()"
+                        type="text"
+                        class="form-control"
+                        placeholder="내가 갔던 산이 대한민국 100대 명산?"
+                        aria-label="Username"
+                        aria-describedby="basic-addon1"
+                        style="padding-left: 10px;"
+                />
+            </div>
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1"></span>
+            </div>
+        </div>
+
+        <div class="btn-box">
+            <div class="top100-btn">Top100</div>
+            <div class="mypics-btn">Records</div>
+            <div class="weather-btn">Weather</div>
+        </div>
+        <div class="btn-picked"></div>
+        <div class="bottom-background">
+            <div class="visited" id="visited"></div>
+            <div class="mt100" id="mt100"></div>
+            <div id="weather">
+                <div class="card mountainCards item">
+                    <!--  -->
+                    <div class="wrap">
+                        <h2 class="weather">맑음</h2>
+                        <img class="status"/>
+                        <h1 class="temp">8°</h1>
+                        <div class="weather-textbox">
+                            <div class="dust-titlebox">
+                                <p>미세먼지</p>
+                                <p>초미세먼지</p>
+                            </div>
+                            <div class="dust-contentbox">
+                                <p class="dust">나쁨</p>
+                                <p class="mdust">나쁨</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!--  -->
+                </div>
+            </div>
+        </div>
+
+</body>
+
+
+<script>
+    //박상원 작성
+    // 버튼클릭시 색상바뀌고 디스플레이변경
+    const $top100_btn = document.querySelector(".top100-btn");
+    const $mypics_btn = document.querySelector(".mypics-btn");
+    const $btn_picked = document.querySelector(".btn-picked");
+    const $visited = document.querySelector("#visited");
+    const $mt100 = document.querySelector("#mt100");
+    const $weather_btn = document.querySelector(".weather-btn");
+    const $weather = document.querySelector("#weather");
+    const $bottom_background = document.querySelector(".bottom-background");
+
+
+    $top100_btn.addEventListener("click", () => {
+        $top100_btn.style.color = "black";
+        $mypics_btn.style.color = "#bdbdbd";
+        $weather_btn.style.color = "#bdbdbd";
+        $btn_picked.style.transform = "translateX(0px)";
+        $visited.style.display = "none";
+        $mt100.style.display = "flex";
+        $weather.style.display = "none";
+        $bottom_background.style.backgroundColor = "#f89eac";
+    });
+
+    $mypics_btn.addEventListener("click", () => {
+        $mypics_btn.style.color = "black";
+        $top100_btn.style.color = "#bdbdbd";
+        $weather_btn.style.color = "#bdbdbd";
+        $btn_picked.style.transform = "translateX(85px)";
+        $mt100.style.display = "none";
+        $visited.style.display = "flex";
+        $weather.style.display = "none";
+        $bottom_background.style.backgroundColor = "#f89eac";
+    });
+
+    $weather_btn.addEventListener("click", () => {
+        $top100_btn.style.color = "#bdbdbd";
+        $mypics_btn.style.color = "#bdbdbd";
+        $weather_btn.style.color = "black";
+        $btn_picked.style.transform = "translateX(180px)";
+        $mt100.style.display = "none";
+        $visited.style.display = "none";
+        $weather.style.display = "block";
+        temp();
+    });
+
+    function temp() {
+        $.ajax({
+            type: "POST",
+            url: "/weather",
+            data: {},
+            success: function (response) {
+                $(".temp").text(response["온도"]);
+                // $(".weather").text("구름많음");
+                $(".weather").text(response["날씨"]);
+                $(".dust").text(response["미세먼지"].split("\n")[1]);
+                $(".mdust").text(response["초미세먼지"].split("\n")[1]);
+                $(".status").addClass("status-ani");
+                if ($(".weather").text() == "맑음") {
+                    $(".status").attr("src", "https://ifh.cc/g/xXaX03.png");
+                    $bottom_background.style.backgroundColor = "#FFD330";
+                } else if ($(".weather").text() == "구름많음") {
+                    $(".status").attr("src", "https://ifh.cc/g/vU16jC.png");
+                    $bottom_background.style.backgroundColor = "#949CAB";
+                } else if ($(".weather").text() == "흐림") {
+                    $(".status").attr("src", "https://ifh.cc/g/3oN54o.png");
+                    $bottom_background.style.backgroundColor = "#C4D4D6";
+                } else if ($(".weather").text() == "비") {
+                    $(".status").attr("src", "https://ifh.cc/g/FkAg67.png");
+                    $bottom_background.style.backgroundColor = "#57C1FE";
+                } else if ($(".weather").text() == "눈") {
+                    $(".status").attr("src", "https://ifh.cc/g/1HGKyR.png");
+                    $bottom_background.style.backgroundColor = "#CBD2E0";
+                } else {
+                    $(".status").attr("src", "https://ifh.cc/g/3oN54o.png");
+                    $bottom_background.style.backgroundColor = "#C4D4D6";
+                }
+            },
+        });
+    }
+
+</script>
+
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+<script>
+    window.Kakao.init("552a97e14bf2f0606880725115492e3e");
+    Kakao.isInitialized();
+
+    document.querySelector('.logout-btn').addEventListener("click", kakaoLogout)
+
+    function kakaoLogout() {
+        if (Kakao.Auth.getAccessToken()) {
+            Kakao.API.request({
+                url: '/v1/user/unlink',
+                success: function (response) {
+                    console.log(response)
+                    window.location.href = "/"
+                },
+                fail: function (error) {
+                    console.log(error)
+                },
+            })
+            Kakao.Auth.setAccessToken(undefined)
+        } else {
+            window.location.href = "/"
+        }
+    }
+</script>
+</html>
