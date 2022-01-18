@@ -17,7 +17,7 @@
 ## 📺시연영상 링크
 
 - 시연영상 링크
-   <br> https://youtu.be/ZQfQkKi0pJk
+   <br> https://youtu.be/ffcfdk9HK48
    <br>
 
 <br>
