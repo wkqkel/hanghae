@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- <link
+      rel="stylesheet"
+      href="{{  url_for('static', filename='style.css')  }}"
+    /> -->
+    <link rel="stylesheet" href="../static/style.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <script
+      src="https://kit.fontawesome.com/0628ea1538.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <div id="header_title"></div>
+      </header>
+      <main>
+        <div id="left-control">
+          <div id="menu-btn"><i class="fas fa-bars"></i></div>
+        </div>
+        <div id="playerContainer">
+          <div id="player"></div>
+          <div id="cd-player">
+            <div id="cdOutHallLine2">
+              <div id="cdOutHallLine">
+                <div id="cdOutHall">
+                  <div id="cdImg"><div id="cdInHall"></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id="player-string"></div>
+        </div>
+        <ul id="right-control">
+          <li id="play-btn"><i class="fas fa-play"></i></li>
+          <li id="pause-btn"><i class="fas fa-pause"></i></li>
+          <li id="prvious-btn"><i class="fas fa-backward"></i></li>
+          <li id="next-btn"><i class="fas fa-forward"></i></li>
+        </ul>
+      </main>
+      <footer></footer>
+    </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        getDB();
+      });
+
+      function getDB() {
+        $.ajax({
+          type: "GET",
+          url: "/api/list",
+          data: {},
+          success: function (response) {
+            let result = response["songs_data"];
+          },
+        });
+      }
+      // 데이터 받아와서 iframe용 코드 시작
+      let alinks = [];
+      for (let i = 0; i < result.length; i++) {
+        alinks.push(result[i]["aLink"]);
+      }
+
+      var tag = document.createElement("script");
+      tag.src = "https://www.youtube.com/iframe_api";
+      var firstScriptTag = document.getElementsByTagName("script")[0];
+      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+      var player;
+      function onYouTubePlayerAPIReady() {
+        player = new YT.Player("player", {
+          height: "390",
+          width: "640",
+          loadPlaylist: {
+            listType: "playlist",
+            list: [],
+            index: parseInt(0),
+            suggestedQuality: "small",
+          },
+          events: {
+            onReady: onPlayerReady,
+            onStateChange: onPlayerStateChange,
+          },
+        });
+      }
+      function onPlayerReady(event) {
+        event.target.loadPlaylist(alinks);
+        player.setLoop(true);
+      }
+
+      // function randomPlay() {
+      //   event.target.loadPlaylist();
+      // }
+
+      var done = false;
+      function onPlayerStateChange(event) {
+        if (event.data == YT.PlayerState.PLAYING && !done) {
+          // setTimeout(stopVideo, 60000);
+          done = true;
+        }
+        cgimg();
+      }
+      $("#pause-btn").click(function () {
+        player.pauseVideo();
+      });
+
+      $("#play-btn").click(function () {
+        player.playVideo();
+      });
+
+      $("#privious-btn").click(function () {
+        player.playVideo();
+      });
+
+      $("#next-btn").click(function () {
+        player.nextVideo();
+      });
+
+      function cgimg() {
+        rid = player.getVideoUrl().split("v=")[1];
+        li = player.getPlaylist();
+        for (let i = 0; i < li.length; i++) {
+          if (rid === li[i]) {
+            $("#cdImg").css("background", "url(" + result[i]["cdImg"] + ")");
+          }
+        }
+      }
+    </script>
+  </body>
+</html>

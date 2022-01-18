@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+      }
+      #cdimg {
+        background-color: red;
+        width: 300px;
+        height: 300px;
+        border-radius: 50%;
+      }
+
+      #resizable {
+        width: 40px;
+        height: 300px;
+        padding: 0.5em;
+        border: none;
+        background-image: url("https://ifh.cc/g/mc8cRt.png");
+        background-size: contain;
+        background-position: center;
+        background-repeat: no-repeat;
+      }
+    </style>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://www.youtube.com/iframe_api"></script>
+
+    <style>
+      #no-mobile {
+        position: absolute;
+        z-index: 99;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 50%);
+        width: 100%;
+        display: none;
+        justify-content: center;
+        align-items: center;
+        font-size: 32px;
+        top: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="player"></div>
+    <button id="pause">일시정지</button>
+    <button id="play">재생</button>
+    <button id="next">다음재생</button>
+    <!-- <button id="random">랜덤재생</button> -->
+    <button class="getT">목록</button>
+    <img id="cdimg" src="" alt="" />
+
+    <div id="resizable" class="ui-widget-content">
+      <h3 class="ui-widget-header"></h3>
+    </div>
+
+    <div id="no-mobile">
+      <button class="getT">x</button>
+    </div>
+
+    <script>
+      const result = [
+        {
+          title: "title1",
+          singer: "singer1",
+          img: "https://i.ytimg.com/vi/mLCsbacHxA8/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLApBh0huJeaQb8ukg0_p3uEbLpVqg",
+          alink: "VAQFKDfAy8E",
+        },
+        {
+          title: "title2",
+          singer: "singer2",
+          img: "https://w.namu.la/s/d7de06a7e230e8f07fcbe55ab33f40dcbfdf4fd0fd6d4009038dff373e382c0353347208b05b22f84e9e26e65e7ee316e52b38274538881688b493b11c582f0bf944dda7712d2fcc56f1c46a2b19a971",
+          alink: "39lo6iQVFQM",
+        },
+        {
+          title: "title3",
+          singer: "singer3",
+          img: "https://w.namu.la/s/3db13b3fdd97ce006e49fa8be1ee4ca464806aa4d559b44e72a4fdd43d7cddc7f23cb592ca44e4c38209e9964ec0d5df6186fb3705ff348f0105c467ca70a52991fc8e99e0722cbacea3f71d2baa367b",
+          alink: "3pqo0gLiMHQ",
+        },
+        {
+          title: "title4",
+          singer: "singer4",
+          img: "https://w.namu.la/s/f426f6a5b2b0cdb4a35cecde572fe71c34dcfea8e936700482879f9f58d6a95d28c36d2e20500365661349e8ddeafa6d12fbfd2b086cdda7b01b5edf748cb32f1f77394e0809b16b72982182bc953759",
+          alink: "LKQ-18LoFQk",
+        },
+      ];
+
+      // let randomResult = [...result];
+
+      // let randomAlinks = [];
+      // let alinks = "";
+
+      // for (let i = 0; i < result.length; i++) {
+      //   alinks += `"${result[i]["alink"]}",`;
+      // }
+
+      let alinks = [];
+      for (let i = 0; i < result.length; i++) {
+        alinks.push(result[i]["alink"]);
+      }
+
+      var tag = document.createElement("script");
+      tag.src = "https://www.youtube.com/iframe_api";
+      var firstScriptTag = document.getElementsByTagName("script")[0];
+      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+      var player;
+      function onYouTubePlayerAPIReady() {
+        player = new YT.Player("player", {
+          height: "390",
+          width: "640",
+          loadPlaylist: {
+            listType: "playlist",
+            list: [],
+            index: parseInt(0),
+            suggestedQuality: "small",
+          },
+          events: {
+            onReady: onPlayerReady,
+            onStateChange: onPlayerStateChange,
+          },
+        });
+      }
+      function onPlayerReady(event) {
+        event.target.loadPlaylist(
+          alinks
+          // "VAQFKDfAy8E",
+          // "39lo6iQVFQM",
+          // "3pqo0gLiMHQ",
+          // "LKQ-18LoFQk",
+        );
+        player.setLoop(true);
+      }
+
+      function randomPlay() {
+        event.target.loadPlaylist();
+      }
+
+      // const candidate = Array(45)
+      //   .fill()
+      //   .map((v, i) => {
+      //     return i + 1;
+      //   }); // 1~45까지들어가있는 배열
+
+      // // randomCan = candidate.sort(() => Math.random() - Math.random());
+      // // console.log(candidate);
+      // // console.log(randomCan);
+
+      var done = false;
+      function onPlayerStateChange(event) {
+        if (event.data == YT.PlayerState.PLAYING && !done) {
+          // setTimeout(stopVideo, 60000);
+          done = true;
+        }
+        cgimg();
+      }
+      $("#pause").click(function () {
+        player.pauseVideo();
+      });
+
+      $("#play").click(function () {
+        player.playVideo();
+      });
+
+      $("#next").click(function () {
+        player.nextVideo();
+      });
+
+      // $("#random")
+      //   .off("click")
+      //   .on("click", function () {
+      //     // randomResult.sort(() => Math.random() - Math.random());
+      //     // randomAlinks = [];
+      //     // for (let i = 0; i < randomResult.length; i++) {
+      //     //   randomAlinks.push(randomResult[i]["alink"]);
+      //     // }
+      //     // console.log(result);
+      //     // console.log(randomResult);
+      //     // console.log(randomAlinks);
+      //   });
+
+      $(document).on("click", "button[name='titleBtn']", function (event) {
+        // alert(`${$(event.currentTarget).children(".getTitle").text()}`);
+        targetText = $(event.currentTarget).children(".getTitle").text();
+        for (let i = 0; i < result.length; i++) {
+          if (result[i]["title"] === targetText) {
+            player.playVideoAt(i);
+            return;
+          }
+        }
+      });
+
+      let getTCount = 1;
+      $(".getT").click(function () {
+        // player.playVideoAt(2); // 인덱스번째 플레이리스트 재생
+        // li = player.getPlaylist();
+        // id = player.getVideoUrl(); // 전체 url반환해주는데 거기서 나눠서 고유꺼 알아내서 그거에맞게 바꿔주기
+        // console.log(id);
+        // console.log(li);
+        // rid = player.getVideoUrl().split("v=")[1];
+        // console.log(rid);
+        if (getTCount % 2 === 0) {
+          $("#no-mobile").css("display", "none");
+        } else {
+          if (getTCount === 1) {
+            addBtn();
+          }
+          $("#no-mobile").css("display", "flex");
+        }
+        getTCount += 1;
+      });
+
+      function cgimg() {
+        rid = player.getVideoUrl().split("v=")[1];
+        li = player.getPlaylist();
+        for (let i = 0; i < li.length; i++) {
+          if (rid === li[i]) {
+            $("#cdimg").attr("src", result[i]["img"]);
+          }
+        }
+      }
+
+      function addBtn() {
+        for (let i = 0; i < result.length; i++) {
+          let singer = result[i]["singer"];
+          let title = result[i]["title"];
+          let alink = result[i]["alink"];
+
+          let temp_html = `<button name="titleBtn"><span class="getTitle">${title}</span>, ${singer}</button>`;
+          $("#no-mobile").append(temp_html);
+        }
+      }
+
+      // 이미지1234
+      // https://yt3.ggpht.com/ytc/AKedOLRFkqTZlgrDTpppwnUE25WXjXbHxQartkOVH0ZbBA=s900-c-k-c0x00ffffff-no-rj
+      // "https://w.namu.la/s/d7de06a7e230e8f07fcbe55ab33f40dcbfdf4fd0fd6d4009038dff373e382c0353347208b05b22f84e9e26e65e7ee316e52b38274538881688b493b11c582f0bf944dda7712d2fcc56f1c46a2b19a971",
+      // "https://w.namu.la/s/3db13b3fdd97ce006e49fa8be1ee4ca464806aa4d559b44e72a4fdd43d7cddc7f23cb592ca44e4c38209e9964ec0d5df6186fb3705ff348f0105c467ca70a52991fc8e99e0722cbacea3f71d2baa367b",
+      // "https://w.namu.la/s/f426f6a5b2b0cdb4a35cecde572fe71c34dcfea8e936700482879f9f58d6a95d28c36d2e20500365661349e8ddeafa6d12fbfd2b086cdda7b01b5edf748cb32f1f77394e0809b16b72982182bc953759",
+
+      // let stringCount = 1;
+      // $(function () {
+      //   var pressed;
+      //   var start;
+      //   var startY;
+      //   var startWidth;
+      //   // var wrapper = $("div#wrapper");
+      //   // var container = $("table#container");
+      //   // var initialWidths = new Array();
+      //   // console.log($("table th").length);
+      //   $("#resizable").mousedown(function (e) {
+      //     //선택
+      //     start = $(this);
+      //     startY = e.pageY;
+      //     startWidth = $(this).height();
+      //     //   $(start).addClass("resizing");
+      //     pressed = true;
+      //     stringSound.play();
+      //     //   var index = $(this).index();
+      //     //   if (!initialWidths[index]) {
+      //     //     initialWidths[index] = startWidth;
+      //     //   }
+      //   });
+      //   //   .dblclick(function (e) {
+      //   //     var index = $(this).index();
+      //   //     if (initialWidths[index]) {
+      //   //       start.height(initialWidths[index]);
+      //   //     }
+      //   //   });
+
+      //   $(document).mousemove(function (e) {
+      //     //드래그
+      //     if (pressed) {
+      //       var newWidth = startWidth + (e.pageY - startY);
+      //       start.height(newWidth);
+      //       // wrapper.height(container.height() + 10);
+      //     }
+      //   });
+      //   const stringSound = new Audio();
+      //   stringSound.src =
+      //     "https://drive.google.com/uc?export=download&id=1-_NksOYSkKHm14kC_Gfk6jpRcVDb-boh";
+
+      //   $(document).mouseup(function () {
+      //     //놓음
+      //     if (pressed) {
+      //       $(start).removeClass("resizing");
+      //       start.height(startWidth);
+      //       pressed = false;
+      //       if (stringCount % 2 == 0) {
+      //         player.pauseVideo();
+      //       } else {
+      //         player.playVideo();
+      //       }
+      //       stringCount += 1;
+      //     }
+      //   });
+      // });
+
+      let stringCount = 1;
+      $(function () {
+        var pressed;
+        var start;
+        var startY;
+
+        $("#resizable").mousedown(function (e) {
+          //선택
+          start = $(this);
+          startY = e.pageY;
+          orignY = start.offset().top;
+          pressed = true;
+          stringSound.play();
+        });
+
+        $(document).mousemove(function (e) {
+          //드래그
+          if (pressed) {
+            start.offset({ top: orignY + (e.pageY - startY) });
+          }
+        });
+        const stringSound = new Audio();
+        stringSound.src =
+          "https://drive.google.com/uc?export=download&id=1-_NksOYSkKHm14kC_Gfk6jpRcVDb-boh";
+
+        $(document).mouseup(function () {
+          //놓음
+          if (pressed) {
+            $(start).removeClass("resizing");
+            start.offset({ top: orignY });
+            pressed = false;
+            if (stringCount % 2 == 0) {
+              player.pauseVideo();
+            } else {
+              player.playVideo();
+            }
+            stringCount += 1;
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

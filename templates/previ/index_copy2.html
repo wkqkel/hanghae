@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- <link
+      rel="stylesheet"
+      href="{{  url_for('static', filename='style.css')  }}"
+    /> -->
+    <link rel="stylesheet" href="../static/style.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <script
+      src="https://kit.fontawesome.com/0628ea1538.js"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        getDB();
+        var results = [];
+        var player;
+      });
+
+      function getDB() {
+        $.ajax({
+          type: "GET",
+          url: "/api/list",
+          // async: false,
+          data: {},
+          success: function (response) {
+            var result = response["songs_data"];
+
+            let alinks = [];
+            for (let i = 0; i < result.length; i++) {
+              alinks.push(result[i]["aLink"]);
+            }
+            var cb = () => {
+              player = new YT.Player("player", {
+                height: "350",
+                width: "350",
+                loadPlaylist: {
+                  listType: "playlist",
+                  list: [],
+                  index: parseInt(0),
+                  suggestedQuality: "small",
+                },
+                events: {
+                  onReady: onPlayerReady,
+                  // onStateChange: onPlayerStateChange,
+                },
+              });
+            };
+            window.onPlayerReady = function (event) {
+              event.target.loadPlaylist(alinks);
+              player.setLoop(true);
+            };
+            if (!window.YT) {
+              var tag = document.createElement("script");
+              tag.src = "https://www.youtube.com/iframe_api";
+              var firstScriptTag = document.getElementsByTagName("script")[0];
+              firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+              window.onYouTubePlayerAPIReady = cb;
+            } else {
+              window.onYouTubePlayerAPIReady = () => {};
+              cb();
+            }
+          },
+        });
+      }
+    </script>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <div id="header_title"></div>
+        <div id="player"></div>
+      </header>
+      <main>
+        <div id="left-control">
+          <div id="menu-btn"><i class="fas fa-bars"></i></div>
+        </div>
+        <div id="playerContainer">
+          <div id="player"></div>
+          <div id="cd-player">
+            <div id="cdOutHallLine2">
+              <div id="cdOutHallLine">
+                <div id="cdOutHall">
+                  <div id="cdImg"><div id="cdInHall"></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id="player-string"></div>
+        </div>
+        <ul id="right-control">
+          <li id="play-btn"><i class="fas fa-play"></i></li>
+          <li id="pause-btn"><i class="fas fa-pause"></i></li>
+          <li id="prvious-btn"><i class="fas fa-backward"></i></li>
+          <li id="next-btn"><i class="fas fa-forward"></i></li>
+        </ul>
+      </main>
+      <footer></footer>
+    </div>
+    <script>
+      const result = [
+        {
+          title: "title1",
+          singer: "singer1",
+          cdImg:
+            "https://i.ytimg.com/vi/mLCsbacHxA8/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLApBh0huJeaQb8ukg0_p3uEbLpVqg",
+          aLink: "VAQFKDfAy8E",
+        },
+        {
+          title: "title2",
+          singer: "singer2",
+          cdImg:
+            "https://w.namu.la/s/d7de06a7e230e8f07fcbe55ab33f40dcbfdf4fd0fd6d4009038dff373e382c0353347208b05b22f84e9e26e65e7ee316e52b38274538881688b493b11c582f0bf944dda7712d2fcc56f1c46a2b19a971",
+          aLink: "39lo6iQVFQM",
+        },
+        {
+          title: "title3",
+          singer: "singer3",
+          cdImg:
+            "https://w.namu.la/s/3db13b3fdd97ce006e49fa8be1ee4ca464806aa4d559b44e72a4fdd43d7cddc7f23cb592ca44e4c38209e9964ec0d5df6186fb3705ff348f0105c467ca70a52991fc8e99e0722cbacea3f71d2baa367b",
+          aLink: "3pqo0gLiMHQ",
+        },
+        {
+          title: "title4",
+          singer: "singer4",
+          cdImg:
+            "https://w.namu.la/s/f426f6a5b2b0cdb4a35cecde572fe71c34dcfea8e936700482879f9f58d6a95d28c36d2e20500365661349e8ddeafa6d12fbfd2b086cdda7b01b5edf748cb32f1f77394e0809b16b72982182bc953759",
+          aLink: "LKQ-18LoFQk",
+        },
+      ];
+    </script>
+  </body>
+</html>
