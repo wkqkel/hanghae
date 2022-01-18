@@ -20,9 +20,6 @@
    <br> https://youtu.be/ZQfQkKi0pJk
    <br>
 
-
-## 기술 스택
-
 <br>
 
 ## 기능 소개
