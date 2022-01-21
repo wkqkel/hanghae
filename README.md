@@ -28,8 +28,8 @@
 
 
 ----------------
-사전팀프로젝트를 진행하면서, 로컬db의 콜렉션을 mongo compass를 이용해 json파일로 export하고, 그걸 파일질라를 이용해 ec2에 넣고 import해서 서버배포할 수 있단 걸 알게됨.
-https://streamls.tistory.com/267   --- mongodb에서 json으로 export
-https://webisfree.com/2017-07-30/mongodb-%EC%99%B8%EB%B6%80%ED%8C%8C%EC%9D%BC-import-export-%EB%B0%A9%EB%B2%95 -- json파일을 ec2로 mongodb에 import
-https://www.jianshu.com/p/6fa450b356c8
-이러면 우분투에서 셀레니움을 실행시킬 필요가 없다.
+<br>사전팀프로젝트를 진행하면서, 로컬db의 콜렉션을 mongo compass를 이용해 json파일로 export하고, 그걸 파일질라를 이용해 ec2에 넣고 import해서 서버배포할 수 있단 걸 알게됨.
+<br>https://streamls.tistory.com/267   --- mongodb에서 json으로 export
+<br>https://webisfree.com/2017-07-30/mongodb-%EC%99%B8%EB%B6%80%ED%8C%8C%EC%9D%BC-import-export-%EB%B0%A9%EB%B2%95 -- json파일을 ec2로 mongodb에 import
+<br>https://www.jianshu.com/p/6fa450b356c8
+<br>이러면 우분투에서 셀레니움을 실행시킬 필요가 없다.
