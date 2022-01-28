@@ -4,7 +4,7 @@
 
 <br>
 
-#  ▶ folder
+#  ▶ folder_memo
 
 + 항해99 주특기 첫주차에 처음 배운 리액트를 이용하여 따로 CRUD 연습.
 
