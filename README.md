@@ -20,8 +20,7 @@
 ## 📺시연영상 링크
 
 - 시연영상 링크
-- 
-   <br>
+
    <br ><img width="80%" src="https://ifh.cc/g/F00TLm.gif"/>
 
 
