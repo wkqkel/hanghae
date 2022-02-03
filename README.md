@@ -14,11 +14,7 @@
 
 ## 📺시연영상
 
-- 시연영상 
-- 
-   <br ><img width="80%" src="https://imgbox.com/SubFWzXV"/>
 
-<br>
 
 ## 📺구현 사항
 <aside>
