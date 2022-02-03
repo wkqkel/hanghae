@@ -16,7 +16,7 @@
 
 - 시연영상 
 - 
-   <br ><img width="80%" src="https://ibb.co/SmPKDqX"/>
+   <br ><img width="80%" src="https://imgbox.com/SubFWzXV"/>
 
 <br>
 
