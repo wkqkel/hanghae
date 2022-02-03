@@ -18,4 +18,4 @@
 
 <br>시연영상링크
 <br>https://youtu.be/y4BrIKWkXY4
-<br ><img width="80%" src="https://ifh.cc/v/OdzLBm.mp4"/>
+
