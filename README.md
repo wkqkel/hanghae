@@ -14,7 +14,7 @@
 
 ## 📺시연영상
 
-
+https://wordnote-ff327.firebaseapp.com/
 
 ## 📺구현 사항
 <aside>
