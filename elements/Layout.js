@@ -24,7 +24,7 @@ const LayoutBox = styled.div`
       : props.layout === "textRight"
       ? "display:flex; flex-direction: row-reverse;"
       : ""}
-  ${(props) => (props.width ? `width:${props.width}px;` : "")}
+  ${(props) => (props.width ? `width:${props.width};` : "")}
   ${(props) =>
     props.margin ? `margin:${props.margin};` : "margin-bottom:35px"}
 `;

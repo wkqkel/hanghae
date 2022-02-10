@@ -90,7 +90,7 @@ const Postwrite = (props) => {
               name="layout"
               _onChange={changeRadio}
             />
-            <Layout margin="0px auto" width="550" layout="textLeft">
+            <Layout margin="0px auto" width="30%" layout="textLeft">
               <Preview contents={contents} preview={preview}></Preview>
             </Layout>
           </Grid>
@@ -102,7 +102,7 @@ const Postwrite = (props) => {
               name="layout"
               _onChange={changeRadio}
             />
-            <Layout margin="0px auto" width="550" layout="textRight">
+            <Layout margin="0px auto" width="30%" layout="textRight">
               <Preview contents={contents} preview={preview}></Preview>
             </Layout>
           </Grid>
@@ -115,7 +115,7 @@ const Postwrite = (props) => {
               _onChange={changeRadio}
               // checked={is_edit && _post.layout === "textTop" ? true : false}
             />
-            <Layout margin="0px auto" width="550">
+            <Layout margin="0px auto" width="30%">
               <Preview contents={contents} preview={preview}></Preview>
             </Layout>
           </Grid>

@@ -1,15 +1,15 @@
 import React from "react";
 import { Grid, Image, Text } from "../elements";
+import styled from "styled-components";
 
 const Preview = (props) => {
   const { preview, contents } = props;
   return (
     <>
-      <Grid>
+      <Container>
         <Text>{contents ? contents : "대충 텍스트자리"}</Text>
-      </Grid>
+      </Container>
       <Image
-        size="400"
         shape="rectangle"
         src={
           preview
@@ -20,6 +20,9 @@ const Preview = (props) => {
     </>
   );
 };
+const Container = styled.div`
+  word-break: break-all;
+`;
 
 Preview.defaultProps = {
   preview: null,
