@@ -1,5 +1,6 @@
 import React from "react"
 import { Button, Text, Grid, Input } from "../elements"
+import { history } from "../redux/configureStore"
 
 const Header = (props) => {
   return (
@@ -18,6 +19,22 @@ const Header = (props) => {
             </span>
             민<span style={{ fontSize: "24px" }}>족</span>
           </Text>
+        </Grid>
+        <Grid is_flex width="300px">
+          <Button
+            padding="10%"
+            text="로그인"
+            _onClick={() => {
+              history.push("/login")
+            }}
+          ></Button>
+          <Button
+            padding="10%"
+            text="회원가입"
+            _onClick={() => {
+              history.push("/signup")
+            }}
+          ></Button>
         </Grid>
       </Grid>
     </>

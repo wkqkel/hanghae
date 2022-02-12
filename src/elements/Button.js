@@ -25,7 +25,7 @@ const Button = (props) => {
   return (
     <>
       <ElButton {...styles} onClick={_onClick} disabled={disable}>
-        {children}
+        {text ? text : children}
       </ElButton>
     </>
   )
@@ -39,6 +39,7 @@ Button.defaultProps = {
   padding: "12px 0px",
   disable: false,
   color: "#fff",
+  bg: "212121",
 }
 
 const ElButton = styled.button`
