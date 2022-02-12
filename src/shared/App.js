@@ -7,10 +7,12 @@ import Login from "../pages/Login"
 import Signup from "../pages/Signup"
 import PostWrite from "../pages/PostWrite"
 import PostDetail from "../pages/PostDetail"
+import Header from "../components/Header"
 
 function App() {
   return (
     <React.Fragment>
+      <Header></Header>
       <BrowserRouter>
         <Route path="/" exact component={Main} />
         <Route path="/login" exact component={Login} />

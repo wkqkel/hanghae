@@ -12,9 +12,11 @@ const Grid = (props) => {
     _onClick,
     height,
     left,
+    borderBottom,
+    is_flex_start,
   } = props
 
-  const styles = { is_flex, width, height, padding, margin, bg }
+  const styles = { is_flex, width, height, padding, margin, bg, borderBottom }
 
   return (
     <>
@@ -33,6 +35,7 @@ Grid.defaultProps = {
   padding: false,
   margin: false,
   bg: false,
+  borderBottom: false,
 }
 const GridBox = styled.div`
   box-sizing: border-box;
@@ -45,5 +48,7 @@ const GridBox = styled.div`
     props.is_flex
       ? `display: flex; align-items: center; justify-content: space-between; `
       : ""}
+      ${(props) =>
+    props.borderBottom ? `border-bottom: ${props.borderBottom};` : ""}
 `
 export default Grid
