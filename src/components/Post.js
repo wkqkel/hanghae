@@ -13,15 +13,28 @@ const Post = (props) => {
             <BubbleText>D-12</BubbleText>
           </SpeechBubble>
         </DdayContainer>
-        <p style={{ fontWeight: 700, fontSize: "24px" }}>
-          운동갈 사람 구합니다!!!!
-        </p>
-        <Text>매주 수요일 저녁 6시에 운동할 사람 모집해요.</Text>
-        <TagBox>
-          <Text>#모임장: 테스트</Text>
-          <Text>#모집인원 1/10</Text>
-          <Text>#운동</Text>
-        </TagBox>
+        <TextContainer>
+          <p
+            style={{
+              fontWeight: 700,
+              fontSize: "24px",
+              margin: "20px 0px 10px 0",
+            }}
+          >
+            운동갈 사람 구합니다!!!!
+          </p>
+          <Text size="18" color="#989898">
+            매주 수요일 저녁 6시에 운동할 사람 모집해요.
+          </Text>
+          <TagBox>
+            <Text size="18" weight="500" margin="0 5px" color="#4f4f4f">
+              #모집인원 1/10
+            </Text>
+            <Text size="18" weight="500" margin="0 5px" color="#4f4f4f">
+              #운동
+            </Text>
+          </TagBox>
+        </TextContainer>
       </PostBox>
     </>
   )
@@ -33,9 +46,9 @@ const PostBox = styled.div`
   box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25),
     3px 3px 10px 0 rgba(0, 0, 0, 0.25);
   background-color: #fff;
-  margin: 10px;
+  margin: 14px;
   border-radius: 34px;
-  padding: 20px;
+  padding: 25px 36px;
   @media only screen and (max-width: 768px) {
     min-width: 330px;
   }
@@ -43,6 +56,10 @@ const PostBox = styled.div`
 `
 const DdayContainer = styled.div`
   display: flex;
+`
+
+const TextContainer = styled.div`
+  padding: 0px 0px 0px 8px;
 `
 const SpeechBubble = styled.div`
   display: flex;
@@ -59,6 +76,6 @@ const BubbleText = styled.div`
 const TagBox = styled.div`
   display: flex;
   position: absolute;
-  bottom: 20px;
+  bottom: 35px;
 `
 export default Post

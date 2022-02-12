@@ -15,13 +15,6 @@ const Header = (props) => {
             모<span style={{ fontSize: "24px" }}>임</span>
             <span style={{ fontSize: "23px" }}>
               의<br></br>
-              <hr
-                style={{
-                  height: 0.5,
-                  borderColor: "#000000",
-                  width: "75px",
-                }}
-              />
             </span>
             민<span style={{ fontSize: "24px" }}>족</span>
           </Text>
