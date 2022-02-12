@@ -14,7 +14,8 @@ const Grid = (props) => {
     left,
     borderBottom,
     is_flex_start,
-    justifyCenter,
+    justifyContent,
+    borderRadius,
   } = props
 
   const styles = {
@@ -25,7 +26,8 @@ const Grid = (props) => {
     margin,
     bg,
     borderBottom,
-    justifyCenter,
+    justifyContent,
+    borderRadius,
   }
 
   return (
@@ -46,7 +48,8 @@ Grid.defaultProps = {
   margin: false,
   bg: false,
   borderBottom: false,
-  justifyCenter: false,
+  justifyContent: false,
+  borderRadius: false,
 }
 
 const GridBox = styled.div`
@@ -62,6 +65,7 @@ const GridBox = styled.div`
       : ""}
   ${(props) =>
     props.borderBottom ? `border-bottom: ${props.borderBottom};` : ""}
-  ${(props) => (props.justifyCenter ? `justify-content: center` : "")}
+  ${(props) => (props.justifyContent ? `justify-content: center` : "")}
+  ${(props) => (props.borderRadius ? `border-radius: 10px` : "")}
 `
 export default Grid

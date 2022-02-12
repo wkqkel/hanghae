@@ -1,6 +1,6 @@
 import React from "react"
 import styled from "styled-components"
-import { Button, Text, Grid, Input } from "../elements"
+import { Button, Text, Grid } from "../elements"
 import { history } from "../redux/configureStore"
 
 const Header = (props) => {
