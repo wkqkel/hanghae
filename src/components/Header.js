@@ -33,22 +33,6 @@ const Header = (props) => {
             </Button>
           </Grid>
         </Grid>
-        <Grid is_flex width="300px">
-          <Button
-            padding="10%"
-            text="로그인"
-            _onClick={() => {
-              history.push("/login")
-            }}
-          ></Button>
-          <Button
-            padding="10%"
-            text="회원가입"
-            _onClick={() => {
-              history.push("/signup")
-            }}
-          ></Button>
-        </Grid>
       </Grid>
     </>
   )

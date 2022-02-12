@@ -1,6 +1,6 @@
 import React from "react"
 import { Button, Text, Grid, Input } from "../elements"
-import styled from "styled-components"
+import styled, { keyframes } from "styled-components"
 
 const Post = (props) => {
   return (
@@ -39,6 +39,14 @@ const Post = (props) => {
     </>
   )
 }
+const slideUp = keyframes`
+  from {
+    transform: translateY(200px);
+  }
+  to {
+    transform: translateY(0px);
+  }
+`
 
 const PostBox = styled.div`
   width: 420px;
@@ -53,6 +61,13 @@ const PostBox = styled.div`
     min-width: 330px;
   }
   position: relative;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.5),
+      3px 3px 10px 0 rgba(0, 0, 0, 0.25);
+    transition: transform 0.6s, translateY 0s linear;
+  }
 `
 const DdayContainer = styled.div`
   display: flex;
@@ -73,7 +88,7 @@ const BubbleText = styled.div`
   left: 21px;
   color: #fff;
 `
-const TagBox = styled.div`
+const TagBox = styled.div`  overflow-x: hidden;
   display: flex;
   position: absolute;
   bottom: 35px;
