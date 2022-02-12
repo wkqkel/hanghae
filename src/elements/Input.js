@@ -21,6 +21,7 @@ const Input = (props) => {
   const styles = {
     width,
   }
+
   return (
     <>
       {label && <Text margin="0px">{label}</Text>}
