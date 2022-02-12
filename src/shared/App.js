@@ -15,8 +15,8 @@ function App() {
       <Header></Header>
       <BrowserRouter>
         <Route path="/" exact component={Main} />
-        <Route path="/login" exact component={Login} />
-        <Route path="/signup" exact component={Signup} />
+        <Route path="/login" component={Login} />
+        <Route path="/signup" component={Signup} />
         <Route path="/write" exact component={PostWrite}></Route>
         <Route path="/write/:id" exact component={PostWrite}></Route>
         <Route path="/post/:id" exact component={PostDetail}></Route>
