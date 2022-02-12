@@ -12,6 +12,7 @@ const Button = (props) => {
     disable,
     bg,
     color,
+    cursor,
   } = props
 
   const styles = {
@@ -20,6 +21,7 @@ const Button = (props) => {
     padding,
     color,
     bg,
+    cursor,
   }
 
   return (
@@ -39,16 +41,20 @@ Button.defaultProps = {
   padding: "12px 0px",
   disable: false,
   color: "#fff",
+  width: "100%",
+  cursor: "pointer",
 }
 
 const ElButton = styled.button`
   box-sizing: border-box;
   border: none;
+  border-radius: 5px;
   width: ${(props) => props.width};
-  background-color: ${(props) => (props.disabled ? "#808080;" : "#212121;")};
+  background-color: ${(props) => (props.disabled ? "#3CD3AD;" : "#212121;")};
   color: ${(props) => props.color};
   padding: ${(props) => props.padding};
   ${(props) => (props.margin ? `margin:${props.margin};` : "")};
+  cursor: ${(props) => props.cursor};
 `
 
 export default Button

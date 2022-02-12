@@ -42,7 +42,7 @@ const Input = (props) => {
 
 Input.defaultProps = {
   multiLine: false,
-  label: "텍스트",
+  label: false,
   placeholder: "텍스트를 입력해주세요.",
   type: "text",
   width: "100%",
@@ -54,5 +54,7 @@ const ElInput = styled.input`
   width: ${(props) => props.width};
   padding: 12px 4px;
   box-sizing: border-box;
+  border: 2px solid #3cd3ad;
+  border-radius: 5px;
 `
 export default Input
