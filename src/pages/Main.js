@@ -14,6 +14,18 @@ const Main = (props) => {
           <Post></Post>
           <Post></Post>
           <Post></Post>
+          <Post></Post>
+          <Post></Post>
+          <Post></Post>
+          <Post></Post>
+          <Post></Post>
+          <Post></Post>
+          <Post></Post>
+          <Post></Post>
+          <Post></Post>
+          <Post></Post>
+          <Post></Post>
+          <Post></Post>
         </Post_container>
       </Container>
     </>
@@ -25,7 +37,9 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   margin: 0;
-  padding: 0% 10%;
+  padding: 1% 10%;
+  position: relative;
+  overflow-x: hidden;
 `
 const Post_container = styled.div`
   display: flex;
@@ -36,4 +50,5 @@ const Post_container = styled.div`
     justify-content: center;
   }
 `
+
 export default Main

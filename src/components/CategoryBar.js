@@ -17,7 +17,7 @@ const CategoryBar = () => {
   return (
     <CategoryBox>
       {categoryList.map((e, i) => (
-        <categoryCircle>{e}</categoryCircle>
+        <CategoryCircle key={i}>{e}</CategoryCircle>
       ))}
     </CategoryBox>
   )
@@ -25,19 +25,19 @@ const CategoryBar = () => {
 
 const CategoryBox = styled.div`
   height: 10vh;
-  width: 100%;
+  max-width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  * {
-    margin: 20px;
-    font-size: 18px;
-    padding: 5px 15px;
-    color: #000;
-    border-radius: 30px;
-    background-color: #fef28a;
-  }
-  margin-bottom: 30px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
 `
-const categoryCircle = styled.div``
+const CategoryCircle = styled.p`
+  margin: 10px;
+  font-size: 17px;
+  padding: 5px 15px;
+  color: #000;
+  border-radius: 30px;
+  background-color: #fef28a;
+`
 export default CategoryBar
