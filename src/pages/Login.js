@@ -20,15 +20,17 @@ const Login = (props) => {
   }
   return (
     <React.Fragment>
-      <Grid padding="16px" is_flex width="50vw" justifyContent>
+      <Grid padding="5% 20%" is_flex width="auto">
         <Grid>
-          <img src="https://cdn.dribbble.com/users/5437855/screenshots/13680952/media/2b6fe41e707600359166a8f1793ea504.jpg?compress=1&resize=400x300" />
+          <img
+            src="https://cdn.dribbble.com/users/5437855/screenshots/13680952/media/2b6fe41e707600359166a8f1793ea504.jpg?compress=1&resize=400x300"
+            width="80%"
+          />
         </Grid>
-        <Grid>
+        <Grid justifyCenter>
           <Text size="32px" bold>
             로그인
           </Text>
-
           <Grid padding="16px 0px">
             <Input
               label="아이디"
@@ -58,6 +60,12 @@ const Login = (props) => {
             }}
             disable={id === "" || pwd === "" ? true : false}
           ></Button>
+          <Grid is_flex justifyCenter>
+            <Text>
+              계정이 없으신가요?
+              <a href={"/signup"}>가입하기</a>
+            </Text>
+          </Grid>
         </Grid>
       </Grid>
     </React.Fragment>

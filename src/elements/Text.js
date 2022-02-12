@@ -2,8 +2,17 @@ import React, { Children } from "react"
 import styled from "styled-components"
 
 const Text = (props) => {
-  const { bold, color, size, children, margin, padding, weight, is_break } =
-    props
+  const {
+    bold,
+    color,
+    size,
+    children,
+    margin,
+    padding,
+    weight,
+    is_break,
+    alignCenter,
+  } = props
 
   const styles = {
     color,
@@ -13,6 +22,7 @@ const Text = (props) => {
     padding,
     weight,
     is_break,
+    alignCenter,
   }
   return (
     <>
@@ -30,6 +40,7 @@ Text.defaultProps = {
   padding: false,
   weight: false,
   is_break: false,
+  alignCenter: false,
 }
 
 const P = styled.p`
@@ -40,6 +51,7 @@ const P = styled.p`
   ${(props) => (props.margin ? `margin: ${props.margin};` : "")}
   ${(props) => (props.padding ? `padding: ${props.padding};` : "")}
   ${(props) => (props.is_break ? `word-break: break-all;` : "")}
+  ${(props) => (props.alignCenter ? `align: center;` : "")}
 `
 
 export default Text
