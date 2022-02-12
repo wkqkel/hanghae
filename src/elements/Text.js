@@ -2,7 +2,7 @@ import React, { Children } from "react"
 import styled from "styled-components"
 
 const Text = (props) => {
-  const { bold, color, size, children, margin, padding } = props
+  const { bold, color, size, children, margin, padding, weight } = props
 
   const styles = {
     color,
@@ -10,6 +10,7 @@ const Text = (props) => {
     bold,
     margin,
     padding,
+    weight,
   }
   return (
     <>
@@ -25,12 +26,14 @@ Text.defaultProps = {
   size: "14px",
   margin: false,
   padding: false,
+  weight: false,
 }
 
 const P = styled.p`
   color: ${(props) => props.color};
   font-size: ${(props) => props.size};
-  font-weight: ${(props) => (props.bold ? "600" : "400")};
+  font-weight: ${(props) =>
+    props.bold ? "600" : props.weight ? props.weight : "400"};
   ${(props) => (props.margin ? `margin: ${props.margin};` : "")}
   ${(props) => (props.padding ? `padding: ${props.padding};` : "")}
 `
