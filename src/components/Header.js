@@ -1,6 +1,6 @@
 import React from "react"
 import styled from "styled-components"
-import { Button, Text, Grid, Input } from "../elements"
+import { Button, Text, Grid } from "../elements"
 import { history } from "../redux/configureStore"
 
 const Header = (props) => {
@@ -25,29 +25,26 @@ const Header = (props) => {
             </TitleBox>
           </Grid>
           <Grid is_flex width="auto" padding="0px 10%">
-            <Button disable margin="10px" width="100px">
+            <Button
+              disable
+              margin="10px"
+              width="100px"
+              _onClick={() => {
+                history.push("/login")
+              }}
+            >
               로그인
             </Button>
-            <Button disable width="100px">
-              로그아웃
+            <Button
+              disable
+              width="100px"
+              _onClick={() => {
+                history.push("/signup")
+              }}
+            >
+              회원가입
             </Button>
           </Grid>
-        </Grid>
-        <Grid is_flex width="300px">
-          <Button
-            padding="10%"
-            text="로그인"
-            _onClick={() => {
-              history.push("/login")
-            }}
-          ></Button>
-          <Button
-            padding="10%"
-            text="회원가입"
-            _onClick={() => {
-              history.push("/signup")
-            }}
-          ></Button>
         </Grid>
       </Grid>
     </>

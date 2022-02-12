@@ -51,7 +51,7 @@ const ElButton = styled.button`
   border: none;
   border-radius: 5px;
   width: ${(props) => props.width};
-  background-color: ${(props) => (props.disabled ? "#3CD3AD;" : "#212121;")};
+  background-color: ${(props) => (props.disabled ? "#333434;" : "#8b8b8b;")};
   color: ${(props) => props.color};
   padding: ${(props) => props.padding};
   ${(props) => (props.margin ? `margin:${props.margin};` : "")};

@@ -1,14 +1,12 @@
 import React from "react"
 import { Button, Grid, Input, Text } from "../elements"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faPen, faTrashCan } from "@fortawesome/free-solid-svg-icons"
 
 const CommentList = (props) => {
   return (
     <React.Fragment>
       <Grid padding="16px">
-        <CommentItem />
-        <CommentItem />
-        <CommentItem />
-        <CommentItem />
         <CommentItem />
         <CommentItem />
       </Grid>
@@ -24,18 +22,16 @@ const CommentItem = (props) => {
     <React.Fragment>
       <Grid is_flex margin="10px 0px">
         <Grid is_flex width="auto">
-          <Text bold>{user_name}</Text>
+          <Text margin="0px 10px" bold>
+            {user_name}
+          </Text>
         </Grid>
         <Grid is_flex margin="0px 5px">
           <Text is_break>{comment}</Text>
         </Grid>
         <Grid is_flex width="auto">
-          <Button disable width="60px" margin="0px 10px">
-            수정
-          </Button>
-          <Button disable width="60px">
-            삭제
-          </Button>
+          <FontAwesomeIcon icon={faPen} />
+          <FontAwesomeIcon icon={faTrashCan} style={{ margin: "0px 10px" }} />
         </Grid>
       </Grid>
     </React.Fragment>

@@ -2,17 +2,78 @@ import React from "react"
 
 import CommentWrite from "../components/CommentWrite"
 import CommentList from "../components/CommentList"
-import { Grid } from "../elements"
+import { Grid, Text, Button } from "../elements"
 import styled from "styled-components"
 
 const PostDetail = (props) => {
+  const {
+    postId,
+    userId,
+    title,
+    userName,
+    contents,
+    createDate,
+    deadLine,
+    maxMembers,
+    curMembers,
+    category,
+  } = props
   return (
     <Container>
-      <Grid></Grid>
-      <CommentWrite />
-      <CommentList />
+      <Grid margin="30px 0px">
+        <Grid is_flex>
+          <Category>{category}</Category>
+          <Title>{title}</Title>
+        </Grid>
+        <Grid is_flex padding="10px">
+          <Text bold>{userName}</Text>
+          <Text bold>{createDate}</Text>
+        </Grid>
+        <Contents>{contents}</Contents>
+        <Grid is_flex>
+          <Grid width="auto" padding="10px">
+            <Grid padding="10px" width="110px">
+              <Text>{deadLine}</Text>
+            </Grid>
+          </Grid>
+          <Grid is_flex margin="0px 5px">
+            <Text>
+              {curMembers} / {maxMembers}
+            </Text>
+            <Button disable width="100px">
+              참여하기
+            </Button>
+          </Grid>
+        </Grid>
+        <Grid is_flex width="auto">
+          {/* <Button disable width="60px" margin="0px 10px">
+              수정
+            </Button>
+            <Button disable width="60px">
+              삭제
+            </Button> */}
+        </Grid>
+      </Grid>
+      <Grid bg="#E8F3F1" borderRadius>
+        <CommentWrite />
+        <CommentList />
+      </Grid>
+      <Hr />
     </Container>
   )
+}
+
+PostDetail.defaultProps = {
+  postId: "1",
+  userId: "",
+  title: "제목11",
+  userName: "모미니",
+  contents: "같이 스터디 하실분을 구합니다!!!",
+  createDate: "2022-02-12",
+  deadLine: "2022-02-28",
+  maxMembers: 6,
+  curMembers: 1,
+  category: "스터디",
 }
 
 const Container = styled.div`
@@ -27,4 +88,37 @@ const Container = styled.div`
     padding: 0% 3%;
   }
 `
+
+const Category = styled.div`
+  box-sizing: border-box;
+  border-radius: 10px;
+  background-color: #9dcabf;
+  color: white;
+  padding: 16px 10px;
+  width: 20%;
+  text-align: center;
+  margin-right: 3px;
+`
+
+const Title = styled.div`
+  box-sizing: border-box;
+  border-radius: 10px;
+  border: 2px solid #9dcabf;
+  width: 80%;
+  padding: 15px;
+`
+
+const Contents = styled.div`
+  box-sizing: border-box;
+  border-radius: 10px;
+  border: 2px solid #9dcabf;
+  width: 100%;
+  padding: 15px;
+  height: 30vh;
+`
+
+const Hr = styled.hr`
+  border-bottom: 2px;
+`
+
 export default PostDetail
