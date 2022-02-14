@@ -1,12 +1,52 @@
-import React from "react"
+import React, { useState } from "react"
+import { useDispatch } from "react-redux"
 import { Grid, Text, Input, Button } from "../elements"
 import { history } from "../redux/configureStore"
 
+import { actionCreators } from "../redux/modules/user"
+
 const Signup = (props) => {
-  const [id, setId] = React.useState("")
-  const [pwd, setPwd] = React.useState("")
-  const [pwd_check, setPwdCheck] = React.useState("")
-  const [user_name, setUserName] = React.useState("")
+  const dispatch = useDispatch()
+
+  //email
+  const [user_email, setEmail] = useState("")
+  const [err_email, setErrEmail] = useState("")
+  const changeEmail = (e) => {
+    setEmail(e.target.value)
+  }
+
+  //nickname
+  const [user_nickname, setNickname] = useState("")
+  const [err_nickname, setErrNickname] = useState("")
+  const changeNickname = (e) => {
+    setNickname(e.target.value)
+  }
+
+  //password
+  const [user_pwd, setPwd] = useState("")
+  const [err_pwd, setErrPwd] = useState("")
+  const changePwd = (e) => {
+    setPwd(e.target.value)
+  }
+
+  //password Check
+  const [user_pwdcheck, setPwdcheck] = useState("")
+  const [err_pwdcheck, setErrPwdcheck] = useState("")
+  const changePwdcheck = (e) => {
+    setPwdcheck(e.target.value)
+  }
+
+  //email insert
+  const signup = () => {
+    dispatch(
+      actionCreators.signUpDB(
+        user_email,
+        user_nickname,
+        user_pwd,
+        user_pwdcheck
+      )
+    )
+  }
 
   return (
     <React.Fragment>
@@ -23,29 +63,46 @@ const Signup = (props) => {
           </Text>
 
           <Grid padding="16px 0px">
-            <Input label="아이디" placeholder="아이디를 입력해주세요." />
+            <Input
+              label="이메일"
+              placeholder="이메일을 입력해주세요."
+              _onChange={changeEmail}
+            />
           </Grid>
 
           <Grid padding="16px 0px">
-            <Input label="닉네임" placeholder="닉네임을 입력해주세요." />
+            <Input
+              label="닉네임"
+              placeholder="닉네임을 입력해주세요."
+              _onChange={changeNickname}
+            />
           </Grid>
 
           <Grid padding="16px 0px">
-            <Input label="비밀번호" placeholder="비밀번호를 입력해주세요." />
+            <Input
+              label="비밀번호"
+              placeholder="비밀번호를 입력해주세요."
+              _onChange={changePwd}
+            />
           </Grid>
 
           <Grid padding="16px 0px">
             <Input
               label="비밀번호 확인"
               placeholder="비밀번호를 다시 입력해주세요."
+              _onChange={changePwdcheck}
             />
           </Grid>
 
           <Button
+            margin="10px 0px"
             padding="16px 0px"
             disable={
-              id === "" || pwd === "" || pwd !== pwd_check ? true : false
+              user_email === "" || user_pwd === "" || user_pwd !== user_pwdcheck
+                ? true
+                : false
             }
+            _onClick={signup}
           >
             회원가입
           </Button>
