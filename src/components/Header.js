@@ -14,6 +14,7 @@ const Header = (props) => {
   const logout = () => {
     localStorage.removeItem("token")
     localStorage.removeItem("userId")
+    localStorage.removeItem("userName")
     window.location.href = "/"
   }
   if (is_session) {
