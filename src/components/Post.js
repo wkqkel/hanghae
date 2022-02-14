@@ -41,9 +41,9 @@ const Post = (props) => {
       <PostBox
         onClick={() => {
           // 포스트디테일 페이지로 가기
-          // history.push(`/post/${postId}`)
+          history.push(`/post/${postId}`)
           // 포스트수정 페이지로 가기
-          history.push(`/write/${postId}`)
+          // history.push(`/write/${postId}`)
           // dispatch(postActions.deletePostDB(postId))
         }}
       >

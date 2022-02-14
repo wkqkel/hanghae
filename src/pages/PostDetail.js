@@ -5,7 +5,11 @@ import CommentList from "../components/CommentList"
 import { Grid, Text, Button } from "../elements"
 import styled from "styled-components"
 
+import { useSelector, useDispatch } from "react-redux"
+
 const PostDetail = (props) => {
+  const dispatch = useDispatch()
+
   const {
     postId,
     userId,
@@ -19,27 +23,36 @@ const PostDetail = (props) => {
     category,
   } = props
 
+  const id = props.match.params.id
+  console.log(id)
+
+  const post_list = useSelector((store) => store.post.list)
+  const post = post_list.find((p) => p.postId === id)
+  console.log(post)
+
+  React.useEffect(() => {})
+
   return (
     <Container>
       <Grid margin="30px 0px">
         <Grid is_flex>
-          <Category>{category}</Category>
+          <Category>{post.category}</Category>
           <Title>{title}</Title>
         </Grid>
         <Grid is_flex padding="10px">
-          <Text bold>{userName}</Text>
-          <Text bold>{createDate}</Text>
+          <Text bold>{post.userName}</Text>
+          <Text bold>{post.createDate}</Text>
         </Grid>
-        <Contents>{contents}</Contents>
+        <Contents>{post.contents}</Contents>
         <Grid is_flex>
           <Grid width="auto" padding="10px">
             <Grid padding="10px" width="110px">
-              <Text>{deadLine}</Text>
+              <Text>{post.deadLine}</Text>
             </Grid>
           </Grid>
           <Grid is_flex margin="0px 5px">
             <Text>
-              {curMembers} / {maxMembers}
+              {post.curMembers} / {post.maxMembers}
             </Text>
             <Button disable width="100px">
               참여하기
@@ -56,8 +69,8 @@ const PostDetail = (props) => {
         </Grid>
       </Grid>
       <Grid bg="#E8F3F1" borderRadius>
-        <CommentWrite />
-        <CommentList />
+        <CommentWrite postId={id} />
+        <CommentList postId={id} />
       </Grid>
       <Hr />
     </Container>

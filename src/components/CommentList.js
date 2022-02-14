@@ -3,31 +3,54 @@ import { Button, Grid, Input, Text } from "../elements"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faPen, faTrashCan } from "@fortawesome/free-solid-svg-icons"
 
+import { useDispatch, useSelector } from "react-redux"
+import { actionCreators as commentsActions } from "../redux/modules/comments"
+
 const CommentList = (props) => {
+  const dispatch = useDispatch()
+  const comment_list = useSelector((state) => state.comments.list)
+
+  const { postId } = props
+  console.log(postId)
+
+  React.useEffect(() => {
+    if (!comment_list[postId]) {
+      dispatch(commentsActions.getCommentFB(postId))
+    }
+  }, [])
+
+  if (!comment_list[postId]) {
+    return null
+  }
   return (
     <React.Fragment>
       <Grid padding="16px">
-        <CommentItem />
-        <CommentItem />
+        {comment_list[postId].map((c) => {
+          return <CommentItem key={c.id} {...c} />
+        })}
       </Grid>
     </React.Fragment>
   )
 }
 
+CommentList.defaultProps = {
+  postId: null,
+}
+
 export default CommentList
 
 const CommentItem = (props) => {
-  const { user_profile, user_name, user_id, post_id, comment } = props
+  const { userName, userId, postId, content } = props
   return (
     <React.Fragment>
       <Grid is_flex margin="10px 0px">
         <Grid is_flex width="auto">
           <Text margin="0px 10px" bold>
-            {user_name}
+            {userName}
           </Text>
         </Grid>
         <Grid is_flex margin="0px 5px">
-          <Text is_break>{comment}</Text>
+          <Text is_break>{content}</Text>
         </Grid>
         <Grid is_flex width="auto">
           <FontAwesomeIcon icon={faPen} />
@@ -39,9 +62,8 @@ const CommentItem = (props) => {
 }
 
 CommentItem.defaultProps = {
-  user_profile: "",
-  user_name: "test1",
-  user_id: "",
-  post_id: 1,
-  comment: "내용을 입력해보까여?",
+  userName: "test1",
+  userId: "",
+  postId: 1,
+  content: "내용을 입력해보까여?",
 }
