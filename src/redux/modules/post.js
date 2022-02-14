@@ -1,6 +1,7 @@
 import { createAction, handleActions } from "redux-actions"
 import { produce } from "immer"
 import instance from "../../shared/Request"
+
 // import axios from "axios"
 const GET_POST = "SET_POST"
 const ADD_POST = "ADD_POST"
@@ -64,7 +65,7 @@ const getOnePostDB = (postId) => {
       })
   }
 }
-
+//게시물 작성
 const addPostDB = (post) => {
   return function (dispatch, getState, { history }) {
     instance
@@ -79,10 +80,12 @@ const addPostDB = (post) => {
       })
   }
 }
+
+//게시물 수정
 const editPostDB = (post, postId) => {
   return function (dispatch, getState, { history }) {
     instance
-      .patch(`/modify/${postId}`, post)
+      .patch(`/post/modify/${postId}`, post)
       .then((response) => {
         window.alert("수정이 완료되었습니다")
         history.replace("/")
@@ -94,10 +97,11 @@ const editPostDB = (post, postId) => {
   }
 }
 
+//게시물 삭제
 const deletePostDB = (postId) => {
   return function (dispatch, getState, { history }) {
     instance
-      .delete(`/delete/${postId}`)
+      .delete(`/post/delete/${postId}`)
       // axios
       //   .delete(`http://13.125.190.53/delete/${postId}`)
       .then((response) => {
@@ -114,12 +118,12 @@ export default handleActions(
   {
     [GET_POST]: (state, action) =>
       produce(state, (draft) => {
-        draft.list = action.payload.postList
+        draft.list = action.payload.postList.reverse()
         draft.checkLoadAll = action.payload.checkLoadAll
       }),
     [ADD_POST]: (state, action) =>
       produce(state, (draft) => {
-        draft.list.push(action.payload.post)
+        draft.list.unshift(action.payload.post)
       }),
     [EDIT_POST]: (state, action) => {
       produce(state, (draft) => {})

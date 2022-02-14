@@ -67,14 +67,13 @@ const Footer = styled.div`
   align-items: center;
 `
 const WriteBtn = styled.div`
-.
   width: 0px;
   height: 0px;
   border-top: 110px solid transparent;
   border-right: 140px solid #2ac1bc;
   position: fixed;
-  bottom:0;
-  right:0
+  bottom: 0;
+  right: 0;
 `
 const WriteText = styled.div`
   position: fixed;

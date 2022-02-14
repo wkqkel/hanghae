@@ -1,22 +1,53 @@
-import React from "react"
+import React, { useState } from "react"
 import { Button, Grid, Input, Text } from "../elements"
 import { setCookie } from "../shared/Cookie"
+import styled from "styled-components"
+
+import { useDispatch } from "react-redux"
+import { actionCreators as userActions } from "../redux/modules/user"
+import { TokenToCookie } from "../shared/Cookie"
+import instance from "../shared/Request"
 
 const Login = (props) => {
-  const [id, setId] = React.useState("")
-  const [pwd, setPwd] = React.useState("")
+  const dispatch = useDispatch()
+
+  const [user_email, setUser_email] = useState()
+  const [user_pwd, setUser_pwd] = useState()
+  const [err_login, setErr_login] = useState("")
 
   const changeId = (e) => {
-    setId(e.target.value)
+    setUser_email(e.target.value)
   }
 
   const changePwd = (e) => {
-    setPwd(e.target.value)
+    setUser_pwd(e.target.value)
   }
 
   const login = () => {
-    setCookie("user_id", id, 3)
-    setCookie("user_pwd", pwd, 3)
+    console.log("로그인 하러 들어왔어")
+    console.log(typeof user_email, typeof user_pwd)
+    instance
+      .post("/user/login", {
+        userId: user_email,
+        password: user_pwd,
+      })
+      .then((response) => {
+        console.log("로그인 완료")
+        console.log(response)
+        const accessToken = response.data.token
+        TokenToCookie(accessToken)
+        // setCookie("token", accessToken)
+        // localStorage.setItem("userId", response.data.user.userId)
+        // localStorage.setItem("userName", response.data.user.userName)
+
+        localStorage.setItem("token", accessToken)
+        window.location.href = "/"
+      })
+      .catch((error) => {
+        setErr_login("이메일 혹은 비밀번호가 잘못 입력되었습니다")
+        console.log(error)
+      })
+    console.log("여기까지 나오나?")
   }
   return (
     <React.Fragment>
@@ -35,30 +66,24 @@ const Login = (props) => {
             <Input
               label="아이디"
               placeholder="아이디를 입력해주세요."
-              _onChange={(e) => {
-                setId(e.target.value)
-              }}
+              _onChange={changeId}
             />
           </Grid>
 
           <Grid padding="16px 0px">
             <Input
               label="패스워드"
-              placeholder="패스워드 입력해주세요."
+              placeholder="영문(대소문자) + 최소 1개의 숫자 혹은 특수 문자 8~20자"
               type="password"
-              _onChange={(e) => {
-                setPwd(e.target.value)
-              }}
+              _onChange={changePwd}
             />
           </Grid>
 
           <Button
             text="로그인하기"
-            _onClick={() => {
-              console.log("로그인 했어!")
-              login()
-            }}
-            disable={id === "" || pwd === "" ? true : false}
+            margin="10px 0px"
+            _onClick={login}
+            disable={user_email === "" || user_pwd === "" ? true : false}
           ></Button>
           <Grid is_flex justifyCenter>
             <Text>
@@ -72,4 +97,10 @@ const Login = (props) => {
   )
 }
 
+// const Image = styled.img`
+//   width: 80%;
+//   @media only screen {
+//     display: none;
+//   }
+// `
 export default Login
