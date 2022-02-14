@@ -43,11 +43,14 @@ const PostWrite = (props) => {
     }
   }, [])
 
-  // edit일때는 기존 인풋값 넣어줌
-
-  // 오늘 날짜 YYYY-MM--DD형식으로 추출
+  // 오늘 날짜 YYYY-MM-DD형식으로 추출
   const offset = new Date().getTimezoneOffset() * 60000
   let todayDate = new Date(Date.now() - offset).toISOString().split("T")[0]
+
+  // 오늘 날짜+999일 YYYY-MM-DD형식으로 추출
+  const now = new Date()
+  let todayPlus999 = new Date(now.setDate(now.getDate() + 999))
+  todayPlus999 = todayPlus999.toISOString().split("T")[0]
 
   // 제출하기 버튼 클릭시 실행되는 함수
 
@@ -120,7 +123,7 @@ const PostWrite = (props) => {
                   type="date"
                   name="theday"
                   min={todayDate}
-                  max="2024-12-31"
+                  max={todayPlus999}
                   ref={$deadLine}
                 ></DeadLine>
               </Text>
