@@ -3,6 +3,7 @@ import { Button, Grid, Input, Text } from "../elements"
 import { setCookie } from "../shared/Cookie"
 import styled from "styled-components"
 
+import { history } from "../redux/configureStore"
 import { useDispatch } from "react-redux"
 import { actionCreators as userActions } from "../redux/modules/user"
 import { TokenToCookie } from "../shared/Cookie"
@@ -24,30 +25,7 @@ const Login = (props) => {
   }
 
   const login = () => {
-    console.log("로그인 하러 들어왔어")
-    console.log(typeof user_email, typeof user_pwd)
-    instance
-      .post("/user/login", {
-        userId: user_email,
-        password: user_pwd,
-      })
-      .then((response) => {
-        console.log("로그인 완료")
-        console.log(response)
-        const accessToken = response.data.token
-        TokenToCookie(accessToken)
-        // setCookie("token", accessToken)
-        // localStorage.setItem("userId", response.data.user.userId)
-        // localStorage.setItem("userName", response.data.user.userName)
-
-        localStorage.setItem("token", accessToken)
-        window.location.href = "/"
-      })
-      .catch((error) => {
-        setErr_login("이메일 혹은 비밀번호가 잘못 입력되었습니다")
-        console.log(error)
-      })
-    console.log("여기까지 나오나?")
+    dispatch(userActions.logInDB(user_email, user_pwd))
   }
   return (
     <React.Fragment>

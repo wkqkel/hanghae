@@ -61,6 +61,32 @@ const signUpDB = (id, nickname, pwd, pwdcheck) => {
   }
 }
 
+const logInDB = (username, password) => {
+  return function (dispatch, getState, { history }) {
+    instance
+      .post("/user/login", {
+        userId: username,
+        password: password,
+      })
+      .then((response) => {
+        console.log("로그인 완료")
+        console.log(response)
+        const accessToken = response.data.token
+        TokenToCookie(accessToken)
+        // setCookie("token", accessToken)
+        localStorage.setItem("loginUserId", response.data.userId)
+        localStorage.setItem("loginUserName", response.data.userName)
+        localStorage.setItem("token", accessToken)
+        // window.location.href = "/"
+      })
+      .catch((error) => {
+        console.log("이메일 혹은 비밀번호가 잘못 입력되었습니다")
+        console.log(error)
+      })
+    console.log("여기까지 나오나?")
+  }
+}
+
 // const loginCheckFB = () => {
 //   return function (dispatch, getState, {history}) {
 //     const TOKEN = localStorage.getItem("token");
@@ -83,6 +109,9 @@ export default handleActions(
     [LOG_OUT]: (state, action) =>
       produce(state, (draft) => {
         deleteCookie("is_login")
+        localStorage.removeItem("loginUserId")
+        localStorage.removeItem("loginUserName")
+        localStorage.removeItem("token")
         draft.user = null
         draft.is_login = false
       }),
@@ -98,9 +127,9 @@ export default handleActions(
 
 //action creator export
 const actionCreators = {
-  logIn,
-  logOut,
+  logInDB,
   signUpDB,
+  logOut,
   getUser,
   setUser,
 }

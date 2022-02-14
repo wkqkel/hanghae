@@ -15,6 +15,9 @@ const PostDetail = (props) => {
   const id = props.match.params.id
   console.log(id)
 
+  let userId = localStorage.getItem("userId")
+  console.log(userId)
+
   const post_list = useSelector((store) => store.post.list)
   const post = post_list.find((p) => p.postId === id)
   console.log(post)
