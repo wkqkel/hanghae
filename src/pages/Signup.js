@@ -4,6 +4,7 @@ import { Grid, Text, Input, Button } from "../elements"
 import { history } from "../redux/configureStore"
 
 import { actionCreators } from "../redux/modules/user"
+import pwdCheck from "../shared/PwdCheck"
 
 const Signup = (props) => {
   const dispatch = useDispatch()
@@ -38,6 +39,11 @@ const Signup = (props) => {
 
   //email insert
   const signup = () => {
+    if (!pwdCheck(user_pwd)) {
+      setErrPwd("비밀번호 형식이 옳지 않습니다.")
+      alert("비밀번호 형식이 올바르지 않습니다.")
+      return
+    }
     dispatch(
       actionCreators.signUpDB(
         user_email,

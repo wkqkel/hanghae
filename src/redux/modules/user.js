@@ -2,7 +2,7 @@ import { createAction, handleActions } from "redux-actions"
 import { produce } from "immer"
 import { setCookie, getCookie, deleteCookie } from "../../shared/Cookie"
 import { TokenToCookie } from "../../shared/Cookie"
-import { axiosInstance } from "../../config"
+import instance from "../../shared/Request"
 import { history } from "../configureStore"
 
 //actions
@@ -42,8 +42,8 @@ const initialState = {
 //middleware actions
 const signUpDB = (id, nickname, pwd, pwdcheck) => {
   return function (dispatch) {
-    axiosInstance
-      .post(`/signup`, {
+    instance
+      .post(`/user/signup`, {
         userId: id,
         userName: nickname,
         password: pwd,

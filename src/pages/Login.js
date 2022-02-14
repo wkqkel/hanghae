@@ -6,7 +6,7 @@ import styled from "styled-components"
 import { useDispatch } from "react-redux"
 import { actionCreators as userActions } from "../redux/modules/user"
 import { TokenToCookie } from "../shared/Cookie"
-import { axiosInstance } from "../config"
+import instance from "../shared/Request"
 
 const Login = (props) => {
   const dispatch = useDispatch()
@@ -26,8 +26,8 @@ const Login = (props) => {
   const login = () => {
     console.log("로그인 하러 들어왔어")
     console.log(typeof user_email, typeof user_pwd)
-    axiosInstance
-      .post("/login", {
+    instance
+      .post("/user/login", {
         userId: user_email,
         password: user_pwd,
       })
