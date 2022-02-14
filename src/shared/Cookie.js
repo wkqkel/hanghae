@@ -1,3 +1,10 @@
+import Cookies from "universal-cookie"
+const cookies = new Cookies()
+
+export function TokenToCookie(session) {
+  cookies.set("session", session)
+}
+
 // 키값 기준으로 쿠키에 저장된 값을 가져오는 함수
 const getCookie = (name) => {
   // 쿠키 값을 가져옵니다.
