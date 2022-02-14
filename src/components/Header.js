@@ -6,6 +6,7 @@ import { getCookie, deleteCokokie, deleteCookie } from "../shared/Cookie"
 
 import { useSelector, useDispatch } from "react-redux"
 import { actionCreators as userActions } from "../redux/modules/user"
+import { actionCreators as postActions } from "../redux/modules/post"
 
 const Header = (props) => {
   const dispatch = useDispatch()
@@ -46,6 +47,7 @@ const Header = (props) => {
       </React.Fragment>
     )
   }
+
   return (
     <React.Fragment>
       <Grid
@@ -56,7 +58,12 @@ const Header = (props) => {
       >
         <Grid is_flex>
           <Grid>
-            <TitleBox>
+            <TitleBox
+              onClick={() => {
+                history.push("/")
+                dispatch(postActions.getPostDB())
+              }}
+            >
               <Text color="#000" bold size="26px" padding="0px 15%">
                 모<span style={{ fontSize: "24px" }}>임</span>
                 <span style={{ fontSize: "23px" }}>
