@@ -22,11 +22,12 @@ const CommentList = (props) => {
   if (!comment_list[postId]) {
     return null
   }
+
   return (
     <React.Fragment>
       <Grid padding="16px">
-        {comment_list[postId].map((c) => {
-          return <CommentItem key={c.id} {...c} />
+        {comment_list[postId].map((c, i) => {
+          return <CommentItem key={c._id} {...c} />
         })}
       </Grid>
     </React.Fragment>
@@ -40,7 +41,14 @@ CommentList.defaultProps = {
 export default CommentList
 
 const CommentItem = (props) => {
-  const { userName, userId, postId, content } = props
+  const dispatch = useDispatch()
+
+  const { userName, userId, postId, content, commentId } = props
+
+  const deleteComment = () => {
+    dispatch(commentsActions.deleteCommentDB(commentId))
+  }
+
   return (
     <React.Fragment>
       <Grid is_flex margin="10px 0px">
@@ -54,7 +62,11 @@ const CommentItem = (props) => {
         </Grid>
         <Grid is_flex width="auto">
           <FontAwesomeIcon icon={faPen} />
-          <FontAwesomeIcon icon={faTrashCan} style={{ margin: "0px 10px" }} />
+          <FontAwesomeIcon
+            icon={faTrashCan}
+            style={{ margin: "0px 10px" }}
+            onClick={deleteComment}
+          />
         </Grid>
       </Grid>
     </React.Fragment>
@@ -64,6 +76,6 @@ const CommentItem = (props) => {
 CommentItem.defaultProps = {
   userName: "test1",
   userId: "",
-  postId: 1,
+  postId: "1",
   content: "내용을 입력해보까여?",
 }

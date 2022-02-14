@@ -33,8 +33,13 @@ const Login = (props) => {
       })
       .then((response) => {
         console.log("로그인 완료")
+        console.log(response)
         const accessToken = response.data.token
         TokenToCookie(accessToken)
+        // setCookie("token", accessToken)
+        // localStorage.setItem("userId", response.data.user.userId)
+        // localStorage.setItem("userName", response.data.user.userName)
+
         localStorage.setItem("token", accessToken)
         window.location.href = "/"
       })
@@ -92,11 +97,10 @@ const Login = (props) => {
   )
 }
 
-const Image = styled.img`
-
-width= 80%;
-@media only screen {
-  display: none;
-}
-`
+// const Image = styled.img`
+//   width: 80%;
+//   @media only screen {
+//     display: none;
+//   }
+// `
 export default Login

@@ -1,6 +1,6 @@
 import { createAction, handleActions } from "redux-actions"
 import { produce } from "immer"
-import { setCookie, getCookie, deleteCookie } from "../../shared/Cookie"
+import { setCookie, deleteCookie } from "../../shared/Cookie"
 import { TokenToCookie } from "../../shared/Cookie"
 import instance from "../../shared/Request"
 import { history } from "../configureStore"
@@ -61,6 +61,14 @@ const signUpDB = (id, nickname, pwd, pwdcheck) => {
   }
 }
 
+// const loginCheckFB = () => {
+//   return function (dispatch, getState, {history}) {
+//     const TOKEN = localStorage.getItem("token");
+//     if(TOKEN) {
+//       instance.get(``)
+//     }
+//   }
+// }
 //reducer
 export default handleActions(
   {

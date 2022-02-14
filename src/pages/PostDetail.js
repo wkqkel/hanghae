@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 
 import CommentWrite from "../components/CommentWrite"
 import CommentList from "../components/CommentList"
@@ -6,22 +6,11 @@ import { Grid, Text, Button } from "../elements"
 import styled from "styled-components"
 
 import { useSelector, useDispatch } from "react-redux"
+import { actionCreators as commentsActions } from "../redux/modules/comments"
 
 const PostDetail = (props) => {
   const dispatch = useDispatch()
-
-  const {
-    postId,
-    userId,
-    title,
-    userName,
-    contents,
-    createDate,
-    deadLine,
-    maxMembers,
-    curMembers,
-    category,
-  } = props
+  const [comment, setComment] = useState("")
 
   const id = props.match.params.id
   console.log(id)
@@ -30,14 +19,28 @@ const PostDetail = (props) => {
   const post = post_list.find((p) => p.postId === id)
   console.log(post)
 
-  React.useEffect(() => {})
+  React.useEffect(() => {
+    dispatch(commentsActions.getCommentFB(id))
+  }, [])
+
+  const onChange = (e) => {
+    setComment(e.target.value)
+  }
+
+  const write = () => {
+    const comments = {
+      comment,
+    }
+    dispatch(commentsActions.addCommentFB(id, comments))
+    setComment("")
+  }
 
   return (
     <Container>
       <Grid margin="30px 0px">
         <Grid is_flex>
           <Category>{post.category}</Category>
-          <Title>{title}</Title>
+          <Title>{post.title}</Title>
         </Grid>
         <Grid is_flex padding="10px">
           <Text bold>{post.userName}</Text>
@@ -52,7 +55,7 @@ const PostDetail = (props) => {
           </Grid>
           <Grid is_flex margin="0px 5px">
             <Text>
-              {post.curMembers} / {post.maxMembers}
+              {post.curMembers.length} / {post.maxMembers}
             </Text>
             <Button disable width="100px">
               참여하기
@@ -69,7 +72,7 @@ const PostDetail = (props) => {
         </Grid>
       </Grid>
       <Grid bg="#E8F3F1" borderRadius>
-        <CommentWrite postId={id} />
+        <CommentWrite postId={id} _onClick={write} />
         <CommentList postId={id} />
       </Grid>
       <Hr />

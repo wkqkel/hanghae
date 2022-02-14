@@ -120,12 +120,12 @@ export default handleActions(
   {
     [GET_POST]: (state, action) =>
       produce(state, (draft) => {
-        draft.list = action.payload.postList
+        draft.list = action.payload.postList.reverse()
         draft.checkLoadAll = action.payload.checkLoadAll
       }),
     [ADD_POST]: (state, action) =>
       produce(state, (draft) => {
-        draft.list.push(action.payload.post)
+        draft.list.unshift(action.payload.post)
       }),
     [EDIT_POST]: (state, action) => {
       produce(state, (draft) => {})
