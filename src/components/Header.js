@@ -27,7 +27,12 @@ const Header = (props) => {
         >
           <Grid is_flex>
             <Grid>
-              <TitleBox>
+              <TitleBox
+                onClick={() => {
+                  history.push("/")
+                  dispatch(postActions.getPostDB())
+                }}
+              >
                 <Text color="#000" bold size="26px" padding="0px 15%">
                   모<span style={{ fontSize: "24px" }}>임</span>
                   <span style={{ fontSize: "23px" }}>

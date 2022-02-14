@@ -25,7 +25,7 @@ const deletePost = createAction(DELETE_POST, (postId) => ({
 const initialState = {
   list: [],
 }
-// 6208054d6e136dfe0fb78c2f
+// 카테고리별 목록 가져오기
 const getPostDB = (category) => {
   if (category) {
     return function (dispatch, getState, { history }) {
@@ -40,6 +40,7 @@ const getPostDB = (category) => {
         })
     }
   }
+  // 전체목록 가져오기
   return function (dispatch, getState, { history }) {
     instance
       .get("/post")
@@ -53,6 +54,7 @@ const getPostDB = (category) => {
   }
 }
 
+//게시물 1개 가져오기
 const getOnePostDB = (postId) => {
   return function (dispatch, getState, { history }) {
     instance
