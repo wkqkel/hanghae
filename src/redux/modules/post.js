@@ -1,93 +1,135 @@
 import { createAction, handleActions } from "redux-actions"
 import { produce } from "immer"
-
+import instance from "../../shared/Request"
+// import axios from "axios"
 const GET_POST = "SET_POST"
 const ADD_POST = "ADD_POST"
 const EDIT_POST = "EDIT_POST"
 const DELETE_POST = "DELETE_POST"
+const axios = require("axios")
 
-const getPost = createAction(GET_POST, (postList) => ({ postList }))
-const addPost = createAction(ADD_POST, (post) => ({ post }))
+const getPost = createAction(GET_POST, (postList, checkLoadAll) => ({
+  postList,
+  checkLoadAll,
+}))
+const addPost = createAction(ADD_POST, (post, checkLoadAll) => ({
+  post,
+  checkLoadAll,
+}))
 const editPost = createAction(EDIT_POST, (post, postId) => ({ post, postId }))
 const deletePost = createAction(DELETE_POST, (postId) => ({
   postId,
 }))
 
 const initialState = {
-  list: [
-    {
-      postId: 1,
-      userId: "user1",
-      title: "title1",
-      userName: "test",
-      contents:
-        "콘텐츠내용입니다 콘텐츠내용입니다 콘텐츠내용입니다콘텐츠내용입니다 콘텐츠내용입니다 콘텐츠내용입니다콘텐츠내용입니다 콘텐츠내용입니다 콘텐츠내용입니다콘텐츠내용입니다 콘텐츠내용입니다 콘텐츠내용입니다",
-      createDate: "2022-02-11",
-      deadLine: "2022-02-28",
-      maxMembers: 6,
-      curMembers: ["user1", "user2", "user3"],
-      category: "study",
-    },
-    {
-      postId: 2,
-      userId: "user1",
-      title: "user2",
-      userName: "title2",
-      contents:
-        "콘텐츠내용입니다 콘텐츠내용입니다 콘텐츠내용입니다콘텐츠내용입니다 콘텐츠내용입니다 콘텐츠내용입니다콘텐츠내용입니다 콘텐츠내용입니다 콘텐츠내용입니다콘텐츠내용입니다 콘텐츠내용입니다 콘텐츠내용입니다",
-      createDate: "2022-02-11",
-      deadLine: "2022-02-20",
-      maxMembers: 5,
-      curMembers: ["user1", "user2"],
-      category: "study",
-    },
-    {
-      postId: 3,
-      userId: "user1",
-      title: "user2",
-      userName: "title2",
-      contents:
-        "콘텐츠내용입니다 콘텐츠내용입니다 콘텐츠내용입니다콘텐츠내용입니다 콘텐츠내용입니다 콘텐츠내용입니다콘텐츠내용입니다 콘텐츠내용입니다 콘텐츠내용입니다콘텐츠내용입니다 콘텐츠내용입니다 콘텐츠내용입니다",
-      createDate: "2022-02-11",
-      deadLine: "2022-02-20",
-      maxMembers: 3,
-      curMembers: ["user2"],
-      category: "study",
-    },
-  ],
+  list: [],
+}
+// 6208054d6e136dfe0fb78c2f
+const getPostDB = (category) => {
+  if (category) {
+    return function (dispatch, getState, { history }) {
+      axios
+        .get(`http://13.125.190.53/post?category=${category}`)
+        .then((response) => {
+          // [{},{}]와 같은 배열형태로 디스패치 넘겨줌
+          dispatch(getPost(response.data.post, false))
+        })
+        .catch((error) => {
+          console.error(error)
+        })
+    }
+  }
+  return function (dispatch, getState, { history }) {
+    instance
+      .get("/post")
+      .then((response) => {
+        // [{},{}]와 같은 배열형태로 디스패치 넘겨줌
+        dispatch(getPost(response.data.post, true))
+      })
+      .catch((error) => {
+        console.error(error)
+      })
+  }
 }
 
-const getPostFB = () => {
-  return function (dispatch, getState, { history }) {}
+const getOnePostDB = (postId) => {
+  return function (dispatch, getState, { history }) {
+    instance
+      .get(`/post/${postId}`)
+      .then((response) => {
+        dispatch(getPost(response.data.post))
+      })
+      .catch((error) => {
+        console.error(error)
+      })
+  }
 }
 
-const addPostFB = () => {
-  return function (dispatch, getState, { history }) {}
+const addPostDB = (post) => {
+  return function (dispatch, getState, { history }) {
+    instance
+      .post("/post", post)
+      .then((response) => {
+        dispatch(addPost(post))
+        window.alert("작성이 완료되었습니다")
+        history.push("/")
+      })
+      .catch((error) => {
+        console.error(error)
+      })
+  }
 }
-const editPostFB = () => {
-  return function (dispatch, getState, { history }) {}
+const editPostDB = (post, postId) => {
+  return function (dispatch, getState, { history }) {
+    instance
+      .patch(`/modify/${postId}`, post)
+      .then((response) => {
+        window.alert("수정이 완료되었습니다")
+        history.replace("/")
+        // dispatch(editPost(post, postId))
+      })
+      .catch((error) => {
+        console.error(error)
+      })
+  }
 }
 
-const deletePostFB = () => {
-  return function (dispatch, getState, { history }) {}
+const deletePostDB = (postId) => {
+  return function (dispatch, getState, { history }) {
+    instance
+      .delete(`/delete/${postId}`)
+      // axios
+      //   .delete(`http://13.125.190.53/delete/${postId}`)
+      .then((response) => {
+        window.alert("삭제가 완료되었습니다")
+        dispatch(deletePost(postId))
+      })
+      .catch((error) => {
+        console.error(error)
+      })
+  }
 }
 
 export default handleActions(
   {
-    [GET_POST]: (state, action) => {
+    [GET_POST]: (state, action) =>
       produce(state, (draft) => {
         draft.list = action.payload.postList
-      })
-    },
-    [ADD_POST]: (state, action) => {
-      produce(state, (draft) => {})
-    },
+        draft.checkLoadAll = action.payload.checkLoadAll
+      }),
+    [ADD_POST]: (state, action) =>
+      produce(state, (draft) => {
+        draft.list.push(action.payload.post)
+      }),
     [EDIT_POST]: (state, action) => {
       produce(state, (draft) => {})
     },
-    [DELETE_POST]: (state, action) => {
-      produce(state, (draft) => {})
-    },
+    [DELETE_POST]: (state, action) =>
+      produce(state, (draft) => {
+        draft.list = draft.list.filter(
+          (e, i) => e.postId !== action.payload.postId
+        )
+      }),
   },
   initialState
 )
@@ -97,9 +139,10 @@ const actionCreators = {
   addPost,
   editPost,
   deletePost,
-  getPostFB,
-  addPostFB,
-  editPostFB,
-  deletePostFB,
+  getPostDB,
+  getOnePostDB,
+  addPostDB,
+  editPostDB,
+  deletePostDB,
 }
 export { actionCreators }
