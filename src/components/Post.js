@@ -7,9 +7,8 @@ import { actionCreators as postActions } from "../redux/modules/post"
 import { useHistory } from "react-router-dom"
 
 const Post = (props) => {
-  // postlist.js에서 받아온 props값 사용하기 편리하게 변수로 할당
-
   const dispatch = useDispatch()
+  // postlist.js에서 받아온 props값 사용하기 편리하게 변수로 할당
   const {
     postId,
     userId,
@@ -34,11 +33,12 @@ const Post = (props) => {
   // 마감날짜-현재날짜를 구하기위해 Date형을 시간 형으로 바꿔줘서 차이를 구함
   const gapDate = stdDate.getTime() - today.getTime()
   // 차이인 밀리초 단위를 일로 환산
-  const gapDay = Math.ceil(gapDate / (60 * 1000 * 60 * 246))
-
+  const gapDay = Math.ceil(gapDate / (60 * 1000 * 60 * 24))
+  //#8b8b8b
   return (
     <>
       <PostBox
+        gapDay={gapDay}
         onClick={() => {
           // 포스트디테일 페이지로 가기
           // history.push(`/post/${postId}`)
@@ -52,8 +52,12 @@ const Post = (props) => {
           <SpeechBubble>
             <img src="https://ifh.cc/g/0Elqeg.png" alt="" />
             <BubbleText
-              style={{ left: gapDay > 9 ? "21px" : "25px" }}
-            >{`D-${gapDay}`}</BubbleText>
+              style={{
+                left: gapDay > 100 ? "17px" : gapDay > 9 ? "21px" : "25px",
+              }}
+            >
+              {gapDay < 0 ? `마감` : `D-${gapDay}`}
+            </BubbleText>
           </SpeechBubble>
         </DdayContainer>
         <TextContainer>
@@ -94,13 +98,13 @@ const slideUp = keyframes`
     transform: translateY(0px);
   }
 `
-
+//#fffdf1
 const PostBox = styled.div`
   width: 420px;
   height: 240px;
   box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25),
     3px 3px 10px 0 rgba(0, 0, 0, 0.25);
-  background-color: #fff;
+  background-color: ${(props) => (props.gapDay < 0 ? "#f0f0f0;" : "#fff;")}
   margin: 14px;
   border-radius: 34px;
   padding: 25px 36px;
