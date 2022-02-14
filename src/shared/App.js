@@ -2,6 +2,7 @@ import React from "react"
 import "./App.css"
 import { BrowserRouter, Route } from "react-router-dom"
 import { ConnectedRouter } from "connected-react-router"
+import { history } from "../redux/configureStore"
 import Main from "../pages/Main"
 import Login from "../pages/Login"
 import Signup from "../pages/Signup"
@@ -13,14 +14,14 @@ function App() {
   return (
     <React.Fragment>
       <Header></Header>
-      <BrowserRouter>
+      <ConnectedRouter history={history}>
         <Route path="/" exact component={Main} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         <Route path="/write" exact component={PostWrite}></Route>
         <Route path="/write/:id" exact component={PostWrite}></Route>
         <Route path="/post/:id" exact component={PostDetail}></Route>
-      </BrowserRouter>
+      </ConnectedRouter>
     </React.Fragment>
   )
 }

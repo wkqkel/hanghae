@@ -1,9 +1,15 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { Button, Text, Grid, Input } from "../elements"
 import styled from "styled-components"
+import { actionCreators as postActions } from "../redux/modules/post"
+import { useDispatch, useSelector } from "react-redux"
 
 const CategoryBar = () => {
+  const dispatch = useDispatch()
   //#f4f4f4
+  const [clickedCategory, changeClicked] = React.useState(0)
+  const checkLoadAll = useSelector((state) => state.post.checkLoadAll)
+
   const categoryList = [
     "전체",
     "스터디",
@@ -14,10 +20,32 @@ const CategoryBar = () => {
     "영화/예술",
     "봉사활동",
   ]
+  // 메인헤더 클릭시에도 디폴트값으로 인덱스0번째인 "전체"가 색칠돼어있어야함
+  // post.js에서 전체를 불러왔을때 state.post.checkLoadAll=true를 줘서 useEffect와 조건문을 사용하여 만듬
+  React.useEffect(() => {
+    if (checkLoadAll) {
+      changeClicked(0)
+    }
+  }, [checkLoadAll])
+
   return (
     <CategoryBox>
       {categoryList.map((e, i) => (
-        <CategoryCircle key={i}>{e}</CategoryCircle>
+        <CategoryCircle
+          key={i}
+          onClick={() => {
+            changeClicked(i)
+
+            i === 0
+              ? dispatch(postActions.getPostDB())
+              : dispatch(postActions.getPostDB(e))
+          }}
+          style={{
+            backgroundColor: i === clickedCategory ? "#fef28a" : "#e6d86a4f",
+          }}
+        >
+          {e}
+        </CategoryCircle>
       ))}
     </CategoryBox>
   )
@@ -38,6 +66,5 @@ const CategoryCircle = styled.p`
   padding: 5px 15px;
   color: #000;
   border-radius: 30px;
-  background-color: #fef28a;
 `
 export default CategoryBar

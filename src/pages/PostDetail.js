@@ -18,6 +18,7 @@ const PostDetail = (props) => {
     curMembers,
     category,
   } = props
+
   return (
     <Container>
       <Grid margin="30px 0px">
@@ -95,7 +96,7 @@ const Category = styled.div`
   background-color: #9dcabf;
   color: white;
   padding: 16px 10px;
-  width: 20%;
+  width: 30%;
   text-align: center;
   margin-right: 3px;
 `
