@@ -104,7 +104,7 @@ const PostBox = styled.div`
   height: 240px;
   box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25),
     3px 3px 10px 0 rgba(0, 0, 0, 0.25);
-  background-color: ${(props) => (props.gapDay < 0 ? "#f0f0f0;" : "#fff;")}
+  background-color: ${(props) => (props.gapDay < 0 ? "#f0f0f0;" : "#fff;")};
   margin: 14px;
   border-radius: 34px;
   padding: 25px 36px;

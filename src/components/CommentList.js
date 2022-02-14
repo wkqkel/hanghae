@@ -44,11 +44,9 @@ const CommentItem = (props) => {
   const dispatch = useDispatch()
 
   const { userName, userId, postId, content, commentId } = props
-
   const deleteComment = () => {
     dispatch(commentsActions.deleteCommentDB(commentId))
   }
-
   return (
     <React.Fragment>
       <Grid is_flex margin="10px 0px">

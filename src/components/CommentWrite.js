@@ -7,8 +7,11 @@ const CommentWrite = (props) => {
   const dispatch = useDispatch()
   const [comment, setComment] = React.useState("")
 
+  const loginUserId = localStorage.getItem("loginUserId")
+  const loginUserName = localStorage.getItem("loginUserName")
+
   const { postId } = props
-  console.log(postId)
+
   // const postId = props.match.params.id
 
   const onChange = (e) => {
@@ -16,14 +19,13 @@ const CommentWrite = (props) => {
   }
 
   const write = () => {
-    console.log(comment)
-
     let content = {
       postId: postId,
-      userId: "String",
-      userName: "String",
+      userId: loginUserId,
+      userName: loginUserName,
       content: comment,
     }
+    console.log(content)
     dispatch(commentsActions.addCommentDB(postId, content))
     setComment("")
   }

@@ -11,12 +11,8 @@ import { actionCreators as postActions } from "../redux/modules/post"
 const Header = (props) => {
   const dispatch = useDispatch()
   const is_session = localStorage.getItem("token") ? true : false
-  const logout = () => {
-    localStorage.removeItem("token")
-    localStorage.removeItem("userId")
-    localStorage.removeItem("userName")
-    window.location.href = "/"
-  }
+  console.log(is_session)
+
   if (is_session) {
     return (
       <React.Fragment>
@@ -44,7 +40,14 @@ const Header = (props) => {
               </TitleBox>
             </Grid>
             <Grid is_flex width="auto" padding="0px 10%">
-              <Button margin="10px" width="100px" _onClick={logout}>
+              <Button
+                margin="10px"
+                width="100px"
+                _onClick={() => {
+                  dispatch(userActions.logOut())
+                  window.location.href = "/"
+                }}
+              >
                 로그아웃
               </Button>
             </Grid>
