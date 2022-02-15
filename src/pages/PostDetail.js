@@ -9,6 +9,7 @@ import { useSelector, useDispatch } from "react-redux"
 import { actionCreators as commentsActions } from "../redux/modules/comments"
 import { actionCreators as postActions } from "../redux/modules/post"
 import { history } from "../redux/configureStore"
+
 const PostDetail = (props) => {
   const dispatch = useDispatch()
   const [comment, setComment] = useState("")
@@ -65,6 +66,7 @@ const PostDetail = (props) => {
   const onChange = (e) => {
     setComment(e.target.value)
   }
+
   const write = () => {
     const comments = {
       comment,

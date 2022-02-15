@@ -51,7 +51,6 @@ const getPostDB = (category) => {
     instance
       .get("/post")
       .then((response) => {
-        console.log(response.data)
         // [{},{}]와 같은 배열형태로 디스패치 넘겨줌
         dispatch(getPost(response.data.post, true))
       })

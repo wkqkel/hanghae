@@ -18,6 +18,7 @@ const CommentWrite = (props) => {
     setComment(e.target.value)
   }
 
+  //댓글 작성하기
   const write = () => {
     let content = {
       postId: postId,
@@ -25,7 +26,6 @@ const CommentWrite = (props) => {
       userName: loginUserName,
       content: comment,
     }
-    console.log(content)
     dispatch(commentsActions.addCommentDB(postId, content))
     setComment("")
   }

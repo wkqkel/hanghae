@@ -5,19 +5,12 @@ import instance from "../../shared/Request"
 import { history } from "../configureStore"
 
 //actions
-const LOG_IN = "LOG_IN"
 const LOG_OUT = "LOG_OUT"
 const GET_USER = "GET_USER"
 const SIGN_UP = "SIGN_UP"
 const SET_USER = "SET_USER"
 
 //action creators
-const logIn = createAction(LOG_IN, (accountId, nickname, id, token) => ({
-  accountId,
-  nickname,
-  id,
-  token,
-}))
 const signUp = createAction(SIGN_UP, (id, email, nickname, password) => ({
   nickname,
   id,
@@ -49,14 +42,11 @@ const signUpDB = (id, nickname, pwd, pwdcheck) => {
         passwordConfirm: pwdcheck,
       })
       .then((response) => {
-        console.log(response.data)
         dispatch(signUp(id, nickname, pwd))
         window.alert("가입을 축하드려요!")
         history.push("/login")
       })
-      .catch((err) => {
-        console.log(`회원가입 오류 발생: ${err}`)
-      })
+      .catch((err) => {})
   }
 }
 
@@ -68,20 +58,15 @@ const logInDB = (username, password) => {
         password: password,
       })
       .then((response) => {
-        console.log("로그인 완료")
-        console.log(response)
         const accessToken = response.data.token
         setCookie("token", accessToken)
         localStorage.setItem("loginUserId", response.data.userId)
         localStorage.setItem("loginUserName", response.data.userName)
+        dispatch(setUser({ userId: username, password: password }))
         localStorage.setItem("token", accessToken)
         window.location.href = "/"
       })
-      .catch((error) => {
-        console.log("이메일 혹은 비밀번호가 잘못 입력되었습니다")
-        console.log(error)
-      })
-    console.log("여기까지 나오나?")
+      .catch((error) => {})
   }
 }
 
@@ -98,10 +83,6 @@ export default handleActions(
   {
     [SET_USER]: (state, action) =>
       produce(state, (draft) => {
-        //is_login자리 토큰 들어가야 함
-        setCookie("is_login", "success")
-        // draft.user = action.payload.user
-        draft.list = { ...action.payload }
         draft.is_login = true
       }),
     [LOG_OUT]: (state, action) =>
@@ -117,7 +98,6 @@ export default handleActions(
     [SIGN_UP]: (state, action) =>
       produce(state, (draft) => {
         deleteCookie("is_login")
-        console.log(action.payload)
       }),
   },
   initialState
