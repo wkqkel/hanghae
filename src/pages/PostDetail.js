@@ -38,9 +38,9 @@ const PostDetail = (props) => {
       setIsJoin(true)
       console.log(isJoin)
     }
-
-    console.log(post)
-  }, [])
+    console.log("렉?")
+    // 중괄호안에 포스트리스트를 넣어주니, 저게 바뀌면 새로 불러와줘서 setJoin도 계속 갱신됨
+  }, [post_list])
 
   const clickJoin = () => {
     // 현재 참여인원수와 최대인원수가 같으면 모집마감
@@ -118,9 +118,11 @@ const PostDetail = (props) => {
             >
               수정
             </Button>
-            {/* <JoinBtn post={post && post}></JoinBtn> */}
+
             <Button width="100px" _onClick={clickJoin}>
               {post &&
+              // 현재 참여인원수와 최대참여인원수가 같으면서, 현재 참여인원이 아닌 사람은 마감완료 버튼이 보여서 클릭 못하고
+              // 아닐 경우나 아닌 사람은 참여 여부에 따라 참여취소또는 참여하기 버튼이 보임.
               post.curMembers.length === post.maxMembers &&
               !post.curMembers.includes(loginUserName)
                 ? "마감완료"

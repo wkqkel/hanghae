@@ -8,12 +8,14 @@ const JoinBtn = (props) => {
   const loginUserId = localStorage.getItem("loginUserId")
   const loginUserName = localStorage.getItem("loginUserName")
   let [isJoin, setIsJoin] = React.useState(false)
-  let { post } = props
+
   React.useEffect(() => {
-    if (post.curMembers.includes(loginUserName)) {
+    let { post } = props
+    if (post && post.curMembers.includes(loginUserName)) {
       setIsJoin(true)
     }
   }, [])
+  let { post } = props
 
   const clickJoin = () => {
     // 현재 참여인원수와 최대인원수가 같으면 모집마감
