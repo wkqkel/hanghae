@@ -1,4 +1,4 @@
-import React, { Children } from "react"
+import React from "react"
 import styled from "styled-components"
 
 const Text = (props) => {
@@ -51,7 +51,7 @@ const P = styled.p`
   ${(props) => (props.margin ? `margin: ${props.margin};` : "")}
   ${(props) => (props.padding ? `padding: ${props.padding};` : "")}
   ${(props) => (props.is_break ? `word-break: break-all;` : "")}
-  ${(props) => (props.alignCenter ? `align: center;` : "")}
+  ${(props) => (props.alignCenter ? `text-align: center;` : "")}
 `
 
 export default Text

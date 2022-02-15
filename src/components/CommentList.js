@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from "react"
-import { Button, Grid, Input, Text } from "../elements"
+import React, { useState } from "react"
+import { Button, Grid, Text } from "../elements"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faPen, faTrashCan } from "@fortawesome/free-solid-svg-icons"
 
@@ -12,6 +12,7 @@ const CommentList = (props) => {
   const loginUserId = localStorage.getItem("loginUserId")
   const loginUserName = localStorage.getItem("loginUserName")
 
+  const comment_list = useSelector((state) => state.comments.list)
   const { postId } = props
   // 댓글 작성자만 삭제 및 수정 가능하게
   const comment_list = useSelector((state) => state.comments.list)
@@ -45,23 +46,26 @@ const CommentItem = (props) => {
   console.log("props1111", props)
   const dispatch = useDispatch()
 
+  const { userName, userId, postId, content, commentId } = props
+
   let [input, setInput] = useState()
   const [editable, setEditable] = useState(false)
 
   const handleChange = (e) => {
     setInput(e.target.value)
   }
+
   const editOn = () => {
     setEditable(true)
     setInput(content)
   }
 
-  const { userName, userId, postId, content, commentId } = props
   const handleKeydown = (e) => {
     if (e.key === "Enter") {
       editComment()
     }
   }
+
   //댓글 수정하기
   const editComment = () => {
     let content = {

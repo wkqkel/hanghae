@@ -1,7 +1,6 @@
 import { createAction, handleActions } from "redux-actions"
 import { produce } from "immer"
 import instance from "../../shared/Request"
-import { actionCreators as postActions } from "./post"
 
 //Action Types
 const SET_COMMENT = "SET_COMMENT"

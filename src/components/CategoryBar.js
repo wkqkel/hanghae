@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react"
-import { Button, Text, Grid, Input } from "../elements"
+import React from "react"
 import styled from "styled-components"
 import { actionCreators as postActions } from "../redux/modules/post"
 import { useDispatch, useSelector } from "react-redux"

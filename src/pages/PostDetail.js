@@ -99,8 +99,8 @@ const PostDetail = (props) => {
               </Text>
             </Grid>
           </Grid>
-
           <Grid is_flex margin="0px 5px" justifyRight>
+//             {loginUserId === post.userId ? (
             {idCheck ? (
               <Grid is_flex justifyRight>
                 <Button
@@ -113,7 +113,6 @@ const PostDetail = (props) => {
                 >
                   삭제
                 </Button>
-
                 <Button
                   width="80px"
                   margin="0px 5px"

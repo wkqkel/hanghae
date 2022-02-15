@@ -1,6 +1,6 @@
 import React from "react"
-import { Grid, Text, Button } from "../elements"
-import { useSelector, useDispatch } from "react-redux"
+import { Button } from "../elements"
+import { useDispatch } from "react-redux"
 import { actionCreators as postActions } from "../redux/modules/post"
 
 const JoinBtn = (props) => {
