@@ -37,6 +37,13 @@ const Main = (props) => {
             <WriteText>글쓰기</WriteText>
           </WriteBtn>
         )}
+        {/* <WriteBtn
+          onClick={() => {
+            history.push("/write")
+          }}
+        >
+          <WriteText>글쓰기</WriteText>
+        </WriteBtn> */}
       </Container>
     </>
   )

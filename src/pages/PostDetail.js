@@ -17,12 +17,11 @@ const PostDetail = (props) => {
 
   const post_list = useSelector((store) => store.post.list)
   const post = post_list.find((p) => p.postId === id)
-
   let [isJoin, setIsJoin] = React.useState(false)
+  let [idCheck, setIdCheck] = React.useState(false)
 
   const loginUserId = localStorage.getItem("loginUserId")
   const loginUserName = localStorage.getItem("loginUserName")
-
   React.useEffect(() => {
     dispatch(commentsActions.getCommentFB(id))
     // 페이지 새로고침 시 포스트 1개만 새로 요청하기
@@ -38,7 +37,10 @@ const PostDetail = (props) => {
       setIsJoin(true)
       console.log(isJoin)
     }
-    console.log("렉?")
+    if (post && post.userId === loginUserId) {
+      setIdCheck(true)
+      console.log(idCheck)
+    }
     // 중괄호안에 포스트리스트를 넣어주니, 저게 바뀌면 새로 불러와줘서 setJoin도 계속 갱신됨
   }, [post_list])
 
@@ -98,7 +100,8 @@ const PostDetail = (props) => {
             </Grid>
           </Grid>
           <Grid is_flex margin="0px 5px" justifyRight>
-            {loginUserId === post.userId ? (
+//             {loginUserId === post.userId ? (
+            {idCheck ? (
               <Grid is_flex justifyRight>
                 <Button
                   // disable
