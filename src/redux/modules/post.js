@@ -7,6 +7,8 @@ const GET_POST = "SET_POST"
 const ADD_POST = "ADD_POST"
 const EDIT_POST = "EDIT_POST"
 const DELETE_POST = "DELETE_POST"
+const ADD_JOIN = "ADD_JOIN"
+const DELETE_JOIN = "DELETE_JOIN"
 const axios = require("axios")
 
 const getPost = createAction(GET_POST, (postList, checkLoadAll) => ({
@@ -21,6 +23,8 @@ const editPost = createAction(EDIT_POST, (post, postId) => ({ post, postId }))
 const deletePost = createAction(DELETE_POST, (postId) => ({
   postId,
 }))
+const addJoin = createAction(ADD_JOIN, () => ({}))
+const deleteJoin = createAction(ADD_JOIN, () => ({}))
 
 const initialState = {
   list: [],
@@ -117,6 +121,38 @@ const deletePostDB = (postId) => {
   }
 }
 
+//참여하기
+const addJoinDB = (postId, loginUserNameArray) => {
+  return function (dispatch, getState, { history }) {
+    instance
+      .post(`/post/join/${postId}`, loginUserNameArray)
+      .then((response) => {
+        console.log("참여신청" + response.date)
+        // window.alert("참여신청되었습니다")
+        // dispatch(addJoin(postId, loginUserNameArray.userName))
+      })
+      .catch((error) => {
+        console.error(error)
+      })
+  }
+}
+
+//참여취소
+const deleteJoinDB = (postId, loginUserName) => {
+  return function (dispatch, getState, { history }) {
+    instance
+      .patch(`/post/join/${postId}`, loginUserName)
+      .then((response) => {
+        console.log("참여취소" + response.date)
+        // window.alert("참여 취소되었습니다")
+        // dispatch(deleteJoin(postId))
+      })
+      .catch((error) => {
+        console.error(error)
+      })
+  }
+}
+
 export default handleActions(
   {
     [GET_POST]: (state, action) =>
@@ -137,6 +173,12 @@ export default handleActions(
           (e, i) => e.postId !== action.payload.postId
         )
       }),
+    [ADD_JOIN]: (state, action) => {
+      produce(state, (draft) => {})
+    },
+    [DELETE_JOIN]: (state, action) => {
+      produce(state, (draft) => {})
+    },
   },
   initialState
 )
@@ -151,5 +193,7 @@ const actionCreators = {
   addPostDB,
   editPostDB,
   deletePostDB,
+  addJoinDB,
+  deleteJoinDB,
 }
 export { actionCreators }
