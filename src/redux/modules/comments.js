@@ -40,7 +40,6 @@ const getCommentFB = (postId) => {
     instance
       .get(`/comment/${postId}`)
       .then((response) => {
-        console.log(response.data)
         dispatch(setComment(postId, response.data.comments))
       })
       .catch((error) => {

@@ -10,14 +10,11 @@ import { history } from "../redux/configureStore"
 const CommentList = (props) => {
   const dispatch = useDispatch()
   const comment_list = useSelector((state) => state.comments.list)
-  console.log("comment_list", comment_list)
-  console.log("props", props)
+
   const { postId } = props
-  console.log(postId)
 
   React.useEffect(() => {
     dispatch(commentsActions.getCommentFB(postId))
-    console.log("updated")
   }, [])
 
   if (!comment_list[postId]) {
