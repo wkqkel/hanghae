@@ -77,7 +77,7 @@ const logInDB = (username, password) => {
         localStorage.setItem("loginUserId", response.data.userId)
         localStorage.setItem("loginUserName", response.data.userName)
         localStorage.setItem("token", accessToken)
-        // window.location.href = "/"
+        window.location.href = "/"
       })
       .catch((error) => {
         console.log("이메일 혹은 비밀번호가 잘못 입력되었습니다")

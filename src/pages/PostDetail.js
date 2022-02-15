@@ -13,10 +13,12 @@ const PostDetail = (props) => {
   const [comment, setComment] = useState("")
 
   const id = props.match.params.id
-  console.log(id)
+  // console.log(id)
 
   let userId = localStorage.getItem("userId")
-  console.log(userId)
+  // console.log(userId)
+
+  // const comment_list = useSelector((state) => state.comments.list)
 
   const post_list = useSelector((store) => store.post.list)
   const post = post_list.find((p) => p.postId === id)

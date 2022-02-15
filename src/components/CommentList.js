@@ -5,6 +5,7 @@ import { faPen, faTrashCan } from "@fortawesome/free-solid-svg-icons"
 
 import { useDispatch, useSelector } from "react-redux"
 import { actionCreators as commentsActions } from "../redux/modules/comments"
+import { history } from "../redux/configureStore"
 
 const CommentList = (props) => {
   const dispatch = useDispatch()
@@ -27,7 +28,7 @@ const CommentList = (props) => {
     <React.Fragment>
       <Grid padding="16px">
         {comment_list[postId].map((c, i) => {
-          return <CommentItem key={c._id} {...c} />
+          return <CommentItem key={i} {...c} />
         })}
       </Grid>
     </React.Fragment>
@@ -44,8 +45,13 @@ const CommentItem = (props) => {
   const dispatch = useDispatch()
 
   const { userName, userId, postId, content, commentId } = props
+
+  //댓글 수정하기
+  const editComment = () => {}
+
+  //댓글 삭제하기
   const deleteComment = () => {
-    dispatch(commentsActions.deleteCommentDB(commentId))
+    dispatch(commentsActions.deleteCommentDB(postId, commentId))
   }
   return (
     <React.Fragment>
@@ -59,11 +65,11 @@ const CommentItem = (props) => {
           <Text is_break>{content}</Text>
         </Grid>
         <Grid is_flex width="auto">
-          <FontAwesomeIcon icon={faPen} />
+          <FontAwesomeIcon icon={faPen} onClick={editComment} />
           <FontAwesomeIcon
             icon={faTrashCan}
             style={{ margin: "0px 10px" }}
-            onClick={deleteComment}
+            onClick={deleteComment()}
           />
         </Grid>
       </Grid>
