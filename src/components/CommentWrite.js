@@ -1,7 +1,8 @@
 import React from "react"
-import { Grid, Input, Button, Text } from "../elements"
+import { Grid, Input, Button } from "../elements"
 import { useDispatch } from "react-redux"
 import { actionCreators as commentsActions } from "../redux/modules/comments"
+import { history } from "../redux/configureStore"
 
 const CommentWrite = (props) => {
   const dispatch = useDispatch()
@@ -20,6 +21,14 @@ const CommentWrite = (props) => {
 
   //댓글 작성하기
   const write = () => {
+    if (loginUserId === null) {
+      window.alert(
+        "회원이 아닌 경우, 댓글 작성이 불가능합니다. 로그인 해주세요~!"
+      )
+      history.replace("/login")
+      return
+    }
+
     let content = {
       postId: postId,
       userId: loginUserId,

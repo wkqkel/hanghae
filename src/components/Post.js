@@ -1,10 +1,8 @@
 import React from "react"
-import { Button, Text, Grid, Input } from "../elements"
+import { Text } from "../elements"
 import styled, { keyframes } from "styled-components"
 import { history } from "../redux/configureStore"
 import { useDispatch } from "react-redux"
-import { actionCreators as postActions } from "../redux/modules/post"
-import { useHistory } from "react-router-dom"
 
 const Post = (props) => {
   const dispatch = useDispatch()

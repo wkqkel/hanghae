@@ -97,39 +97,42 @@ const PostDetail = (props) => {
               </Text>
             </Grid>
           </Grid>
-
           <Grid is_flex margin="0px 5px" justifyRight>
-            <Button
-              // disable
-              width="80px"
-              _onClick={() => {
-                dispatch(postActions.deletePostDB(post.postId))
-                history.replace("/")
-              }}
-            >
-              삭제
-            </Button>
-            <Button
-              width="80px"
-              margin="0px 5px"
-              _onClick={() => {
-                history.push(`/write/${post.postId}`)
-              }}
-            >
-              수정
-            </Button>
-
-            <Button width="100px" _onClick={clickJoin}>
-              {post &&
-              // 현재 참여인원수와 최대참여인원수가 같으면서, 현재 참여인원이 아닌 사람은 마감완료 버튼이 보여서 클릭 못하고
-              // 아닐 경우나 아닌 사람은 참여 여부에 따라 참여취소또는 참여하기 버튼이 보임.
-              post.curMembers.length === post.maxMembers &&
-              !post.curMembers.includes(loginUserName)
-                ? "마감완료"
-                : isJoin
-                ? "참여취소"
-                : "참여하기"}
-            </Button>
+            {loginUserId === post.userId ? (
+              <Grid is_flex justifyRight>
+                <Button
+                  // disable
+                  width="80px"
+                  _onClick={() => {
+                    dispatch(postActions.deletePostDB(post.postId))
+                    history.replace("/")
+                  }}
+                >
+                  삭제
+                </Button>
+                <Button
+                  width="80px"
+                  margin="0px 5px"
+                  _onClick={() => {
+                    history.push(`/write/${post.postId}`)
+                  }}
+                >
+                  수정
+                </Button>
+              </Grid>
+            ) : (
+              <Button width="100px" _onClick={clickJoin}>
+                {post &&
+                // 현재 참여인원수와 최대참여인원수가 같으면서, 현재 참여인원이 아닌 사람은 마감완료 버튼이 보여서 클릭 못하고
+                // 아닐 경우나 아닌 사람은 참여 여부에 따라 참여취소또는 참여하기 버튼이 보임.
+                post.curMembers.length === post.maxMembers &&
+                !post.curMembers.includes(loginUserName)
+                  ? "마감완료"
+                  : isJoin
+                  ? "참여취소"
+                  : "참여하기"}
+              </Button>
+            )}
           </Grid>
         </Grid>
       </Grid>

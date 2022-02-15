@@ -94,6 +94,31 @@ const PostWrite = (props) => {
     }
   }
 
+  //userId가 없으면,
+  if (loginUserId === null) {
+    return (
+      <Container>
+        <Grid margin="50px 0px" width="auto">
+          <Text size="24px" bold margin="10px 0px" alignCenter>
+            앗! 잠깐!
+          </Text>
+          <Text size="15px" alignCenter>
+            로그인 후에만 글을 작성할 수 있어요!
+          </Text>
+          <Button
+            width="340px"
+            margin="10px 0px"
+            _onClick={() => {
+              history.replace("/login")
+            }}
+          >
+            로그인 하러가기
+          </Button>
+        </Grid>
+      </Container>
+    )
+  }
+  //userId가 있으면,
   return (
     <Container>
       <Grid margin="30px 0px">

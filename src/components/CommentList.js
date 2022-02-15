@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from "react"
-import { Button, Grid, Input, Text } from "../elements"
+import React, { useState } from "react"
+import { Button, Grid, Text } from "../elements"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faPen, faTrashCan } from "@fortawesome/free-solid-svg-icons"
 
@@ -9,8 +9,9 @@ import { actionCreators as commentsActions } from "../redux/modules/comments"
 const CommentList = (props) => {
   const dispatch = useDispatch()
 
-  const comment_list = useSelector((state) => state.comments.list)
+  const loginUserId = localStorage.getItem("loginUserId")
 
+  const comment_list = useSelector((state) => state.comments.list)
   const { postId } = props
 
   React.useEffect(() => {
@@ -41,23 +42,26 @@ export default CommentList
 const CommentItem = (props) => {
   const dispatch = useDispatch()
 
+  const { userName, userId, postId, content, commentId } = props
+
   let [input, setInput] = useState()
   const [editable, setEditable] = useState(false)
 
   const handleChange = (e) => {
     setInput(e.target.value)
   }
+
   const editOn = () => {
     setEditable(true)
     setInput(content)
   }
 
-  const { userName, userId, postId, content, commentId } = props
   const handleKeydown = (e) => {
     if (e.key === "Enter") {
       editComment()
     }
   }
+
   //댓글 수정하기
   const editComment = () => {
     let content = {

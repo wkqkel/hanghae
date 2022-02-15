@@ -1,6 +1,6 @@
 import React from "react"
 import "./App.css"
-import { BrowserRouter, Route } from "react-router-dom"
+import { Route } from "react-router-dom"
 import { ConnectedRouter } from "connected-react-router"
 import { history } from "../redux/configureStore"
 

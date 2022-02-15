@@ -1,5 +1,4 @@
 import React from "react"
-import { Button, Text, Grid, Input } from "../elements"
 import styled from "styled-components"
 import Post from "../components/Post"
 import CategoryBar from "../components/CategoryBar"
@@ -9,12 +8,14 @@ import { actionCreators as postActions } from "../redux/modules/post"
 const axios = require("axios")
 
 const Main = (props) => {
-  // 노랑 #f6d617  배민 #2ac1bc
   const dispatch = useDispatch()
+  // 노랑 #f6d617  배민 #2ac1bc
+  const is_session = localStorage.getItem("token") ? true : false
 
   React.useEffect(() => {
     dispatch(postActions.getPostDB())
   }, [])
+
   let post_list = useSelector((state) => state.post.list)
 
   return (
@@ -27,13 +28,15 @@ const Main = (props) => {
           ))}
         </Post_container>
 
-        <WriteBtn
-          onClick={() => {
-            history.push("/write")
-          }}
-        >
-          <WriteText>글쓰기</WriteText>
-        </WriteBtn>
+        {is_session && (
+          <WriteBtn
+            onClick={() => {
+              history.push("/write")
+            }}
+          >
+            <WriteText>글쓰기</WriteText>
+          </WriteBtn>
+        )}
       </Container>
     </>
   )
