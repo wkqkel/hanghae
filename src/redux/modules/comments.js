@@ -1,6 +1,7 @@
 import { createAction, handleActions } from "redux-actions"
 import { produce } from "immer"
 import instance from "../../shared/Request"
+import { actionCreators as postActions } from "./post"
 
 //Action Types
 const SET_COMMENT = "SET_COMMENT"
@@ -18,10 +19,15 @@ const addComment = createAction(ADD_COMMENT, (postId, content) => ({
   postId,
   content,
 }))
-const editComment = createAction(DELETE_COMMENT, (commentId, content) => ({
-  commentId,
-  content,
-}))
+const editComment = createAction(
+  DELETE_COMMENT,
+  (postId, commentId, content) => ({
+    postId,
+    commentId,
+    content,
+  })
+)
+
 const deleteComment = createAction(DELETE_COMMENT, (postId, commentId) => ({
   postId,
   commentId,
@@ -40,7 +46,6 @@ const getCommentFB = (postId) => {
     instance
       .get(`/comment/${postId}`)
       .then((response) => {
-        console.log(response.data)
         dispatch(setComment(postId, response.data.comments))
       })
       .catch((error) => {
@@ -57,9 +62,7 @@ const addCommentDB = (postId, content) => {
       .then((response) => {
         dispatch(addComment(postId, content))
       })
-      .catch((error) => {
-        console.log(error)
-      })
+      .catch((error) => {})
       .then(() => {
         dispatch(getCommentFB(postId))
       })
@@ -67,17 +70,16 @@ const addCommentDB = (postId, content) => {
 }
 
 //댓글 수정
-const editCommentDB = (commentId) => {
+const editCommentDB = (postId, commentId, content) => {
   return function (dispatch, getState, { history }) {
     instance
-      .patch(`/comment/modify/${commentId}`)
+      .put(`/comment/modify/${commentId}`, content)
       .then((response) => {
-        window.alert("수정이 완료되었습니다.")
-        history.replace("/")
-        //dispatch
+        window.alert("댓글 수정이 완료되었습니다.")
       })
-      .catch((error) => {
-        console.log(error)
+      .catch((error) => {})
+      .then(() => {
+        dispatch(getCommentFB(postId))
       })
   }
 }
@@ -88,7 +90,7 @@ const deleteCommentDB = (postId, commentId) => {
     instance
       .delete(`/comment/delete/${commentId}`)
       .then(() => {
-        window.alert("댓글 삭제가 완료되었습니다")
+        window.alert("댓글 삭제가 완료되었습니다.")
         dispatch(deleteComment(postId, commentId))
       })
       .catch((error) => {
@@ -109,7 +111,10 @@ export default handleActions(
       produce(state, (draft) => {
         draft.list[action.payload.postId].unshift(action.payload.content)
       }),
-    [EDIT_COMMENT]: (state, action) => produce(state, (draft) => {}),
+    [EDIT_COMMENT]: (state, action) =>
+      produce(state, (draft) => {
+        draft.list[action.payload.commentId] = action.payload.content
+      }),
     [DELETE_COMMENT]: (state, action) =>
       produce(state, (draft) => {
         draft.list[action.payload.postId].filter(

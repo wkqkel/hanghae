@@ -1,23 +1,20 @@
-import React, { useState } from "react"
+import React, { useState, useEffect, useRef } from "react"
 import { Button, Grid, Input, Text } from "../elements"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faPen, faTrashCan } from "@fortawesome/free-solid-svg-icons"
 
 import { useDispatch, useSelector } from "react-redux"
 import { actionCreators as commentsActions } from "../redux/modules/comments"
-import { history } from "../redux/configureStore"
 
 const CommentList = (props) => {
   const dispatch = useDispatch()
+
   const comment_list = useSelector((state) => state.comments.list)
-  console.log("comment_list", comment_list)
-  console.log("props", props)
+
   const { postId } = props
-  console.log(postId)
 
   React.useEffect(() => {
     dispatch(commentsActions.getCommentFB(postId))
-    console.log("updated")
   }, [])
 
   if (!comment_list[postId]) {
@@ -45,17 +42,32 @@ const CommentItem = (props) => {
   const dispatch = useDispatch()
 
   let [input, setInput] = useState()
+  const [editable, setEditable] = useState(false)
 
-  const handleClick = () => {
-    setInput(content)
-  }
   const handleChange = (e) => {
     setInput(e.target.value)
   }
-  const { userName, userId, postId, content, commentId } = props
+  const editOn = () => {
+    setEditable(true)
+    setInput(content)
+  }
 
+  const { userName, userId, postId, content, commentId } = props
+  const handleKeydown = (e) => {
+    if (e.key === "Enter") {
+      editComment()
+    }
+  }
   //댓글 수정하기
-  const editComment = () => {}
+  const editComment = () => {
+    let content = {
+      userId: userId,
+      userName: userName,
+      content: input,
+    }
+    dispatch(commentsActions.editCommentDB(postId, commentId, content))
+    setEditable(!editable)
+  }
 
   //댓글 삭제하기
   const deleteComment = () => {
@@ -71,15 +83,29 @@ const CommentItem = (props) => {
         </Grid>
         <Grid is_flex margin="0px 5px">
           <Text is_break>
-            {input ? (
-              <input type="text" value={input} onChange={handleChange} />
+            {editable ? (
+              <Grid is_flex>
+                <input
+                  type="text"
+                  value={input}
+                  onChange={handleChange}
+                  onKeyDown={handleKeydown}
+                />
+                <Button
+                  margin="0px 10px"
+                  padding=" 2px 10px"
+                  _onClick={editComment}
+                >
+                  수정
+                </Button>
+              </Grid>
             ) : (
               content
             )}
           </Text>
         </Grid>
         <Grid is_flex width="auto">
-          <FontAwesomeIcon icon={faPen} onClick={handleClick} />
+          <FontAwesomeIcon icon={faPen} onClick={editOn} />
           <FontAwesomeIcon
             icon={faTrashCan}
             style={{ margin: "0px 10px" }}

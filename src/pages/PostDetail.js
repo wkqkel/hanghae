@@ -9,14 +9,13 @@ import { useSelector, useDispatch } from "react-redux"
 import { actionCreators as commentsActions } from "../redux/modules/comments"
 import { actionCreators as postActions } from "../redux/modules/post"
 import { history } from "../redux/configureStore"
+
 const PostDetail = (props) => {
   const dispatch = useDispatch()
   const [comment, setComment] = useState("")
   const id = props.match.params.id
-  console.log("id", id)
 
   let userId = localStorage.getItem("userId")
-  console.log("userId", userId)
 
   const post_list = useSelector((store) => store.post.list)
   const post = post_list.find((p) => p.postId === id)
@@ -54,6 +53,7 @@ const PostDetail = (props) => {
   const onChange = (e) => {
     setComment(e.target.value)
   }
+
   const write = () => {
     const comments = {
       comment,

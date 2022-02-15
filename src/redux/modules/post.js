@@ -49,7 +49,6 @@ const getPostDB = (category) => {
     instance
       .get("/post")
       .then((response) => {
-        console.log(response.data)
         // [{},{}]와 같은 배열형태로 디스패치 넘겨줌
         dispatch(getPost(response.data.post, true))
       })
@@ -127,7 +126,6 @@ const addJoinDB = (postId, loginUserNameArray) => {
     instance
       .post(`/post/join/${postId}`, loginUserNameArray)
       .then((response) => {
-        console.log("참여신청" + response.date)
         // window.alert("참여신청되었습니다")
         // dispatch(addJoin(postId, loginUserNameArray.userName))
       })
@@ -143,7 +141,6 @@ const deleteJoinDB = (postId, loginUserName) => {
     instance
       .patch(`/post/join/${postId}`, loginUserName)
       .then((response) => {
-        console.log("참여취소" + response.date)
         // window.alert("참여 취소되었습니다")
         // dispatch(deleteJoin(postId))
       })
