@@ -39,8 +39,6 @@ const PostDetail = (props) => {
       setIsJoin(true)
     }
   }, [])
-  const post_list = useSelector((store) => store.post.list)
-  const post = post_list.find((p) => p.postId === id)
 
   const clickJoin = () => {
     // let loginUser = { userName: loginUserName }
