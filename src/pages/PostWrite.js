@@ -141,10 +141,15 @@ const PostWrite = (props) => {
               ></MaxMembers>
             </Grid>
           </Grid>
-          <Grid is_flex margin="0px 5px">
+          <Grid is_flex margin="0px 0px 0px 5px" justifyRight>
             <Text></Text>
-            <Button width="100px" _onClick={addPost}>
-              {is_edit ? "수정하기" : "작성하기"}
+            <Button
+              width="70px"
+              borderRadius="10px"
+              padding="17px"
+              _onClick={addPost}
+            >
+              {is_edit ? "수정" : "작성"}
             </Button>
           </Grid>
         </Grid>

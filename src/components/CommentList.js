@@ -5,6 +5,7 @@ import { faPen, faTrashCan } from "@fortawesome/free-solid-svg-icons"
 
 import { useDispatch, useSelector } from "react-redux"
 import { actionCreators as commentsActions } from "../redux/modules/comments"
+import { history } from "../redux/configureStore"
 
 const CommentList = (props) => {
   const dispatch = useDispatch()
@@ -52,6 +53,11 @@ const CommentItem = (props) => {
     setInput(e.target.value)
   }
   const { userName, userId, postId, content, commentId } = props
+
+  //댓글 수정하기
+  const editComment = () => {}
+
+  //댓글 삭제하기
   const deleteComment = () => {
     dispatch(commentsActions.deleteCommentDB(postId, commentId))
   }

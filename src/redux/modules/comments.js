@@ -5,6 +5,7 @@ import instance from "../../shared/Request"
 //Action Types
 const SET_COMMENT = "SET_COMMENT"
 const ADD_COMMENT = "ADD_COMMENT"
+const EDIT_COMMENT = "EDIT_COMMENT"
 const DELETE_COMMENT = "DELETE_COMMENT"
 const LOADING = "LOADING"
 
@@ -15,6 +16,10 @@ const setComment = createAction(SET_COMMENT, (postId, contentList) => ({
 }))
 const addComment = createAction(ADD_COMMENT, (postId, content) => ({
   postId,
+  content,
+}))
+const editComment = createAction(DELETE_COMMENT, (commentId, content) => ({
+  commentId,
   content,
 }))
 const deleteComment = createAction(DELETE_COMMENT, (postId, commentId) => ({
@@ -46,7 +51,6 @@ const getCommentFB = (postId) => {
 
 //댓글 추가
 const addCommentDB = (postId, content) => {
-  console.log(postId, content)
   return function (dispatch, getState, { history }) {
     instance
       .post(`/comment/${postId}`, content)
@@ -58,6 +62,22 @@ const addCommentDB = (postId, content) => {
       })
       .then(() => {
         dispatch(getCommentFB(postId))
+      })
+  }
+}
+
+//댓글 수정
+const editCommentDB = (commentId) => {
+  return function (dispatch, getState, { history }) {
+    instance
+      .patch(`/comment/modify/${commentId}`)
+      .then((response) => {
+        window.alert("수정이 완료되었습니다.")
+        history.replace("/")
+        //dispatch
+      })
+      .catch((error) => {
+        console.log(error)
       })
   }
 }
@@ -89,6 +109,7 @@ export default handleActions(
       produce(state, (draft) => {
         draft.list[action.payload.postId].unshift(action.payload.content)
       }),
+    [EDIT_COMMENT]: (state, action) => produce(state, (draft) => {}),
     [DELETE_COMMENT]: (state, action) =>
       produce(state, (draft) => {
         draft.list[action.payload.postId].filter(
@@ -108,6 +129,8 @@ const actionCreators = {
   addCommentDB,
   setComment,
   addComment,
+  editComment,
+  editCommentDB,
   deleteComment,
   deleteCommentDB,
 }

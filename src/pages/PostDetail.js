@@ -8,7 +8,7 @@ import styled from "styled-components"
 import { useSelector, useDispatch } from "react-redux"
 import { actionCreators as commentsActions } from "../redux/modules/comments"
 import { actionCreators as postActions } from "../redux/modules/post"
-
+import { history } from "../redux/configureStore"
 const PostDetail = (props) => {
   const dispatch = useDispatch()
   const [comment, setComment] = useState("")
@@ -24,6 +24,7 @@ const PostDetail = (props) => {
   let [isJoin, setIsJoin] = React.useState(false)
 
   const loginUserName = localStorage.getItem("loginUserName")
+
   React.useEffect(() => {
     dispatch(commentsActions.getCommentFB(id))
     // 페이지 새로고침 시 포스트 1개만 새로 요청하기
@@ -53,7 +54,6 @@ const PostDetail = (props) => {
   const onChange = (e) => {
     setComment(e.target.value)
   }
-
   const write = () => {
     const comments = {
       comment,
@@ -61,8 +61,10 @@ const PostDetail = (props) => {
     dispatch(commentsActions.addCommentFB(id, comments))
     setComment("")
   }
+
   return (
     <Container>
+      {/* {post && < {...post} is_me={post.userId === userId} />} */}
       <Grid margin="30px 0px">
         <Grid is_flex>
           <Category>{post && post.category}</Category>
@@ -75,23 +77,33 @@ const PostDetail = (props) => {
         <Contents>{post && post.contents}</Contents>
         <Grid is_flex>
           <Grid width="auto" padding="10px">
-            <Grid padding="10px" width="110px">
-              <Text>{post && post.deadLine}</Text>
+            <Grid padding="10px 10px 10px 0px " width="150px" is_flex>
+              <Text padding="0 10px 0  0">{post && post.deadLine}</Text>
+              <Text>
+                {post && post.curMembers.length} / {post && post.maxMembers}
+              </Text>
             </Grid>
           </Grid>
-          <Grid is_flex margin="0px 5px">
-            <Text>
-              {post && post.curMembers.length} / {post && post.maxMembers}
-            </Text>
+
+          <Grid is_flex margin="0px 5px" justifyRight>
             <Button
               // disable
-              width="100px"
-              _onClick={() => dispatch(postActions.deletePostDB(post.postId))}
+              width="80px"
+              _onClick={() => {
+                dispatch(postActions.deletePostDB(post.postId))
+                history.replace("/")
+              }}
             >
-              삭제하기
+              삭제
             </Button>
-            <Button disable width="100px">
-              참여하기
+            <Button
+              width="80px"
+              margin="0px 5px"
+              _onClick={() => {
+                history.push(`/write/${post.postId}`)
+              }}
+            >
+              수정
             </Button>
             <Button width="100px" _onClick={clickJoin}>
               {post &&
@@ -103,14 +115,6 @@ const PostDetail = (props) => {
                 : "참여하기"}
             </Button>
           </Grid>
-        </Grid>
-        <Grid is_flex width="auto">
-          <Button disable width="60px" margin="0px 10px">
-            수정
-          </Button>
-          <Button disable width="60px">
-            삭제
-          </Button>
         </Grid>
       </Grid>
       <Grid bg="#E8F3F1" borderRadius>
