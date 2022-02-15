@@ -17,8 +17,8 @@ const addComment = createAction(ADD_COMMENT, (postId, content) => ({
   postId,
   content,
 }))
-const deleteComment = createAction(DELETE_COMMENT, (userId, commentId) => ({
-  userId,
+const deleteComment = createAction(DELETE_COMMENT, (postId, commentId) => ({
+  postId,
   commentId,
 }))
 
@@ -56,16 +56,27 @@ const addCommentDB = (postId, content) => {
       .catch((error) => {
         console.log(error)
       })
+      .then(() => {
+        dispatch(getCommentFB(postId))
+      })
   }
 }
 
 //댓글 삭제
-const deleteCommentDB = (commentId) => {
-  console.log(commentId)
+const deleteCommentDB = (postId, commentId) => {
   return function (dispatch, getState, { history }) {
     instance
       .delete(`/comment/delete/${commentId}`)
-      .then(() => dispatch(deleteComment(commentId)))
+      .then(() => {
+        window.alert("댓글 삭제가 완료되었습니다")
+        dispatch(deleteComment(postId, commentId))
+      })
+      .catch((error) => {
+        console.error(error)
+      })
+      .then(() => {
+        dispatch(getCommentFB(postId))
+      })
   }
 }
 export default handleActions(
@@ -80,9 +91,8 @@ export default handleActions(
       }),
     [DELETE_COMMENT]: (state, action) =>
       produce(state, (draft) => {
-        console.log(state)
         draft.list[action.payload.postId].filter(
-          (c) => c.commentId !== action.payload.commentId
+          (c, i) => c.commentId !== action.payload.commentId
         )
       }),
     [LOADING]: (state, action) =>

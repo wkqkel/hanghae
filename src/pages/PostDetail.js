@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 
 import CommentWrite from "../components/CommentWrite"
 import CommentList from "../components/CommentList"
@@ -7,20 +7,18 @@ import styled from "styled-components"
 
 import { useSelector, useDispatch } from "react-redux"
 import { actionCreators as commentsActions } from "../redux/modules/comments"
-
+import { actionCreators as postActions } from "../redux/modules/post"
 const PostDetail = (props) => {
   const dispatch = useDispatch()
   const [comment, setComment] = useState("")
-
   const id = props.match.params.id
-  console.log(id)
+  console.log("id", id)
 
   let userId = localStorage.getItem("userId")
-  console.log(userId)
+  console.log("userId", userId)
 
   const post_list = useSelector((store) => store.post.list)
   const post = post_list.find((p) => p.postId === id)
-  console.log(post)
 
   React.useEffect(() => {
     dispatch(commentsActions.getCommentFB(id))
@@ -60,6 +58,13 @@ const PostDetail = (props) => {
             <Text>
               {post.curMembers.length} / {post.maxMembers}
             </Text>
+            <Button
+              // disable
+              width="100px"
+              _onClick={() => dispatch(postActions.deletePostDB(post.postId))}
+            >
+              삭제하기
+            </Button>
             <Button disable width="100px">
               참여하기
             </Button>

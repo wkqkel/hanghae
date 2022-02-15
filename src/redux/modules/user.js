@@ -1,7 +1,6 @@
 import { createAction, handleActions } from "redux-actions"
 import { produce } from "immer"
 import { setCookie, deleteCookie } from "../../shared/Cookie"
-import { TokenToCookie } from "../../shared/Cookie"
 import instance from "../../shared/Request"
 import { history } from "../configureStore"
 
@@ -72,12 +71,11 @@ const logInDB = (username, password) => {
         console.log("로그인 완료")
         console.log(response)
         const accessToken = response.data.token
-        TokenToCookie(accessToken)
-        // setCookie("token", accessToken)
+        setCookie("token", accessToken)
         localStorage.setItem("loginUserId", response.data.userId)
         localStorage.setItem("loginUserName", response.data.userName)
         localStorage.setItem("token", accessToken)
-        // window.location.href = "/"
+        window.location.href = "/"
       })
       .catch((error) => {
         console.log("이메일 혹은 비밀번호가 잘못 입력되었습니다")

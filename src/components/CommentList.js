@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import { Button, Grid, Input, Text } from "../elements"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faPen, faTrashCan } from "@fortawesome/free-solid-svg-icons"
@@ -9,14 +9,14 @@ import { actionCreators as commentsActions } from "../redux/modules/comments"
 const CommentList = (props) => {
   const dispatch = useDispatch()
   const comment_list = useSelector((state) => state.comments.list)
-
+  console.log("comment_list", comment_list)
+  console.log("props", props)
   const { postId } = props
   console.log(postId)
 
   React.useEffect(() => {
-    if (!comment_list[postId]) {
-      dispatch(commentsActions.getCommentFB(postId))
-    }
+    dispatch(commentsActions.getCommentFB(postId))
+    console.log("updated")
   }, [])
 
   if (!comment_list[postId]) {
@@ -27,7 +27,7 @@ const CommentList = (props) => {
     <React.Fragment>
       <Grid padding="16px">
         {comment_list[postId].map((c, i) => {
-          return <CommentItem key={c._id} {...c} />
+          return <CommentItem key={i} {...c} />
         })}
       </Grid>
     </React.Fragment>
@@ -43,9 +43,17 @@ export default CommentList
 const CommentItem = (props) => {
   const dispatch = useDispatch()
 
+  let [input, setInput] = useState()
+
+  const handleClick = () => {
+    setInput(content)
+  }
+  const handleChange = (e) => {
+    setInput(e.target.value)
+  }
   const { userName, userId, postId, content, commentId } = props
   const deleteComment = () => {
-    dispatch(commentsActions.deleteCommentDB(commentId))
+    dispatch(commentsActions.deleteCommentDB(postId, commentId))
   }
   return (
     <React.Fragment>
@@ -56,10 +64,16 @@ const CommentItem = (props) => {
           </Text>
         </Grid>
         <Grid is_flex margin="0px 5px">
-          <Text is_break>{content}</Text>
+          <Text is_break>
+            {input ? (
+              <input type="text" value={input} onChange={handleChange} />
+            ) : (
+              content
+            )}
+          </Text>
         </Grid>
         <Grid is_flex width="auto">
-          <FontAwesomeIcon icon={faPen} />
+          <FontAwesomeIcon icon={faPen} onClick={handleClick} />
           <FontAwesomeIcon
             icon={faTrashCan}
             style={{ margin: "0px 10px" }}
