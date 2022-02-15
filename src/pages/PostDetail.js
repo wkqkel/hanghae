@@ -17,12 +17,11 @@ const PostDetail = (props) => {
 
   const post_list = useSelector((store) => store.post.list)
   const post = post_list.find((p) => p.postId === id)
-
   let [isJoin, setIsJoin] = React.useState(false)
+  let [idCheck, setIdCheck] = React.useState(false)
 
   const loginUserId = localStorage.getItem("loginUserId")
   const loginUserName = localStorage.getItem("loginUserName")
-
   React.useEffect(() => {
     dispatch(commentsActions.getCommentFB(id))
     // 페이지 새로고침 시 포스트 1개만 새로 요청하기
@@ -38,7 +37,10 @@ const PostDetail = (props) => {
       setIsJoin(true)
       console.log(isJoin)
     }
-    console.log("렉?")
+    if (post && post.userId === loginUserId) {
+      setIdCheck(true)
+      console.log(idCheck)
+    }
     // 중괄호안에 포스트리스트를 넣어주니, 저게 바뀌면 새로 불러와줘서 setJoin도 계속 갱신됨
   }, [post_list])
 
@@ -99,37 +101,42 @@ const PostDetail = (props) => {
           </Grid>
 
           <Grid is_flex margin="0px 5px" justifyRight>
-            <Button
-              // disable
-              width="80px"
-              _onClick={() => {
-                dispatch(postActions.deletePostDB(post.postId))
-                history.replace("/")
-              }}
-            >
-              삭제
-            </Button>
-            <Button
-              width="80px"
-              margin="0px 5px"
-              _onClick={() => {
-                history.push(`/write/${post.postId}`)
-              }}
-            >
-              수정
-            </Button>
+            {idCheck ? (
+              <Grid is_flex justifyRight>
+                <Button
+                  // disable
+                  width="80px"
+                  _onClick={() => {
+                    dispatch(postActions.deletePostDB(post.postId))
+                    history.replace("/")
+                  }}
+                >
+                  삭제
+                </Button>
 
-            <Button width="100px" _onClick={clickJoin}>
-              {post &&
-              // 현재 참여인원수와 최대참여인원수가 같으면서, 현재 참여인원이 아닌 사람은 마감완료 버튼이 보여서 클릭 못하고
-              // 아닐 경우나 아닌 사람은 참여 여부에 따라 참여취소또는 참여하기 버튼이 보임.
-              post.curMembers.length === post.maxMembers &&
-              !post.curMembers.includes(loginUserName)
-                ? "마감완료"
-                : isJoin
-                ? "참여취소"
-                : "참여하기"}
-            </Button>
+                <Button
+                  width="80px"
+                  margin="0px 5px"
+                  _onClick={() => {
+                    history.push(`/write/${post.postId}`)
+                  }}
+                >
+                  수정
+                </Button>
+              </Grid>
+            ) : (
+              <Button width="100px" _onClick={clickJoin}>
+                {post &&
+                // 현재 참여인원수와 최대참여인원수가 같으면서, 현재 참여인원이 아닌 사람은 마감완료 버튼이 보여서 클릭 못하고
+                // 아닐 경우나 아닌 사람은 참여 여부에 따라 참여취소또는 참여하기 버튼이 보임.
+                post.curMembers.length === post.maxMembers &&
+                !post.curMembers.includes(loginUserName)
+                  ? "마감완료"
+                  : isJoin
+                  ? "참여취소"
+                  : "참여하기"}
+              </Button>
+            )}
           </Grid>
         </Grid>
       </Grid>

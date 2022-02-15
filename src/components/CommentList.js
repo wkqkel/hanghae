@@ -9,14 +9,16 @@ import { actionCreators as commentsActions } from "../redux/modules/comments"
 const CommentList = (props) => {
   const dispatch = useDispatch()
 
-  const comment_list = useSelector((state) => state.comments.list)
+  const loginUserId = localStorage.getItem("loginUserId")
+  const loginUserName = localStorage.getItem("loginUserName")
 
   const { postId } = props
+  // 댓글 작성자만 삭제 및 수정 가능하게
+  const comment_list = useSelector((state) => state.comments.list)
 
   React.useEffect(() => {
     dispatch(commentsActions.getCommentFB(postId))
   }, [])
-
   if (!comment_list[postId]) {
     return null
   }
@@ -25,7 +27,7 @@ const CommentList = (props) => {
     <React.Fragment>
       <Grid padding="16px">
         {comment_list[postId].map((c, i) => {
-          return <CommentItem key={i} {...c} />
+          return <CommentItem key={i} {...c} is_me={c.userId === loginUserId} />
         })}
       </Grid>
     </React.Fragment>
@@ -34,11 +36,13 @@ const CommentList = (props) => {
 
 CommentList.defaultProps = {
   postId: null,
+  is_me: false,
 }
 
 export default CommentList
 
 const CommentItem = (props) => {
+  console.log("props1111", props)
   const dispatch = useDispatch()
 
   let [input, setInput] = useState()
@@ -73,6 +77,7 @@ const CommentItem = (props) => {
   const deleteComment = () => {
     dispatch(commentsActions.deleteCommentDB(postId, commentId))
   }
+
   return (
     <React.Fragment>
       <Grid is_flex margin="10px 0px">
@@ -104,14 +109,18 @@ const CommentItem = (props) => {
             )}
           </Text>
         </Grid>
-        <Grid is_flex width="auto">
-          <FontAwesomeIcon icon={faPen} onClick={editOn} />
-          <FontAwesomeIcon
-            icon={faTrashCan}
-            style={{ margin: "0px 10px" }}
-            onClick={deleteComment}
-          />
-        </Grid>
+        {props.is_me ? (
+          <Grid is_flex width="auto">
+            <FontAwesomeIcon icon={faPen} onClick={editOn} />
+            <FontAwesomeIcon
+              icon={faTrashCan}
+              style={{ margin: "0px 10px" }}
+              onClick={deleteComment}
+            />
+          </Grid>
+        ) : (
+          console.log("false")
+        )}
       </Grid>
     </React.Fragment>
   )

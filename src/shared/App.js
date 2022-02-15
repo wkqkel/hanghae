@@ -11,6 +11,8 @@ import PostWrite from "../pages/PostWrite"
 import PostDetail from "../pages/PostDetail"
 import Header from "../components/Header"
 
+import Permit from "./Permit"
+
 function App() {
   return (
     <React.Fragment>
@@ -23,6 +25,7 @@ function App() {
         <Route path="/write/:id" exact component={PostWrite}></Route>
         <Route path="/post/:id" exact component={PostDetail}></Route>
       </ConnectedRouter>
+      <Permit></Permit>
     </React.Fragment>
   )
 }

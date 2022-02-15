@@ -27,13 +27,13 @@ const Main = (props) => {
           ))}
         </Post_container>
 
-        <WriteBtn
+        {/* <WriteBtn
           onClick={() => {
             history.push("/write")
           }}
         >
           <WriteText>글쓰기</WriteText>
-        </WriteBtn>
+        </WriteBtn> */}
       </Container>
     </>
   )
