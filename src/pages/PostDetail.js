@@ -4,7 +4,7 @@ import CommentWrite from "../components/CommentWrite"
 import CommentList from "../components/CommentList"
 import { Grid, Text, Button } from "../elements"
 import styled from "styled-components"
-
+import JoinBtn from "../components/JoinBtn"
 import { useSelector, useDispatch } from "react-redux"
 import { actionCreators as commentsActions } from "../redux/modules/comments"
 import { actionCreators as postActions } from "../redux/modules/post"
@@ -15,13 +15,12 @@ const PostDetail = (props) => {
   const [comment, setComment] = useState("")
   const id = props.match.params.id
 
-  let userId = localStorage.getItem("userId")
-
   const post_list = useSelector((store) => store.post.list)
   const post = post_list.find((p) => p.postId === id)
 
   let [isJoin, setIsJoin] = React.useState(false)
 
+  const loginUserId = localStorage.getItem("loginUserId")
   const loginUserName = localStorage.getItem("loginUserName")
 
   React.useEffect(() => {
@@ -37,17 +36,31 @@ const PostDetail = (props) => {
 
     if (post && post.curMembers.includes(loginUserName)) {
       setIsJoin(true)
+      console.log(isJoin)
     }
+
+    console.log(post)
   }, [])
 
   const clickJoin = () => {
-    // let loginUser = { userName: loginUserName }
-    // setIsJoin(!isJoin)
-    // if (isJoin) {
-    //   dispatch(postActions.deleteJoinDB(id, loginUser))
-    // } else {
-    //   dispatch(postActions.addJoinDB(id, loginUser))
-    // }
+    // 현재 참여인원수와 최대인원수가 같으면 모집마감
+    // 모집마감일 경우 현재 미참여 인원은 클릭 불가
+    if (
+      post.curMembers.length === post.maxMembers &&
+      !post.curMembers.includes(loginUserName)
+    ) {
+      alert("모집이 마감되었습니다")
+      return
+    }
+
+    let loginUser = { userName: loginUserName }
+    // 클릭시 isJoin여부 토글 트루일때 참여취소_삭제
+    setIsJoin(!isJoin)
+    if (isJoin) {
+      dispatch(postActions.deleteJoinDB(id, loginUser))
+    } else {
+      dispatch(postActions.addJoinDB(id, loginUser))
+    }
   }
 
   const onChange = (e) => {
@@ -105,6 +118,7 @@ const PostDetail = (props) => {
             >
               수정
             </Button>
+            {/* <JoinBtn post={post && post}></JoinBtn> */}
             <Button width="100px" _onClick={clickJoin}>
               {post &&
               post.curMembers.length === post.maxMembers &&

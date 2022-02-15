@@ -19,12 +19,14 @@ const addPost = createAction(ADD_POST, (post, checkLoadAll) => ({
   post,
   checkLoadAll,
 }))
-const editPost = createAction(EDIT_POST, (post, postId) => ({ post, postId }))
+const editPost = createAction(EDIT_POST, (post, postId, isPush) => ({
+  post,
+  postId,
+  isPush,
+}))
 const deletePost = createAction(DELETE_POST, (postId) => ({
   postId,
 }))
-const addJoin = createAction(ADD_JOIN, () => ({}))
-const deleteJoin = createAction(ADD_JOIN, () => ({}))
 
 const initialState = {
   list: [],
@@ -95,7 +97,7 @@ const editPostDB = (post, postId) => {
       .then((response) => {
         window.alert("수정이 완료되었습니다")
         history.replace("/")
-        // dispatch(editPost(post, postId))
+        dispatch(editPost(post, postId))
       })
       .catch((error) => {
         console.error(error)
@@ -126,8 +128,7 @@ const addJoinDB = (postId, loginUserNameArray) => {
     instance
       .post(`/post/join/${postId}`, loginUserNameArray)
       .then((response) => {
-        // window.alert("참여신청되었습니다")
-        // dispatch(addJoin(postId, loginUserNameArray.userName))
+        dispatch(editPost(loginUserNameArray, postId, true))
       })
       .catch((error) => {
         console.error(error)
@@ -136,13 +137,12 @@ const addJoinDB = (postId, loginUserNameArray) => {
 }
 
 //참여취소
-const deleteJoinDB = (postId, loginUserName) => {
+const deleteJoinDB = (postId, loginUserNameArray) => {
   return function (dispatch, getState, { history }) {
     instance
-      .patch(`/post/join/${postId}`, loginUserName)
+      .patch(`/post/join/${postId}`, loginUserNameArray)
       .then((response) => {
-        // window.alert("참여 취소되었습니다")
-        // dispatch(deleteJoin(postId))
+        dispatch(editPost(loginUserNameArray, postId, false))
       })
       .catch((error) => {
         console.error(error)
@@ -161,21 +161,27 @@ export default handleActions(
       produce(state, (draft) => {
         draft.list.unshift(action.payload.post)
       }),
-    [EDIT_POST]: (state, action) => {
-      produce(state, (draft) => {})
-    },
+    [EDIT_POST]: (state, action) =>
+      produce(state, (draft) => {
+        console.log("참여하기")
+        let idx = draft.list.findIndex(
+          (e) => e.postId === action.payload.postId
+        )
+        if (action.payload.isPush) {
+          draft.list[idx].curMembers.push(action.payload.post.userName)
+        } else {
+          console.log("취소하기")
+          draft.list[idx].curMembers = draft.list[idx].curMembers.filter(
+            (e) => e !== action.payload.post.userName
+          )
+        }
+      }),
     [DELETE_POST]: (state, action) =>
       produce(state, (draft) => {
         draft.list = draft.list.filter(
           (e, i) => e.postId !== action.payload.postId
         )
       }),
-    [ADD_JOIN]: (state, action) => {
-      produce(state, (draft) => {})
-    },
-    [DELETE_JOIN]: (state, action) => {
-      produce(state, (draft) => {})
-    },
   },
   initialState
 )
