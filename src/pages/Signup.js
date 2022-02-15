@@ -41,7 +41,9 @@ const Signup = (props) => {
   const signup = () => {
     if (!pwdCheck(user_pwd)) {
       setErrPwd("비밀번호 형식이 옳지 않습니다.")
-      alert("비밀번호 형식이 올바르지 않습니다.")
+      alert(
+        `비밀번호 형식이 올바르지 않습니다. 비밀번호는 8 ~ 16자 영문, 숫자, 특수문자를 최소 한가지씩 조합되어야 합니다.`
+      )
       return
     }
     dispatch(

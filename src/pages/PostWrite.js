@@ -22,6 +22,10 @@ const PostWrite = (props) => {
   const $deadLine = React.useRef(null)
   const $maxMembers = React.useRef(null)
 
+  // 로그인한 유저의 아이디와 닉네임 로컬스토리지에서 가져오기
+  const loginUserId = localStorage.getItem("loginUserId")
+  const loginUserName = localStorage.getItem("loginUserName")
+
   React.useEffect(() => {
     // 새로고침시 리덕스 데이터가 날라갔을 때 주소창에서 postId를 받아서 하나만 다시요청
     if (!post_list.length) {
@@ -72,14 +76,14 @@ const PostWrite = (props) => {
     }
     // post 스키마에 맞춰서 변수 생성_ edit여부에 따라 바뀌지않아야할 값 삼항연산자로 체크.
     let post = {
-      userId: "userId",
+      userId: loginUserId,
       title: $title.current.value,
-      userName: "userName",
+      userName: loginUserName,
       contents: $contents.current.value,
       createDate: is_edit ? postOne.createDate : todayDate,
       deadLine: $deadLine.current.value,
       maxMembers: $maxMembers.current.value,
-      curMembers: is_edit ? postOne.curMembers : ["userName"],
+      curMembers: is_edit ? postOne.curMembers : [loginUserName],
       category: $category.current.value,
     }
     // is_edit여부에 따라 다른 액션함수 요청
@@ -137,10 +141,15 @@ const PostWrite = (props) => {
               ></MaxMembers>
             </Grid>
           </Grid>
-          <Grid is_flex margin="0px 5px">
+          <Grid is_flex margin="0px 0px 0px 5px" justifyRight>
             <Text></Text>
-            <Button width="100px" _onClick={addPost}>
-              {is_edit ? "수정하기" : "작성하기"}
+            <Button
+              width="70px"
+              borderRadius="10px"
+              padding="17px"
+              _onClick={addPost}
+            >
+              {is_edit ? "수정" : "작성"}
             </Button>
           </Grid>
         </Grid>
