@@ -64,7 +64,7 @@ const logInDB = (username, password) => {
         localStorage.setItem("loginUserName", response.data.userName)
         dispatch(setUser({ userId: username, password: password }))
         localStorage.setItem("token", accessToken)
-        window.location.href = "/"
+        history.push("/")
       })
       .catch((error) => {})
   }
