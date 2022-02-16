@@ -6,6 +6,7 @@ import CategoryBar from "../components/CategoryBar"
 import { history } from "../redux/configureStore"
 import { useDispatch, useSelector } from "react-redux"
 import { actionCreators as postActions } from "../redux/modules/post"
+import { Grid, Text, Button } from "../elements"
 const axios = require("axios")
 
 const Main = (props) => {
@@ -24,6 +25,7 @@ const Main = (props) => {
   return (
     <>
       <CategoryBar></CategoryBar>
+
       <Banner></Banner>
       <Container>
         <Post_container>

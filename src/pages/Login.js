@@ -27,6 +27,15 @@ const Login = (props) => {
   const login = () => {
     dispatch(userActions.logInDB(user_email, user_pwd))
   }
+
+  const handleKeydown = (e) => {
+    console.log("i'm in!1")
+    if (e.key === "Enter") {
+      console.log("i'm in!2")
+      login()
+    }
+  }
+
   return (
     <React.Fragment>
       <Grid padding="5% 10%" is_flex width="auto">
@@ -40,6 +49,7 @@ const Login = (props) => {
               label="아이디"
               placeholder="아이디를 입력해주세요."
               _onChange={changeId}
+              _onKeyDown={handleKeydown}
             />
           </Grid>
 
@@ -49,18 +59,21 @@ const Login = (props) => {
               placeholder="영문(대소문자) + 최소 1개의 숫자 혹은 특수 문자 8~20자"
               type="password"
               _onChange={changePwd}
+              _onKeyDown={handleKeydown}
             />
           </Grid>
 
           <Button
             text="로그인하기"
             margin="10px 0px"
+            padding="16px 0px"
             _onClick={login}
             disable={user_email === "" || user_pwd === "" ? true : false}
+            bg="#5ad7c0"
           ></Button>
           <Grid is_flex justifyContent="center">
             <Text>
-              계정이 없으신가요?
+              계정이 없으신가요? &nbsp;
               <a href={"/signup"}>가입하기</a>
             </Text>
           </Grid>

@@ -41,6 +41,7 @@ const Header = (props) => {
                   dispatch(userActions.logOut())
                   window.location.href = "/"
                 }}
+                bg="#b5b5b5"
               >
                 로그아웃
               </Button>
@@ -77,6 +78,7 @@ const Header = (props) => {
               _onClick={() => {
                 history.push("/login")
               }}
+              bg="#b5b5b5"
             >
               로그인
             </Button>
@@ -85,6 +87,7 @@ const Header = (props) => {
               _onClick={() => {
                 history.push("/signup")
               }}
+              bg="#b5b5b5"
             >
               회원가입
             </Button>

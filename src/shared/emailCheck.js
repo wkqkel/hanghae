@@ -1,4 +1,4 @@
-export default function pwdCheck(pwd) {
+export default function IdCheck(pwd) {
   let regExp =
     /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,16}$/
 

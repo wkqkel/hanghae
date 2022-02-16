@@ -40,7 +40,7 @@ const ModalBox = styled.div`
   @keyframes modal-show {
     from {
       opacity: 0;
-      margin-top: -50px;
+      margin-top: -300px;
     }
     to {
       opacity: 1;
@@ -61,7 +61,7 @@ const OpenModal = styled(ModalBox)`
   display: flex;
   align-items: center;
   /* 팝업이 스르륵 열리는 효과 */
-  animation: modal-bg-show 0.3s;
+  animation: modal-bg-show 0.6s;
 `
 
 const ModalHeader = styled.header`
@@ -78,7 +78,7 @@ const Section = styled.section`
   border-radius: 0.3rem;
   background-color: #fff;
   /* 팝업이 스르륵 열리는 효과 */
-  animation: modal-show 0.3s;
+  animation: modal-show 0.3s linear;
   overflow: hidden;
 `
 
