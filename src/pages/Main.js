@@ -31,7 +31,7 @@ const Main = (props) => {
             <Post key={i} {...e}></Post>
           ))}
         </Post_container>
-
+        {/* 
         {is_session && (
           <WriteBtn
             onClick={() => {
@@ -40,7 +40,7 @@ const Main = (props) => {
           >
             <WriteText>글쓰기</WriteText>
           </WriteBtn>
-        )}
+        )} */}
         {/* <WriteBtn
           onClick={() => {
             history.push("/write")

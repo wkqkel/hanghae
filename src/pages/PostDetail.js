@@ -115,8 +115,9 @@ const PostDetail = (props) => {
           <Text bold>{post && post.createDate}</Text>
         </Grid>
         <Contents>{post && post.contents}</Contents>
-        <Grid is_flex>
-          <Grid width="auto" padding="10px">
+        {/* 원래 Grid is_flex */}
+        <ButtonBox>
+          <Grid width="100%" padding="10px" justifyContent="left">
             <Grid padding="10px 10px 10px 0px " width="350px" is_flex>
               <DeadLine>모집기간</DeadLine>
               <Text padding="0px 10px 0px  0px">{post && post.deadLine}</Text>
@@ -141,31 +142,36 @@ const PostDetail = (props) => {
               ></Modal>
             </Grid>
           </Grid>
-          <ButtonBox>
-            <Grid id="buttonbox" margin="0px 5px" justifyRight>
-              {idCheck ? (
-                <Grid is_flex justifyRight>
-                  <Button
-                    // disable
-                    width="80px"
-                    _onClick={() => {
-                      dispatch(postActions.deletePostDB(post.postId))
-                      history.replace("/")
-                    }}
-                  >
-                    삭제
-                  </Button>
-                  <Button
-                    width="80px"
-                    margin="0px 5px"
-                    _onClick={() => {
-                      history.push(`/write/${post.postId}`)
-                    }}
-                  >
-                    수정
-                  </Button>
-                </Grid>
-              ) : (
+          <Grid id="buttonbox" margin="0px 5px" style={{ float: "right" }}>
+            {idCheck ? (
+              <Grid is_flex justifyContent="right" padding="0px 10px">
+                <Button
+                  width="80px"
+                  margin="0px 5px"
+                  _onClick={() => {
+                    history.push(`/write/${post.postId}`)
+                  }}
+                >
+                  수정
+                </Button>
+                <Button
+                  width="80px"
+                  _onClick={() => {
+                    dispatch(postActions.deletePostDB(post.postId))
+                    history.replace("/")
+                  }}
+                >
+                  삭제
+                </Button>
+              </Grid>
+            ) : (
+              <Grid
+                id="buttonbox"
+                margin="0px 5px"
+                is_flex
+                justifyContent="right"
+                padding="0px 10px"
+              >
                 <Button width="100px" _onClick={clickJoin}>
                   {
                     // 마감날짜가 지났거나 현재 참여인원수와 최대참여인원수가 같으면서, 현재 참여인원이 아닌 사람은 마감완료 버튼
@@ -180,10 +186,10 @@ const PostDetail = (props) => {
                       : "참여하기"
                   }
                 </Button>
-              )}
-            </Grid>
-          </ButtonBox>
-        </Grid>
+              </Grid>
+            )}
+          </Grid>
+        </ButtonBox>
       </Grid>
       <Grid bg="#E8F3F1" borderRadius>
         <CommentWrite postId={id} _onClick={write} />
@@ -267,7 +273,9 @@ const Members = styled.div`
 `
 const ButtonBox = styled.div`
   display: flex;
-  @media only screen and (max-width: 768px) {
+  align-items: center;
+  justify-content: space-between;
+  @media only screen and (max-width: 600px) {
     display: flex;
     flex-direction: column;
   }

@@ -159,7 +159,7 @@ const Signup = (props) => {
           >
             회원가입
           </Button>
-          <Grid is_flex justifyCenter>
+          <Grid is_flex justifyContent="center">
             <Text>
               계정이 있으신가요?
               <a href={"/login"}>로그인</a>

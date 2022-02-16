@@ -14,10 +14,11 @@ const Grid = (props) => {
     left,
     borderBottom,
     is_flex_start,
-    justifyCenter,
-    justifyRight,
+    // justifyCenter,
+    // justifyRight,
     borderRadius,
     position,
+    justifyContent,
   } = props
 
   const styles = {
@@ -28,10 +29,11 @@ const Grid = (props) => {
     margin,
     bg,
     borderBottom,
-    justifyCenter,
-    justifyRight,
+    // justifyCenter,
+    // justifyRight,
     borderRadius,
     position,
+    justifyContent,
   }
 
   return (
@@ -52,10 +54,11 @@ Grid.defaultProps = {
   margin: false,
   bg: false,
   borderBottom: false,
-  justifyCenter: false,
-  justifyRight: false,
+  // justifyCenter: false,
+  // justifyRight: false,
   borderRadius: false,
   position: false,
+  justifyContent: "space-between",
 }
 
 const GridBox = styled.div`
@@ -71,9 +74,10 @@ const GridBox = styled.div`
       : ""}
   ${(props) =>
     props.borderBottom ? `border-bottom: ${props.borderBottom};` : ""}
-  ${(props) => (props.justifyCenter ? `justify-content: center` : "")}
-  ${(props) => (props.justifyRight ? `justify-content: right` : "")}
+  // ${(props) => (props.justifyCenter ? `justify-content: center` : "")}
+  // ${(props) => (props.justifyRight ? `justify-content: right` : "")}
   ${(props) => (props.borderRadius ? `border-radius: 10px` : "")}
   position: ${(props) => props.position};
+  justify-content: ${(props) => props.justifyContent};
 `
 export default Grid

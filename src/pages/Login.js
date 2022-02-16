@@ -31,7 +31,7 @@ const Login = (props) => {
     <React.Fragment>
       <Grid padding="5% 10%" is_flex width="auto">
         <Image src="https://cdn.dribbble.com/users/5437855/screenshots/13680952/media/2b6fe41e707600359166a8f1793ea504.jpg?compress=1&resize=400x300" />
-        <Grid justifyCenter>
+        <Grid justifyContent="center">
           <Text size="32px" bold>
             로그인
           </Text>
@@ -58,7 +58,7 @@ const Login = (props) => {
             _onClick={login}
             disable={user_email === "" || user_pwd === "" ? true : false}
           ></Button>
-          <Grid is_flex justifyCenter>
+          <Grid is_flex justifyContent="center">
             <Text>
               계정이 없으신가요?
               <a href={"/signup"}>가입하기</a>
