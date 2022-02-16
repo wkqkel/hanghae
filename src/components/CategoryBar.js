@@ -58,6 +58,9 @@ const CategoryBox = styled.div`
   align-items: center;
   flex-wrap: wrap;
   margin-bottom: -10px;
+  @media only screen and (max-width: 768px) {
+    margin-bottom: 60px;
+  }
 `
 const CategoryCircle = styled.p`
   margin: 10px;

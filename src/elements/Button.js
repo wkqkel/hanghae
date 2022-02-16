@@ -47,7 +47,7 @@ Button.defaultProps = {
   color: "#fff",
   width: "100%",
   cursor: "pointer",
-  bg: "#000000",
+  bg: "#5ad7c0",
   borderRadius: "5px",
   postion: false,
 }

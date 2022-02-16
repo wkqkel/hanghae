@@ -18,6 +18,7 @@ const Input = (props) => {
     width,
     disable,
     bg,
+    _onKeyDown,
   } = props
 
   const styles = {
@@ -35,11 +36,7 @@ const Input = (props) => {
         placeholder={placeholder}
         value={value}
         disabled={disable}
-        onKeyPress={(e) => {
-          if (e.key === "Enter") {
-            onSubmit()
-          }
-        }}
+        onKeyDown={_onKeyDown}
       />
     </>
   )
@@ -55,6 +52,7 @@ Input.defaultProps = {
   _onClick: () => {},
   disable: false,
   bg: "white",
+  _onKeyDown: () => {},
 }
 const ElInput = styled.input`
   border: 1px solid #212121;

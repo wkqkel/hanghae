@@ -119,6 +119,7 @@ const Carousel = styled.div`
       return -(props.scrollState * 100) + "vw"
     }}
   );
+  transition: all 0.2s;
 `
 const ContentBox = styled.div`
   font-size: 22px;
