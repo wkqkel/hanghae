@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { Button, Grid, Text } from "../elements"
+import { Button, Grid, Text, Input } from "../elements"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faPen, faTrashCan } from "@fortawesome/free-solid-svg-icons"
 
@@ -83,7 +83,7 @@ const CommentItem = (props) => {
   return (
     <React.Fragment>
       <Grid is_flex margin="10px 0px">
-        <Grid is_flex width="auto">
+        <Grid is_flex width="100px">
           <Text margin="0px 10px" bold>
             {userName}
           </Text>
@@ -92,16 +92,18 @@ const CommentItem = (props) => {
           <Text is_break>
             {editable ? (
               <Grid is_flex>
-                <input
+                <Input
                   type="text"
                   value={input}
-                  onChange={handleChange}
-                  onKeyDown={handleKeydown}
+                  _onChange={handleChange}
+                  _onKeyDown={handleKeydown}
+                  width="50vw"
                 />
                 <Button
                   margin="0px 10px"
-                  padding=" 2px 10px"
+                  padding=" 13px 10px"
                   _onClick={editComment}
+                  width="5vw"
                 >
                   수정
                 </Button>

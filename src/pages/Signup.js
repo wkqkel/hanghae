@@ -4,9 +4,10 @@ import { Grid, Text, Input, Button } from "../elements"
 import { history } from "../redux/configureStore"
 
 import { actionCreators as userActions } from "../redux/modules/user"
-import pwdCheck from "../shared/PwdCheck"
 
 import styled from "styled-components"
+
+import IdCheck from "../shared/idCheck"
 
 const Signup = (props) => {
   const dispatch = useDispatch()
@@ -44,9 +45,7 @@ const Signup = (props) => {
 
   //email 중복 확인
   const emailCheck = () => {
-    const emailRegex =
-      /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/
-    if (!emailRegex.test(user_email)) {
+    if (!IdCheck(user_email)) {
       window.alert("이메일 형식이 틀렸습니다. 다시 확인해 주세요")
       return
     }
@@ -89,13 +88,13 @@ const Signup = (props) => {
               width="80px"
               text="중복확인"
               _onClick={emailCheck}
+              bg="#8ad5c7"
             ></Button>
             {checkId ? (
               <Input
                 label="이메일"
                 placeholder="이메일을 입력해주세요."
                 _onChange={changeEmail}
-                disable
                 bg="aliceblue"
               />
             ) : (
@@ -103,6 +102,7 @@ const Signup = (props) => {
                 label="이메일"
                 placeholder="이메일을 입력해주세요."
                 _onChange={changeEmail}
+                bg="white"
               />
             )}
           </Grid>
@@ -113,13 +113,13 @@ const Signup = (props) => {
               width="80px"
               text="중복확인"
               _onClick={nicknameCheck}
+              bg="#8ad5c7"
             ></Button>
             {checkNickname ? (
               <Input
                 label="닉네임"
                 placeholder="닉네임을 입력해주세요."
                 _onChange={changeNickname}
-                disable
                 bg="aliceblue"
               />
             ) : (
@@ -127,6 +127,7 @@ const Signup = (props) => {
                 label="닉네임"
                 placeholder="닉네임을 입력해주세요."
                 _onChange={changeNickname}
+                bg="white"
               />
             )}
           </Grid>
@@ -156,12 +157,13 @@ const Signup = (props) => {
             //     : false
             // }
             _onClick={signup}
+            bg="#5ad7c0"
           >
             회원가입
           </Button>
           <Grid is_flex justifyContent="center">
             <Text>
-              계정이 있으신가요?
+              계정이 있으신가요? &nbsp;
               <a href={"/login"}>로그인</a>
             </Text>
           </Grid>
