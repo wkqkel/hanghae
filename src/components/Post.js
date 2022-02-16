@@ -39,7 +39,8 @@ const Post = (props) => {
         gapDay={gapDay}
         onClick={() => {
           // 포스트디테일 페이지로 가기
-          history.push(`/post/${postId}`)
+          // history push에 props 넘겨주기
+          history.push({ pathname: `/post/${postId}`, state: { gapDay } })
           // 포스트수정 페이지로 가기
           // history.push(`/write/${postId}`)
           // dispatch(postActions.deletePostDB(postId))

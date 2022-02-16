@@ -15,7 +15,6 @@ const CommentList = (props) => {
   const comment_list = useSelector((state) => state.comments.list)
   const { postId } = props
   // 댓글 작성자만 삭제 및 수정 가능하게
-  const comment_list = useSelector((state) => state.comments.list)
 
   React.useEffect(() => {
     dispatch(commentsActions.getCommentFB(postId))

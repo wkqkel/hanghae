@@ -1,14 +1,17 @@
 import { createAction, handleActions } from "redux-actions"
 import { produce } from "immer"
 import instance from "../../shared/Request"
+import {
+  ConsoleCat,
+  ConsoleWelcome,
+  ConsoleWelcomeCss,
+} from "../../shared/ConsoleCss"
 
 // import axios from "axios"
 const GET_POST = "SET_POST"
 const ADD_POST = "ADD_POST"
 const EDIT_POST = "EDIT_POST"
 const DELETE_POST = "DELETE_POST"
-const ADD_JOIN = "ADD_JOIN"
-const DELETE_JOIN = "DELETE_JOIN"
 const axios = require("axios")
 
 const getPost = createAction(GET_POST, (postList, checkLoadAll) => ({
@@ -53,6 +56,8 @@ const getPostDB = (category) => {
       .then((response) => {
         // [{},{}]와 같은 배열형태로 디스패치 넘겨줌
         dispatch(getPost(response.data.post, true))
+        console.log(ConsoleCat)
+        console.log(ConsoleWelcome, ConsoleWelcomeCss)
       })
       .catch((error) => {
         console.error(error)
@@ -163,14 +168,12 @@ export default handleActions(
       }),
     [EDIT_POST]: (state, action) =>
       produce(state, (draft) => {
-        console.log("참여하기")
         let idx = draft.list.findIndex(
           (e) => e.postId === action.payload.postId
         )
         if (action.payload.isPush) {
           draft.list[idx].curMembers.push(action.payload.post.userName)
         } else {
-          console.log("취소하기")
           draft.list[idx].curMembers = draft.list[idx].curMembers.filter(
             (e) => e !== action.payload.post.userName
           )
