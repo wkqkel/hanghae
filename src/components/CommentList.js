@@ -42,7 +42,6 @@ CommentList.defaultProps = {
 export default CommentList
 
 const CommentItem = (props) => {
-  console.log("props1111", props)
   const dispatch = useDispatch()
 
   const { userName, userId, postId, content, commentId } = props

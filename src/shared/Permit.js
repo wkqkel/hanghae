@@ -2,11 +2,10 @@ import React from "react"
 import styled from "styled-components"
 import { history } from "../redux/configureStore"
 import { useSelector } from "react-redux"
-
 const Permit = (props) => {
   const is_session = localStorage.getItem("token") ? true : false
   const is_login = useSelector((state) => state.user.is_login)
-
+  console.log("permit", is_login)
   if (is_login || is_session) {
     return (
       <React.Fragment>
@@ -20,7 +19,6 @@ const Permit = (props) => {
       </React.Fragment>
     )
   }
-
   return null
 }
 const WriteBtn = styled.div`
