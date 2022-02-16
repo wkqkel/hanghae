@@ -30,17 +30,7 @@ const Header = (props) => {
                   dispatch(postActions.getPostDB())
                 }}
               >
-                <img
-                  width="70px"
-                  src="https://firebasestorage.googleapis.com/v0/b/megazine-11a01.appspot.com/o/images%2F%EB%AA%A8%EC%9E%84%EC%9D%98%EB%AF%BC%EC%A1%B1logo.png?alt=media&token=d52ed5f9-1798-4465-ae13-3108fc3da79d"
-                />
-                {/* <Text color="#000" bold size="26px" padding="0px 15%">
-                  모<span style={{ fontSize: "24px" }}>임</span>
-                  <span style={{ fontSize: "23px" }}>
-                    의<br />
-                  </span>
-                  민<span style={{ fontSize: "24px" }}>족</span>
-                </Text> */}
+                <LogoImage src="https://firebasestorage.googleapis.com/v0/b/megazine-11a01.appspot.com/o/images%2F%EB%AA%A8%EC%9E%84%EC%9D%98%EB%AF%BC%EC%A1%B1logo.png?alt=media&token=d52ed5f9-1798-4465-ae13-3108fc3da79d" />
               </TitleBox>
             </Grid>
             <Grid is_flex width="auto" padding="0px 10%">
@@ -77,17 +67,7 @@ const Header = (props) => {
                 dispatch(postActions.getPostDB())
               }}
             >
-              <img
-                width="70px"
-                src="https://firebasestorage.googleapis.com/v0/b/megazine-11a01.appspot.com/o/images%2F%EB%AA%A8%EC%9E%84%EC%9D%98%EB%AF%BC%EC%A1%B1logo.png?alt=media&token=d52ed5f9-1798-4465-ae13-3108fc3da79d"
-              />
-              {/* <Text color="#000" bold size="26px" padding="0px 15%">
-                모<span style={{ fontSize: "24px" }}>임</span>
-                <span style={{ fontSize: "23px" }}>
-                  의<br />
-                </span>
-                민<span style={{ fontSize: "24px" }}>족</span>
-              </Text> */}
+              <LogoImage src="https://firebasestorage.googleapis.com/v0/b/megazine-11a01.appspot.com/o/images%2F%EB%AA%A8%EC%9E%84%EC%9D%98%EB%AF%BC%EC%A1%B1logo.png?alt=media&token=d52ed5f9-1798-4465-ae13-3108fc3da79d" />
             </TitleBox>
           </Grid>
           <Grid is_flex width="auto" padding="0px 10%">
@@ -115,7 +95,11 @@ const Header = (props) => {
   )
 }
 const TitleBox = styled.div`
-  padding: 0px 15%;
+  padding: 0px 10%;
   word-break: keep-all;
+`
+const LogoImage = styled.img`
+  width: 80px;
+  cursor: pointer;
 `
 export default Header

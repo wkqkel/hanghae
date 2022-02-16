@@ -38,6 +38,7 @@ const CommentWrite = (props) => {
     dispatch(commentsActions.addCommentDB(postId, content))
     setComment("")
   }
+
   return (
     <React.Fragment>
       <Grid padding="16px" is_flex>

@@ -10,6 +10,9 @@ import { actionCreators as commentsActions } from "../redux/modules/comments"
 import { actionCreators as postActions } from "../redux/modules/post"
 import { history } from "../redux/configureStore"
 import { useLocation } from "react-router"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faUsers } from "@fortawesome/free-solid-svg-icons"
+import Modal from "../components/Modal"
 
 const PostDetail = (props) => {
   const dispatch = useDispatch()
@@ -22,6 +25,7 @@ const PostDetail = (props) => {
   const post = post_list.find((p) => p.postId === id)
   let [isJoin, setIsJoin] = React.useState(false)
   let [idCheck, setIdCheck] = React.useState(false)
+  let [modalopen, setModalopen] = React.useState(false)
 
   const loginUserId = localStorage.getItem("loginUserId")
   const loginUserName = localStorage.getItem("loginUserName")
@@ -38,13 +42,11 @@ const PostDetail = (props) => {
 
     if (post && post.curMembers.includes(loginUserName)) {
       setIsJoin(true)
-      console.log(isJoin)
     }
     if (post && post.userId === loginUserId) {
       setIdCheck(true)
-      console.log(idCheck)
     }
-    // 중괄호안에 포스트리스트를 넣어주니, 저게 바뀌면 새로 불러와줘서 setJoin도 계속 갱신됨
+    // 대괄호안에 포스트리스트를 넣어주니, 저게 바뀌면 새로 불러와줘서 setJoin도 계속 갱신됨
   }, [post_list])
 
   const clickJoin = () => {
@@ -90,6 +92,16 @@ const PostDetail = (props) => {
     setComment("")
   }
 
+  //참여인원 팝업 열기
+  const openModal = () => {
+    setModalopen(true)
+  }
+
+  //참여인원 팝업 닫기
+  const closeModal = () => {
+    setModalopen(false)
+  }
+
   return (
     <Container>
       {/* {post && < {...post} is_me={post.userId === userId} />} */}
@@ -105,53 +117,72 @@ const PostDetail = (props) => {
         <Contents>{post && post.contents}</Contents>
         <Grid is_flex>
           <Grid width="auto" padding="10px">
-            <Grid padding="10px 10px 10px 0px " width="150px" is_flex>
-              <Text padding="0 10px 0  0">{post && post.deadLine}</Text>
+            <Grid padding="10px 10px 10px 0px " width="350px" is_flex>
+              <DeadLine>모집기간</DeadLine>
+              <Text padding="0px 10px 0px  0px">{post && post.deadLine}</Text>
+              <Members>모집인원</Members>
               <Text>
                 {post && post.curMembers.length} / {post && post.maxMembers}
               </Text>
+              <FontAwesomeIcon
+                style={{
+                  margin: "0px 5px",
+                  cursor: "pointer",
+                  color: "#8b8b8b",
+                }}
+                onClick={openModal}
+                icon={faUsers}
+              />
+              <Modal
+                open={modalopen}
+                close={closeModal}
+                header="참여인원"
+                value={post && post.curMembers}
+              ></Modal>
             </Grid>
           </Grid>
-          <Grid is_flex margin="0px 5px" justifyRight>
-            {idCheck ? (
-              <Grid is_flex justifyRight>
-                <Button
-                  // disable
-                  width="80px"
-                  _onClick={() => {
-                    dispatch(postActions.deletePostDB(post.postId))
-                    history.replace("/")
-                  }}
-                >
-                  삭제
+          <ButtonBox>
+            <Grid id="buttonbox" margin="0px 5px" justifyRight>
+              {idCheck ? (
+                <Grid is_flex justifyRight>
+                  <Button
+                    // disable
+                    width="80px"
+                    _onClick={() => {
+                      dispatch(postActions.deletePostDB(post.postId))
+                      history.replace("/")
+                    }}
+                  >
+                    삭제
+                  </Button>
+                  <Button
+                    width="80px"
+                    margin="0px 5px"
+                    _onClick={() => {
+                      history.push(`/write/${post.postId}`)
+                    }}
+                  >
+                    수정
+                  </Button>
+                </Grid>
+              ) : (
+                <Button width="100px" _onClick={clickJoin}>
+                  {
+                    // 마감날짜가 지났거나 현재 참여인원수와 최대참여인원수가 같으면서, 현재 참여인원이 아닌 사람은 마감완료 버튼
+                    // 아닐 경우나 아닌 사람은 참여 여부에 따라 참여취소또는 참여하기 버튼이 보임.
+                    gapDay < 0 ||
+                    (post &&
+                      post.curMembers.length === post.maxMembers &&
+                      !post.curMembers.includes(loginUserName))
+                      ? "마감완료"
+                      : isJoin
+                      ? "참여취소"
+                      : "참여하기"
+                  }
                 </Button>
-                <Button
-                  width="80px"
-                  margin="0px 5px"
-                  _onClick={() => {
-                    history.push(`/write/${post.postId}`)
-                  }}
-                >
-                  수정
-                </Button>
-              </Grid>
-            ) : (
-              <Button width="100px" _onClick={clickJoin}>
-                {
-                  // 마감날짜가 지났거나 현재 참여인원수와 최대참여인원수가 같으면서, 현재 참여인원이 아닌 사람은 마감완료 버튼
-                  // 아닐 경우나 아닌 사람은 참여 여부에 따라 참여취소또는 참여하기 버튼이 보임.
-                  gapDay < 0 ||
-                  (post &&
-                    post.curMembers.length === post.maxMembers &&
-                    !post.curMembers.includes(loginUserName))
-                    ? "마감완료"
-                    : isJoin
-                    ? "참여취소"
-                    : "참여하기"
-                }
-              </Button>
-            )}
-          </Grid>
+              )}
+            </Grid>
+          </ButtonBox>
         </Grid>
       </Grid>
       <Grid bg="#E8F3F1" borderRadius>
@@ -215,8 +246,32 @@ const Contents = styled.div`
   width: 100%;
   padding: 15px;
   height: 30vh;
+  /* box-shadow: 0 2px 5px 0 rgb(0 0 0 / 12%); ; */
+`
+const DeadLine = styled.div`
+  padding: 12px;
+  box-sizing: border-box;
+  border-radius: 5px;
+  background-color: #9dcabf;
+  color: white;
+  font-size: 14px;
 `
 
+const Members = styled.div`
+  padding: 12px;
+  box-sizing: border-box;
+  border-radius: 5px;
+  background-color: #9dcabf;
+  color: white;
+  font-size: 14px;
+`
+const ButtonBox = styled.div`
+  display: flex;
+  @media only screen and (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+  }
+`
 const Hr = styled.hr`
   border-bottom: 2px;
 `

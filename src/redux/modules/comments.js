@@ -72,7 +72,7 @@ const addCommentDB = (postId, content) => {
 const editCommentDB = (postId, commentId, content) => {
   return function (dispatch, getState, { history }) {
     instance
-      .put(`/comment/modify/${commentId}`, content)
+      .patch(`/comment/modify/${commentId}`, content)
       .then((response) => {
         window.alert("댓글 수정이 완료되었습니다.")
       })
