@@ -4,7 +4,6 @@ import { history } from "../redux/configureStore"
 
 const Permit = (props) => {
   const is_session = localStorage.getItem("token") ? true : false
-  console.log(is_session)
   if (is_session) {
     return (
       <React.Fragment>

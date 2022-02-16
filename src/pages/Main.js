@@ -1,6 +1,7 @@
 import React from "react"
 import styled from "styled-components"
 import Post from "../components/Post"
+import Banner from "../components/Banner"
 import CategoryBar from "../components/CategoryBar"
 import { history } from "../redux/configureStore"
 import { useDispatch, useSelector } from "react-redux"
@@ -21,6 +22,7 @@ const Main = (props) => {
   return (
     <>
       <CategoryBar></CategoryBar>
+      <Banner></Banner>
       <Container>
         <Post_container>
           {post_list.map((e, i) => (

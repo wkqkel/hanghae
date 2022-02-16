@@ -9,11 +9,14 @@ import { useSelector, useDispatch } from "react-redux"
 import { actionCreators as commentsActions } from "../redux/modules/comments"
 import { actionCreators as postActions } from "../redux/modules/post"
 import { history } from "../redux/configureStore"
+import { useLocation } from "react-router"
 
 const PostDetail = (props) => {
   const dispatch = useDispatch()
   const [comment, setComment] = useState("")
   const id = props.match.params.id
+  // 마감 지난지 여부알아보기 위해(버튼 비활성화), useLocation통해 주소창에서 props.state로 전달받음
+  let gapDay = useLocation().state.gapDay
 
   const post_list = useSelector((store) => store.post.list)
   const post = post_list.find((p) => p.postId === id)
@@ -45,13 +48,23 @@ const PostDetail = (props) => {
   }, [post_list])
 
   const clickJoin = () => {
-    // 현재 참여인원수와 최대인원수가 같으면 모집마감
+    // 로그인 유저가 아닌 경우 참여하기 불가
+    if (loginUserId === null) {
+      window.alert(
+        "회원이 아닌 경우, 참여하기가 불가능합니다. 로그인 해주세요~!"
+      )
+      history.replace("/login")
+      return
+    }
+
+    // 마감날짜가 지났거나 현재 참여인원수와 최대인원수가 같으면 모집마감
     // 모집마감일 경우 현재 미참여 인원은 클릭 불가
     if (
-      post.curMembers.length === post.maxMembers &&
-      !post.curMembers.includes(loginUserName)
+      gapDay < 0 ||
+      (post.curMembers.length === post.maxMembers &&
+        !post.curMembers.includes(loginUserName))
     ) {
-      alert("모집이 마감되었습니다")
+      alert("아쉽지만, 모집이 마감됐어요.")
       return
     }
 
@@ -100,7 +113,6 @@ const PostDetail = (props) => {
             </Grid>
           </Grid>
           <Grid is_flex margin="0px 5px" justifyRight>
-//             {loginUserId === post.userId ? (
             {idCheck ? (
               <Grid is_flex justifyRight>
                 <Button
@@ -125,15 +137,18 @@ const PostDetail = (props) => {
               </Grid>
             ) : (
               <Button width="100px" _onClick={clickJoin}>
-                {post &&
-                // 현재 참여인원수와 최대참여인원수가 같으면서, 현재 참여인원이 아닌 사람은 마감완료 버튼이 보여서 클릭 못하고
-                // 아닐 경우나 아닌 사람은 참여 여부에 따라 참여취소또는 참여하기 버튼이 보임.
-                post.curMembers.length === post.maxMembers &&
-                !post.curMembers.includes(loginUserName)
-                  ? "마감완료"
-                  : isJoin
-                  ? "참여취소"
-                  : "참여하기"}
+                {
+                  // 마감날짜가 지났거나 현재 참여인원수와 최대참여인원수가 같으면서, 현재 참여인원이 아닌 사람은 마감완료 버튼
+                  // 아닐 경우나 아닌 사람은 참여 여부에 따라 참여취소또는 참여하기 버튼이 보임.
+                  gapDay < 0 ||
+                  (post &&
+                    post.curMembers.length === post.maxMembers &&
+                    !post.curMembers.includes(loginUserName))
+                    ? "마감완료"
+                    : isJoin
+                    ? "참여취소"
+                    : "참여하기"
+                }
               </Button>
             )}
           </Grid>

@@ -57,7 +57,7 @@ const CategoryBox = styled.div`
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  margin-bottom: 10px;
+  margin-bottom: -10px;
 `
 const CategoryCircle = styled.p`
   margin: 10px;
