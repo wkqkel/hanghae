@@ -29,13 +29,8 @@ const Login = (props) => {
   }
   return (
     <React.Fragment>
-      <Grid padding="5% 20%" is_flex width="auto">
-        <Grid>
-          <img
-            src="https://cdn.dribbble.com/users/5437855/screenshots/13680952/media/2b6fe41e707600359166a8f1793ea504.jpg?compress=1&resize=400x300"
-            width="80%"
-          />
-        </Grid>
+      <Grid padding="5% 10%" is_flex width="auto">
+        <Image src="https://cdn.dribbble.com/users/5437855/screenshots/13680952/media/2b6fe41e707600359166a8f1793ea504.jpg?compress=1&resize=400x300" />
         <Grid justifyCenter>
           <Text size="32px" bold>
             로그인
@@ -75,10 +70,11 @@ const Login = (props) => {
   )
 }
 
-// const Image = styled.img`
-//   width: 80%;
-//   @media only screen {
-//     display: none;
-//   }
-// `
+const Image = styled.img`
+  width: 60%;
+  padding: 10%;
+  @media screen and (max-width: 1000px) {
+    display: none;
+  }
+`
 export default Login

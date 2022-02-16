@@ -17,6 +17,7 @@ const Grid = (props) => {
     justifyCenter,
     justifyRight,
     borderRadius,
+    position,
   } = props
 
   const styles = {
@@ -30,6 +31,7 @@ const Grid = (props) => {
     justifyCenter,
     justifyRight,
     borderRadius,
+    position,
   }
 
   return (
@@ -53,6 +55,7 @@ Grid.defaultProps = {
   justifyCenter: false,
   justifyRight: false,
   borderRadius: false,
+  position: false,
 }
 
 const GridBox = styled.div`
@@ -71,5 +74,6 @@ const GridBox = styled.div`
   ${(props) => (props.justifyCenter ? `justify-content: center` : "")}
   ${(props) => (props.justifyRight ? `justify-content: right` : "")}
   ${(props) => (props.borderRadius ? `border-radius: 10px` : "")}
+  position: ${(props) => props.position};
 `
 export default Grid

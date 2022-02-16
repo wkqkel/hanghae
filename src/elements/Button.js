@@ -14,6 +14,7 @@ const Button = (props) => {
     color,
     cursor,
     borderRadius,
+    position,
   } = props
 
   const styles = {
@@ -24,6 +25,7 @@ const Button = (props) => {
     bg,
     cursor,
     borderRadius,
+    position,
   }
 
   return (
@@ -47,6 +49,7 @@ Button.defaultProps = {
   cursor: "pointer",
   bg: "#212121",
   borderRadius: "5px",
+  postion: false,
 }
 
 const ElButton = styled.button`
@@ -59,6 +62,7 @@ const ElButton = styled.button`
   padding: ${(props) => props.padding};
   ${(props) => (props.margin ? `margin:${props.margin};` : "")};
   cursor: ${(props) => props.cursor};
+  position: ${(props) => props.position};
 `
 
 export default Button

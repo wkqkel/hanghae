@@ -1,5 +1,5 @@
 import React from "react"
-import styled from "styled-components"
+import styled, { withTheme } from "styled-components"
 import { Text } from "."
 
 const Input = (props) => {
@@ -16,10 +16,13 @@ const Input = (props) => {
     multiline,
     label,
     width,
+    disable,
+    bg,
   } = props
 
   const styles = {
     width,
+    bg,
   }
 
   return (
@@ -31,6 +34,7 @@ const Input = (props) => {
         onChange={_onChange}
         placeholder={placeholder}
         value={value}
+        disabled={disable}
         onKeyPress={(e) => {
           if (e.key === "Enter") {
             onSubmit()
@@ -49,6 +53,8 @@ Input.defaultProps = {
   width: "100%",
   _onChange: () => {},
   _onClick: () => {},
+  disable: false,
+  bg: "white",
 }
 const ElInput = styled.input`
   border: 1px solid #212121;
@@ -57,5 +63,6 @@ const ElInput = styled.input`
   box-sizing: border-box;
   border: 2px solid #9dcabf;
   border-radius: 5px;
+  background-color: ${(props) => props.bg};
 `
 export default Input

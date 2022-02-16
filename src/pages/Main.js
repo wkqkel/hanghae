@@ -9,6 +9,8 @@ import { actionCreators as postActions } from "../redux/modules/post"
 const axios = require("axios")
 
 const Main = (props) => {
+  const checkId = useSelector((state) => state.user)
+  console.log("checkId", checkId)
   const dispatch = useDispatch()
   // 노랑 #f6d617  배민 #2ac1bc
   const is_session = localStorage.getItem("token") ? true : false
