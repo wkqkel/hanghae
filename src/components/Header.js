@@ -11,7 +11,7 @@ import { actionCreators as postActions } from "../redux/modules/post"
 const Header = (props) => {
   const dispatch = useDispatch()
   const is_session = localStorage.getItem("token") ? true : false
-  const is_login = useSelector((state) => state.user.is_login)
+  // const is_login = useSelector((state) => state.user.is_login)
 
   if (is_session) {
     return (
@@ -30,13 +30,17 @@ const Header = (props) => {
                   dispatch(postActions.getPostDB())
                 }}
               >
-                <Text color="#000" bold size="26px" padding="0px 15%">
+                <img
+                  width="70px"
+                  src="https://firebasestorage.googleapis.com/v0/b/megazine-11a01.appspot.com/o/images%2F%EB%AA%A8%EC%9E%84%EC%9D%98%EB%AF%BC%EC%A1%B1logo.png?alt=media&token=d52ed5f9-1798-4465-ae13-3108fc3da79d"
+                />
+                {/* <Text color="#000" bold size="26px" padding="0px 15%">
                   모<span style={{ fontSize: "24px" }}>임</span>
                   <span style={{ fontSize: "23px" }}>
                     의<br />
                   </span>
                   민<span style={{ fontSize: "24px" }}>족</span>
-                </Text>
+                </Text> */}
               </TitleBox>
             </Grid>
             <Grid is_flex width="auto" padding="0px 10%">
@@ -73,13 +77,17 @@ const Header = (props) => {
                 dispatch(postActions.getPostDB())
               }}
             >
-              <Text color="#000" bold size="26px" padding="0px 15%">
+              <img
+                width="70px"
+                src="https://firebasestorage.googleapis.com/v0/b/megazine-11a01.appspot.com/o/images%2F%EB%AA%A8%EC%9E%84%EC%9D%98%EB%AF%BC%EC%A1%B1logo.png?alt=media&token=d52ed5f9-1798-4465-ae13-3108fc3da79d"
+              />
+              {/* <Text color="#000" bold size="26px" padding="0px 15%">
                 모<span style={{ fontSize: "24px" }}>임</span>
                 <span style={{ fontSize: "23px" }}>
                   의<br />
                 </span>
                 민<span style={{ fontSize: "24px" }}>족</span>
-              </Text>
+              </Text> */}
             </TitleBox>
           </Grid>
           <Grid is_flex width="auto" padding="0px 10%">
@@ -107,6 +115,7 @@ const Header = (props) => {
   )
 }
 const TitleBox = styled.div`
+  padding: 0px 15%;
   word-break: keep-all;
 `
 export default Header
