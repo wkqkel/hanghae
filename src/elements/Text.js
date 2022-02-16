@@ -12,6 +12,7 @@ const Text = (props) => {
     weight,
     is_break,
     alignCenter,
+    font,
   } = props
 
   const styles = {
@@ -23,6 +24,7 @@ const Text = (props) => {
     weight,
     is_break,
     alignCenter,
+    font,
   }
   return (
     <>
@@ -52,6 +54,7 @@ const P = styled.p`
   ${(props) => (props.padding ? `padding: ${props.padding};` : "")}
   ${(props) => (props.is_break ? `word-break: break-all;` : "")}
   ${(props) => (props.alignCenter ? `text-align: center;` : "")}
+  ${(props) => (props.font ? `font-family: ${props.font};` : "")}
 `
 
 export default Text
