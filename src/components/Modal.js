@@ -60,7 +60,7 @@ const ModalBox = styled.div`
 const OpenModal = styled(ModalBox)`
   display: flex;
   align-items: center;
-  /* 팝업이 열릴때 스르륵 열리는 효과 */
+  /* 팝업이 스르륵 열리는 효과 */
   animation: modal-bg-show 0.3s;
 `
 
@@ -73,11 +73,11 @@ const ModalHeader = styled.header`
 
 const Section = styled.section`
   width: 100%;
-  max-width: 450px;
-  margin: 0 auto;
+  margin: auto;
+  max-width: 350px;
   border-radius: 0.3rem;
   background-color: #fff;
-  /* 팝업이 열릴때 스르륵 열리는 효과 */
+  /* 팝업이 스르륵 열리는 효과 */
   animation: modal-show 0.3s;
   overflow: hidden;
 `
