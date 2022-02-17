@@ -38,54 +38,65 @@ const Login = (props) => {
 
   return (
     <React.Fragment>
-      <Grid padding="5% 10%" is_flex width="auto">
-        <Image src="https://cdn.dribbble.com/users/5437855/screenshots/13680952/media/2b6fe41e707600359166a8f1793ea504.jpg?compress=1&resize=400x300" />
-        <Grid justifyContent="center">
-          <Text size="32px" bold>
-            로그인
-          </Text>
-          <Grid padding="16px 0px">
-            <Input
-              label="아이디"
-              placeholder="아이디를 입력해주세요."
-              _onChange={changeId}
-              _onKeyDown={handleKeydown}
-            />
-          </Grid>
-
-          <Grid padding="16px 0px">
-            <Input
-              label="패스워드"
-              placeholder="영문(대소문자) + 최소 1개의 숫자 혹은 특수 문자 8~20자"
-              type="password"
-              _onChange={changePwd}
-              _onKeyDown={handleKeydown}
-            />
-          </Grid>
-
-          <Button
-            text="로그인하기"
-            margin="10px 0px"
-            padding="16px 0px"
-            _onClick={login}
-            disable={user_email === "" || user_pwd === "" ? true : false}
-            bg="#5ad7c0"
-          ></Button>
-          <Grid is_flex justifyContent="center">
-            <Text>
-              계정이 없으신가요? &nbsp;
-              <a href={"/signup"}>가입하기</a>
+      <Container>
+        <Grid padding="5%" is_flex>
+          <Image src="https://firebasestorage.googleapis.com/v0/b/megazine-11a01.appspot.com/o/images%2Fmomin1.png?alt=media&token=474370a1-1e4b-4883-83e0-dda39b708bd3" />
+          <Grid>
+            <Text size="32px" bold>
+              로그인
             </Text>
+            <Grid padding="16px 0px">
+              <Input
+                label="아이디"
+                placeholder="아이디를 입력해주세요."
+                _onChange={changeId}
+                _onKeyDown={handleKeydown}
+              />
+            </Grid>
+
+            <Grid padding="16px 0px">
+              <Input
+                label="패스워드"
+                placeholder="영문(대소문자) + 최소 1개의 숫자 혹은 특수 문자 8~20자"
+                type="password"
+                _onChange={changePwd}
+                _onKeyDown={handleKeydown}
+              />
+            </Grid>
+
+            <Button
+              text="로그인하기"
+              margin="10px 0px"
+              padding="16px 0px"
+              _onClick={login}
+              disable={user_email === "" || user_pwd === "" ? true : false}
+              bg="#5ad7c0"
+            ></Button>
+            <Grid is_flex justifyContent="center">
+              <Text>
+                계정이 없으신가요? &nbsp;
+                <a href={"/signup"}>가입하기</a>
+              </Text>
+            </Grid>
           </Grid>
         </Grid>
-      </Grid>
+      </Container>
     </React.Fragment>
   )
 }
-
+const Container = styled.div`
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  padding: 0% 15%;
+  @media only screen and (max-width: 768px) {
+    padding: 0% 3%;
+  }
+`
 const Image = styled.img`
-  width: 60%;
-  padding: 10%;
+  width: 50%;
+  padding: 5%;
   @media screen and (max-width: 1000px) {
     display: none;
   }
