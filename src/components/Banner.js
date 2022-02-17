@@ -3,6 +3,7 @@ import styled from "styled-components"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons"
 import { Text, Button } from "../elements"
+import { useInterval } from "react-use"
 
 const Banner = () => {
   const loginUserName = localStorage.getItem("loginUserName")
@@ -28,52 +29,75 @@ const Banner = () => {
     setScrollState(i)
   }
 
+  const imgURL = [
+    "https://ifh.cc/g/GPUMTv.jpg",
+    "https://ifh.cc/g/CKsG1H.jpg",
+    "https://ifh.cc/g/Z7YrNr.jpg",
+    "https://i.pinimg.com/564x/fc/10/66/fc1066bff5fcfa8ff8125f10eec74545.jpg",
+    "https://ifh.cc/g/M0MzE9.jpg",
+  ]
+  const bannerMent = [
+    ["야 너두?", "오늘은 영어 스터디모임 어떠세요", "영어스터디 구하러가기"],
+    ["나만 없어ㅠㅠ", "나도 고양이 키우고 싶다..", "반려동물 모임 구경가기"],
+    ["투어", "떠나요. 어디든..", "투어모임 구하러가기"],
+    ["요가", "퇴근 후 요가 어때요", "운동모임 구하러가기"],
+    ["주말엔", "봉사활동 어떠세요", "봉사활동모임 참여하기"],
+  ]
+
   return (
     <Container>
       <FontAwesomeIcon
         onClick={clickPrev}
         icon={faAngleLeft}
-        style={{ position: "absolute", left: "40px", zIndex: 1 }}
+        style={{
+          position: "absolute",
+          left: "40px",
+          zIndex: 1,
+          cursor: "pointer",
+        }}
       />
       <Carousel scrollState={scrollState}>
-        <ContentBox style={{ display: "flex" }}>
-          <Content style={{ display: "flex" }}>
-            {/* <h1>{loginUserId ? loginUserId : "안녕하세요"}</h1> */}
-            <textBox>
-              <h2
-                style={{
-                  fontFamily: "gmarketBold",
-                  fontSize: "38px",
-                  marginTop: "40px",
-                }}
-              >
-                야 너두?
-              </h2>
-              <p style={{ fontSize: "20px", margin: " 0px 70px 10px 0px " }}>
-                오늘은 영어 스터디모임 어떠세요{" "}
-              </p>
-              <Button width="250px">영어스터디 구하러가기</Button>
-            </textBox>
-            <Img></Img>
-            <h1
-              style={{
-                fontFamily: "tvnBold",
-                fontSize: "40px",
-                color: "#1b35d2",
-              }}
-            >
-              {loginUserName ? `Hi! ${loginUserName} 롷` : "Let's study Eng 롷"}
-            </h1>
-          </Content>
-        </ContentBox>
-        <ContentBox style={{ background: "black" }}></ContentBox>
-        <ContentBox style={{ background: "pink" }}></ContentBox>
-        <ContentBox style={{ background: "blue" }}></ContentBox>
-        <ContentBox style={{ background: "green" }}></ContentBox>
+        {circleArray.map((e, i) => (
+          <ContentBox style={{ display: "flex" }} index={i} key={i}>
+            <Content style={{ display: "flex" }}>
+              <TextBox style={{ marginRight: i === 0 ? null : "120px" }}>
+                <h2
+                  style={{
+                    fontFamily: "gmarketBold",
+                    fontSize: "38px",
+                    marginTop: "40px",
+                    color: i === 1 ? "#fff8ca" : i === 3 ? "white" : "black",
+                  }}
+                >
+                  {bannerMent[i][0]}
+                </h2>
+                <p style={{ fontSize: "20px", margin: " 0px 70px 10px 0px " }}>
+                  {bannerMent[i][1]}
+                </p>
+                <Button width="250px"> {bannerMent[i][2]}</Button>
+              </TextBox>
+              <Img imgURL={imgURL[i]} index={i}></Img>
+              {i === 0 && (
+                <h1
+                  style={{
+                    fontFamily: "tvnBold",
+                    fontSize: "40px",
+                    color: "#1b35d2",
+                  }}
+                >
+                  {loginUserName
+                    ? `Hi! ${loginUserName} 롷`
+                    : "Let's study Eng 롷"}
+                </h1>
+              )}
+            </Content>
+          </ContentBox>
+        ))}
       </Carousel>
       <CircleBox>
         {circleArray.map((e, i) => (
           <Circle
+            key={i}
             onClick={() => {
               clickCircle(i)
             }}
@@ -88,7 +112,7 @@ const Banner = () => {
       <FontAwesomeIcon
         onClick={clickNext}
         icon={faAngleRight}
-        style={{ position: "absolute", right: "40px" }}
+        style={{ position: "absolute", right: "40px", cursor: "pointer" }}
       />
     </Container>
   )
@@ -131,8 +155,11 @@ const ContentBox = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  color: black;
+  color: ${(props) => ([1, 3].includes(props.index) ? "white" : "black")};
+  background-color: ${(props) =>
+    props.index === 1 ? "#3b5892;" : props.index === 3 ? "#dfc6b2" : null};
 `
+const TextBox = styled.div``
 const Content = styled.div``
 const CircleBox = styled.div`
   width: auto;
@@ -151,9 +178,9 @@ const Circle = styled.div`
 `
 
 const Img = styled.div`
-  background-image: url("https://ifh.cc/g/GPUMTv.jpg");
+  background-image: url(${(props) => props.imgURL});
   width: 300px;
-  height: 250px;
+  height: 255px;
   background-size: cover;
   background-position: center;
 `

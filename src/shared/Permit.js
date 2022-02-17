@@ -31,8 +31,8 @@ const WriteBtn = styled.div`
   right: 0;
 
   @media only screen and (max-width: 375px) {
-    border-top: 55px solid transparent;
-    border-right: 70px solid #2ac1bc;
+    border-top: 65px solid transparent;
+    border-right: 80px solid #2ac1bc;
   }
 `
 const WriteText = styled.div`
@@ -45,7 +45,7 @@ const WriteText = styled.div`
   @media only screen and (max-width: 375px) {
     bottom: 12px;
     right: 6px;
-    font-size: 9px;
+    font-size: 12px;
   }
 `
 export default Permit
