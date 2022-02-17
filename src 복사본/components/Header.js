@@ -13,7 +13,7 @@ const Header = (props) => {
   const is_session = localStorage.getItem("token") ? true : false
   const is_login = useSelector((state) => state.user.is_login)
 
-  if (is_login && is_session) {
+  if (is_login) {
     return (
       <React.Fragment>
         <Grid

@@ -139,131 +139,119 @@ const Signup = (props) => {
 
   return (
     <React.Fragment>
-      <Container>
-        <Grid padding="5%" is_flex>
-          <Image src="https://firebasestorage.googleapis.com/v0/b/megazine-11a01.appspot.com/o/images%2Fmomin1.png?alt=media&token=474370a1-1e4b-4883-83e0-dda39b708bd3" />
-          <Grid>
-            <Text size="32px" bold>
-              회원가입
-            </Text>
-            <Grid padding="16px 0px" position="relative">
-              <Button
-                position="absolute; right:5px; top:36px"
-                width="80px"
-                text="중복확인"
-                _onClick={emailCheck}
-                bg="#8ad5c7"
-              ></Button>
-              {checkId ? (
-                <Input
-                  label="이메일"
-                  placeholder="이메일을 입력해주세요."
-                  _onChange={changeEmail}
-                  bg="aliceblue"
-                  _onKeyDown={enterCheckId}
-                />
-              ) : (
-                <Input
-                  label="이메일"
-                  placeholder="이메일을 입력해주세요."
-                  _onChange={changeEmail}
-                  bg="white"
-                  _onKeyDown={enterCheckId}
-                  _onFocus={handleFocus}
-                />
-              )}
-            </Grid>
+      <Grid padding="5% 10%" is_flex width="auto">
+        <Image src="https://cdn.dribbble.com/users/5437855/screenshots/13680952/media/2b6fe41e707600359166a8f1793ea504.jpg?compress=1&resize=400x300" />
+        <Grid>
+          <Text size="32px" bold>
+            회원가입
+          </Text>
 
-            <Grid padding="16px 0px" position="relative">
-              <Button
-                position="absolute; right:5px; top:36px"
-                width="80px"
-                text="중복확인"
-                _onClick={nicknameCheck}
-                bg="#8ad5c7"
-              ></Button>
-              {checkNickname ? (
-                <Input
-                  label="닉네임"
-                  placeholder="닉네임을 입력해주세요."
-                  _onChange={changeNickname}
-                  bg="aliceblue"
-                  _onKeyDown={enterCheckNickname}
-                  _ref={nicknameInput}
-                />
-              ) : (
-                <Input
-                  label="닉네임"
-                  placeholder="닉네임을 입력해주세요."
-                  _onChange={changeNickname}
-                  bg="white"
-                  _onKeyDown={enterCheckNickname}
-                  _ref={nicknameInput}
-                  _onFocus={handleFocus}
-                />
-              )}
-            </Grid>
-
-            <Grid padding="16px 0px">
+          <Grid padding="16px 0px" position="relative">
+            <Button
+              position="absolute; right:5px; top:36px"
+              width="80px"
+              text="중복확인"
+              _onClick={emailCheck}
+              bg="#8ad5c7"
+            ></Button>
+            {checkId ? (
               <Input
-                label="비밀번호"
-                placeholder="영문(대소문자) + 최소 1개의 숫자 혹은 특수 문자 8~20자"
-                _onChange={changePwd}
-                _onKeyDown={enterPwd}
-                _ref={pwdInput}
+                label="이메일"
+                placeholder="이메일을 입력해주세요."
+                _onChange={changeEmail}
+                bg="aliceblue"
+                _onKeyDown={enterCheckId}
+              />
+            ) : (
+              <Input
+                label="이메일"
+                placeholder="이메일을 입력해주세요."
+                _onChange={changeEmail}
+                bg="white"
+                _onKeyDown={enterCheckId}
                 _onFocus={handleFocus}
               />
-            </Grid>
+            )}
+          </Grid>
 
-            <Grid padding="16px 0px">
-              <Input
-                label="비밀번호 확인"
-                placeholder="비밀번호를 다시 입력해주세요."
-                _onChange={changePwdcheck}
-                _onKeyDown={enterPwdConfirm}
-                _ref={pwdConfrimInput}
-              />
-            </Grid>
-
+          <Grid padding="16px 0px" position="relative">
             <Button
-              margin="10px 0px"
-              padding="16px 0px"
-              // disable={
-              //   user_email === "" || user_pwd === "" || user_pwd !== user_pwdcheck
-              //     ? true
-              //     : false
-              // }
-              _onClick={signup}
-              bg="#5ad7c0"
-            >
-              회원가입
-            </Button>
-            <Grid is_flex justifyContent="center">
-              <Text>
-                계정이 있으신가요? &nbsp;
-                <a href={"/login"}>로그인</a>
-              </Text>
-            </Grid>
+              position="absolute; right:5px; top:36px"
+              width="80px"
+              text="중복확인"
+              _onClick={nicknameCheck}
+              bg="#8ad5c7"
+            ></Button>
+            {checkNickname ? (
+              <Input
+                label="닉네임"
+                placeholder="닉네임을 입력해주세요."
+                _onChange={changeNickname}
+                bg="aliceblue"
+                _onKeyDown={enterCheckNickname}
+                _ref={nicknameInput}
+              />
+            ) : (
+              <Input
+                label="닉네임"
+                placeholder="닉네임을 입력해주세요."
+                _onChange={changeNickname}
+                bg="white"
+                _onKeyDown={enterCheckNickname}
+                _ref={nicknameInput}
+                _onFocus={handleFocus}
+              />
+            )}
+          </Grid>
+
+          <Grid padding="16px 0px">
+            <Input
+              label="비밀번호"
+              placeholder="영문(대소문자) + 최소 1개의 숫자 혹은 특수 문자 8~20자"
+              _onChange={changePwd}
+              _onKeyDown={enterPwd}
+              _ref={pwdInput}
+              _onFocus={handleFocus}
+            />
+          </Grid>
+
+          <Grid padding="16px 0px">
+            <Input
+              label="비밀번호 확인"
+              placeholder="비밀번호를 다시 입력해주세요."
+              _onChange={changePwdcheck}
+              _onKeyDown={enterPwdConfirm}
+              _ref={pwdConfrimInput}
+            />
+          </Grid>
+
+          <Button
+            margin="10px 0px"
+            padding="16px 0px"
+            // disable={
+            //   user_email === "" || user_pwd === "" || user_pwd !== user_pwdcheck
+            //     ? true
+            //     : false
+            // }
+            _onClick={signup}
+            bg="#5ad7c0"
+          >
+            회원가입
+          </Button>
+          <Grid is_flex justifyContent="center">
+            <Text>
+              계정이 있으신가요? &nbsp;
+              <a href={"/login"}>로그인</a>
+            </Text>
           </Grid>
         </Grid>
-      </Container>
+      </Grid>
     </React.Fragment>
   )
 }
-
-const Container = styled.div`
-  width: 100%;
-  justify-content: center;
-  align-items: center;
-  margin: 0;
-  padding: 0% 15%;
-  @media only screen and (max-width: 768px) {
-    padding: 0% 3%;
-  }
-`
 const Image = styled.img`
-  width: 50%;
-  padding: 5%;
+  width: 60%;
+  padding: 10%;
   @media screen and (max-width: 1000px) {
     display: none;
   }

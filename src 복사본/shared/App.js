@@ -28,12 +28,11 @@ function App() {
   const is_session = localStorage.getItem("token") ? true : false
   const is_login = useSelector((state) => state.user.is_login)
   console.log("islogin", is_login)
-  console.log("is_session", is_session)
   React.useEffect(() => {
     if (is_session) {
       dispatch(userActions.setUser())
     }
-  }, [])
+  }, [is_login])
 
   return (
     <React.Fragment>

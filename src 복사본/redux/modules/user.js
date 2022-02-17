@@ -74,8 +74,8 @@ const logInDB = (username, password) => {
         localStorage.setItem("loginUserName", response.data.userName)
         dispatch(setUser({ userId: username, password: password }))
         localStorage.setItem("token", accessToken)
-        // history.push("/")
-        window.location.href = "/"
+        history.push("/")
+        // window.location.href = "/"
       })
       .catch((error) => {
         const err_message = error.response.data.errorMessage
