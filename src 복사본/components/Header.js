@@ -1,19 +1,19 @@
 import React from "react"
 import styled from "styled-components"
-import { Button, Grid } from "../elements"
+import { Button, Text, Grid } from "../elements"
 import { history } from "../redux/configureStore"
+import { getCookie, deleteCokokie, deleteCookie } from "../shared/Cookie"
 
 import { useSelector, useDispatch } from "react-redux"
 import { actionCreators as userActions } from "../redux/modules/user"
 import { actionCreators as postActions } from "../redux/modules/post"
 
 const Header = (props) => {
-  //
   const dispatch = useDispatch()
   const is_session = localStorage.getItem("token") ? true : false
   const is_login = useSelector((state) => state.user.is_login)
 
-  if (is_login && is_session) {
+  if (is_login) {
     return (
       <React.Fragment>
         <Grid

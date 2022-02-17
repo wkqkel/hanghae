@@ -12,8 +12,24 @@ import IdCheck from "../shared/idCheck"
 
 const Signup = (props) => {
   const dispatch = useDispatch()
+  const state = useSelector((state) => state.user)
   const checkId = useSelector((state) => state.user.idCheck)
   const checkNickname = useSelector((state) => state.user.nicknameCheck)
+
+  //중복 확인시 사용 가능하면 다음 input창으로 이동
+  //id -> nickName
+  //nickName -> pwd
+  React.useEffect(() => {
+    if (checkId) {
+      nicknameInput.current.focus()
+    }
+  }, [checkId])
+
+  React.useEffect(() => {
+    if (checkNickname) {
+      pwdInput.current.focus()
+    }
+  }, [checkNickname])
 
   //email
   const [user_email, setEmail] = useState("")
@@ -69,6 +85,7 @@ const Signup = (props) => {
       userActions.signUpDB(user_email, user_nickname, user_pwd, user_pwdcheck)
     )
   }
+
   //중복 확인시 사용 가능하면 다음 input창으로 이동
   //id -> nickName
   //nickName -> pwd
@@ -160,7 +177,6 @@ const Signup = (props) => {
             <Text size="32px" bold>
               회원가입
             </Text>
-
             <Grid padding="16px 0px" position="relative">
               <Button
                 position="absolute; right:5px; top:36px"

@@ -27,6 +27,7 @@ function App() {
   //login check
   const is_session = localStorage.getItem("token") ? true : false
   const is_login = useSelector((state) => state.user.is_login)
+  console.log("islogin", is_login)
   React.useEffect(() => {
     if (is_session) {
       dispatch(userActions.setUser())
@@ -46,6 +47,7 @@ function App() {
       </ConnectedRouter>
       <Permit></Permit>
       {!post_is_loaded && !user_is_loaded && !comment_is_loaded && <Spinner />}
+      {/* <Spinner /> */}
     </React.Fragment>
   )
 }

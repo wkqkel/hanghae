@@ -6,14 +6,13 @@ import { useDispatch, useSelector } from "react-redux"
 import { actionCreators as userActions } from "../redux/modules/user"
 
 const Login = (props) => {
-  const dispatch = useDispatch()
-
   //커서 이동
   const pwdInput = useRef(null)
 
+  const dispatch = useDispatch()
+
   const [user_email, setUser_email] = useState()
   const [user_pwd, setUser_pwd] = useState()
-  const [err_login, setErr_login] = useState("")
 
   const changeId = (e) => {
     setUser_email(e.target.value)
@@ -42,7 +41,7 @@ const Login = (props) => {
     e.target.select()
   }
 
-  //스피너
+  //새로 고침 시 정보 다시 불러오기
   const user_list = useSelector((store) => store.user.list)
 
   React.useEffect(() => {

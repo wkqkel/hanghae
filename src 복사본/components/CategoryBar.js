@@ -4,7 +4,6 @@ import { actionCreators as postActions } from "../redux/modules/post"
 import { useDispatch, useSelector } from "react-redux"
 
 const CategoryBar = () => {
-  //
   const dispatch = useDispatch()
   //#f4f4f4
   const [clickedCategory, changeClicked] = React.useState(0)
@@ -59,10 +58,8 @@ const CategoryBox = styled.div`
   align-items: center;
   flex-wrap: wrap;
   margin-bottom: -10px;
-
   @media only screen and (max-width: 768px) {
-    margin-bottom: 35px;
-    padding-bottom: 0px;
+    margin-bottom: 60px;
   }
 `
 const CategoryCircle = styled.p`
@@ -70,12 +67,6 @@ const CategoryCircle = styled.p`
   font-size: 17px;
   padding: 5px 15px;
   color: #000;
-  background-color: none;
   border-radius: 30px;
-  @media only screen and (max-width: 768px) {
-    padding: 9px 9px;
-    font-size: 14px;
-  }
-  cursor: pointer;
 `
 export default CategoryBar
