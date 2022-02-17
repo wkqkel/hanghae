@@ -5,6 +5,7 @@ import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons"
 import { Text, Button } from "../elements"
 
 const Banner = () => {
+  //
   // 로컬스토리지에서 유저네임 가져오기
   const loginUserName = localStorage.getItem("loginUserName")
 
