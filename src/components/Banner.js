@@ -2,7 +2,7 @@ import React from "react"
 import styled from "styled-components"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons"
-import { Text, Button } from "../elements"
+import { Button } from "../elements"
 
 const Banner = () => {
   //
@@ -194,7 +194,7 @@ const Circle = styled.div`
   background: #dedede;
   border-radius: 100%;
   margin: 0px 5px;
-  cursor: "pointer";
+  cursor: pointer;
 `
 
 const Img = styled.div`

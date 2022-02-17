@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 
 import CommentWrite from "../components/CommentWrite"
 import CommentList from "../components/CommentList"

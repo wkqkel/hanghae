@@ -59,6 +59,7 @@ const getPostDB = (category) => {
         dispatch(getPost(response.data.post, true))
         console.log(ConsoleCat)
         console.log(ConsoleWelcome, ConsoleWelcomeCss)
+        console.log("https://github.com/borobong2/FE_momin")
       })
       .catch((error) => {
         console.error(error)

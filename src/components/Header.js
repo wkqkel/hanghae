@@ -1,8 +1,7 @@
 import React from "react"
 import styled from "styled-components"
-import { Button, Text, Grid } from "../elements"
+import { Button, Grid } from "../elements"
 import { history } from "../redux/configureStore"
-import { getCookie, deleteCokokie, deleteCookie } from "../shared/Cookie"
 
 import { useSelector, useDispatch } from "react-redux"
 import { actionCreators as userActions } from "../redux/modules/user"

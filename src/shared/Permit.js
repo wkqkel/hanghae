@@ -41,6 +41,7 @@ const WriteText = styled.div`
   right: 12px;
   font-size: 18px;
   color: white;
+  cursor: pointer;
 
   @media only screen and (max-width: 375px) {
     bottom: 12px;

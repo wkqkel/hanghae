@@ -1,13 +1,9 @@
 import React, { useRef, useState } from "react"
 import { Button, Grid, Input, Text } from "../elements"
-import { setCookie } from "../shared/Cookie"
 import styled from "styled-components"
 
-import { history } from "../redux/configureStore"
 import { useDispatch, useSelector } from "react-redux"
 import { actionCreators as userActions } from "../redux/modules/user"
-import { TokenToCookie } from "../shared/Cookie"
-import instance from "../shared/Request"
 
 const Login = (props) => {
   //커서 이동
@@ -17,7 +13,6 @@ const Login = (props) => {
 
   const [user_email, setUser_email] = useState()
   const [user_pwd, setUser_pwd] = useState()
-  const [err_login, setErr_login] = useState("")
 
   const changeId = (e) => {
     setUser_email(e.target.value)
@@ -76,8 +71,8 @@ const Login = (props) => {
 
             <Grid padding="16px 0px">
               <Input
-                label="패스워드"
-                placeholder="영문(대소문자) + 최소 1개의 숫자 혹은 특수 문자 8~20자"
+                label="비밀번호"
+                placeholder="비밀번호를 입력해주세요."
                 type="password"
                 _onChange={changePwd}
                 _onKeyDown={enterPwd}
