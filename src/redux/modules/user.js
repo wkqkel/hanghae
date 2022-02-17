@@ -35,6 +35,7 @@ const initialState = {
   is_login: false,
   idCheck: false,
   nicknameCheck: false,
+  is_loaded: false,
 }
 
 //middleware actions
@@ -73,8 +74,8 @@ const logInDB = (username, password) => {
         localStorage.setItem("loginUserName", response.data.userName)
         dispatch(setUser({ userId: username, password: password }))
         localStorage.setItem("token", accessToken)
-        history.push("/")
-        // window.location.href = "/"
+        // history.push("/")
+        window.location.href = "/"
       })
       .catch((error) => {
         const err_message = error.response.data.errorMessage
@@ -93,7 +94,6 @@ const idCheckDB = (userId) => {
       })
       .catch((error) => {
         const error_message = error.response.data.result
-        console.log("error", error.response)
         if (error_message === "false") {
           window.alert("사용 중인 아이디 입니다!")
           localStorage.setItem("checkId", "false")
@@ -112,7 +112,6 @@ const nicknameCheckDB = (nickname) => {
       })
       .catch((error) => {
         const error_message = error.response.data.result
-        console.log("error", error.response)
         if (error_message === "false") {
           window.alert("사용 중인 닉네임 입니다!")
         }
@@ -124,6 +123,7 @@ export default handleActions(
     [SET_USER]: (state, action) =>
       produce(state, (draft) => {
         draft.is_login = true
+        draft.is_loaded = true
       }),
     [LOG_OUT]: (state, action) =>
       produce(state, (draft) => {
@@ -135,19 +135,23 @@ export default handleActions(
         draft.is_login = false
         draft.idCheck = false
         draft.nicknameCheck = false
+        draft.is_loaded = true
       }),
     [GET_USER]: (state, action) => produce(state, (draft) => {}),
     [SIGN_UP]: (state, action) =>
       produce(state, (draft) => {
         deleteCookie("is_login")
+        draft.is_loaded = true
       }),
     [ID_CHECK]: (state, action) =>
       produce(state, (draft) => {
         draft.idCheck = true
+        draft.is_loaded = true
       }),
     [NICKNAME_CHECK]: (state, action) =>
       produce(state, (draft) => {
         draft.nicknameCheck = true
+        draft.is_loaded = true
       }),
   },
   initialState

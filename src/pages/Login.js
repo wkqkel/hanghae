@@ -1,16 +1,15 @@
-import React, { useState } from "react"
+import React, { useRef, useState } from "react"
 import { Button, Grid, Input, Text } from "../elements"
-import { setCookie } from "../shared/Cookie"
 import styled from "styled-components"
 
-import { history } from "../redux/configureStore"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { actionCreators as userActions } from "../redux/modules/user"
-import { TokenToCookie } from "../shared/Cookie"
-import instance from "../shared/Request"
 
 const Login = (props) => {
   const dispatch = useDispatch()
+
+  //커서 이동
+  const pwdInput = useRef(null)
 
   const [user_email, setUser_email] = useState()
   const [user_pwd, setUser_pwd] = useState()
@@ -27,14 +26,30 @@ const Login = (props) => {
   const login = () => {
     dispatch(userActions.logInDB(user_email, user_pwd))
   }
-
-  const handleKeydown = (e) => {
-    console.log("i'm in!1")
+  const enterId = (e) => {
     if (e.key === "Enter") {
-      console.log("i'm in!2")
+      pwdInput.current.focus()
+    }
+  }
+  const enterPwd = (e) => {
+    if (e.key === "Enter") {
       login()
     }
   }
+
+  //input box 전체 선택
+  const handleFocus = (e) => {
+    e.target.select()
+  }
+
+  //스피너
+  const user_list = useSelector((store) => store.user.list)
+
+  React.useEffect(() => {
+    setTimeout(() => {
+      dispatch(userActions.setUser())
+    }, 1000)
+  }, [user_list])
 
   return (
     <React.Fragment>
@@ -50,17 +65,20 @@ const Login = (props) => {
                 label="아이디"
                 placeholder="아이디를 입력해주세요."
                 _onChange={changeId}
-                _onKeyDown={handleKeydown}
+                _onKeyDown={enterId}
+                _onFocus={handleFocus}
               />
             </Grid>
 
             <Grid padding="16px 0px">
               <Input
-                label="패스워드"
-                placeholder="영문(대소문자) + 최소 1개의 숫자 혹은 특수 문자 8~20자"
+                label="비밀번호"
+                placeholder="비밀번호를 입력해주세요."
                 type="password"
                 _onChange={changePwd}
-                _onKeyDown={handleKeydown}
+                _onKeyDown={enterPwd}
+                _ref={pwdInput}
+                _onFocus={handleFocus}
               />
             </Grid>
 

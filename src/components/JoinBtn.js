@@ -5,7 +5,6 @@ import { actionCreators as postActions } from "../redux/modules/post"
 
 const JoinBtn = (props) => {
   const dispatch = useDispatch()
-  const loginUserId = localStorage.getItem("loginUserId")
   const loginUserName = localStorage.getItem("loginUserName")
   let [isJoin, setIsJoin] = React.useState(false)
 

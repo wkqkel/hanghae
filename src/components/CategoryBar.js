@@ -75,5 +75,6 @@ const CategoryCircle = styled.p`
     padding: 9px 9px;
     font-size: 14px;
   }
+  cursor: pointer;
 `
 export default CategoryBar

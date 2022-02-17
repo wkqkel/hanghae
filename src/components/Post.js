@@ -69,7 +69,7 @@ const Post = (props) => {
               margin: "20px 0px 10px 0",
             }}
           >
-            {title.length > 14 ? title.substring(0, 14) + "..." : title}
+            {title.length > 12 ? title.substring(0, 12) + "..." : title}
           </p>
           <Text size="18" color="#989898">
             {contents.length > 48
@@ -112,6 +112,7 @@ const PostBox = styled.div`
   margin: 14px;
   border-radius: 34px;
   padding: 25px 36px;
+  cursor: pointer;
   @media only screen and (max-width: 768px) {
     min-width: 330px;
   }

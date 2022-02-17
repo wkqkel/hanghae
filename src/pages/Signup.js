@@ -1,11 +1,12 @@
-import React, { useState } from "react"
+import React, { useRef, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { Grid, Text, Input, Button } from "../elements"
-import { history } from "../redux/configureStore"
 
 import { actionCreators as userActions } from "../redux/modules/user"
 
 import styled from "styled-components"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons"
 
 import IdCheck from "../shared/idCheck"
 
@@ -16,14 +17,12 @@ const Signup = (props) => {
 
   //email
   const [user_email, setEmail] = useState("")
-  const [err_email, setErrEmail] = useState("")
   const changeEmail = (e) => {
     setEmail(e.target.value)
   }
 
   //nickname
   const [user_nickname, setNickname] = useState("")
-  const [err_nickname, setErrNickname] = useState("")
   const changeNickname = (e) => {
     setNickname(e.target.value)
   }
@@ -31,14 +30,12 @@ const Signup = (props) => {
 
   //password
   const [user_pwd, setPwd] = useState("")
-  const [err_pwd, setErrPwd] = useState("")
   const changePwd = (e) => {
     setPwd(e.target.value)
   }
 
   //password Check
   const [user_pwdcheck, setPwdcheck] = useState("")
-  const [err_pwdcheck, setErrPwdcheck] = useState("")
   const changePwdcheck = (e) => {
     setPwdcheck(e.target.value)
   }
@@ -72,6 +69,87 @@ const Signup = (props) => {
       userActions.signUpDB(user_email, user_nickname, user_pwd, user_pwdcheck)
     )
   }
+  //중복 확인시 사용 가능하면 다음 input창으로 이동
+  //id -> nickName
+  //nickName -> pwd
+  React.useEffect(() => {
+    if (checkId) {
+      nicknameInput.current.focus()
+    }
+  }, [checkId])
+
+  React.useEffect(() => {
+    if (checkNickname) {
+      pwdInput.current.focus()
+    }
+  }, [checkNickname])
+
+  //커서 이동
+  const nicknameInput = useRef(null)
+  const pwdInput = useRef(null)
+  const pwdConfrimInput = useRef(null)
+
+  //enter key
+  const enterSignup = (e) => {
+    if (e.key === "Enter") {
+      signup()
+    }
+  }
+
+  const enterCheckId = (e) => {
+    if (e.key === "Enter") {
+      emailCheck()
+    }
+  }
+
+  const enterCheckNickname = (e) => {
+    if (e.key === "Enter") {
+      nicknameCheck()
+    }
+  }
+
+  const enterPwd = (e) => {
+    if (e.key === "Enter") {
+      pwdConfrimInput.current.focus()
+    }
+  }
+
+  const enterPwdConfirm = (e) => {
+    if (e.key === "Enter") {
+      signup()
+    }
+  }
+
+  //input box 전체 선택
+  const handleFocus = (e) => {
+    e.target.select()
+  }
+
+  //새로 고침 시 정보 다시 불러오기
+  const user_list = useSelector((store) => store.user.list)
+
+  React.useEffect(() => {
+    dispatch(userActions.setUser())
+  }, [user_list])
+
+  //input 박스 비밀번호 보기 / 끄기
+  //이모티콘 스위칭
+  let [isHidden, setIsHidden] = React.useState(true)
+
+  //type형태
+  let [pwdMode, setPwdMode] = React.useState("text")
+
+  React.useEffect(() => {
+    if (isHidden === false) {
+      setPwdMode("text")
+    } else {
+      setPwdMode("password")
+    }
+  }, [isHidden])
+
+  const changeBool = () => {
+    setIsHidden(!isHidden)
+  }
 
   return (
     <React.Fragment>
@@ -97,6 +175,7 @@ const Signup = (props) => {
                   placeholder="이메일을 입력해주세요."
                   _onChange={changeEmail}
                   bg="aliceblue"
+                  _onKeyDown={enterCheckId}
                 />
               ) : (
                 <Input
@@ -104,6 +183,8 @@ const Signup = (props) => {
                   placeholder="이메일을 입력해주세요."
                   _onChange={changeEmail}
                   bg="white"
+                  _onKeyDown={enterCheckId}
+                  _onFocus={handleFocus}
                 />
               )}
             </Grid>
@@ -122,6 +203,8 @@ const Signup = (props) => {
                   placeholder="닉네임을 입력해주세요."
                   _onChange={changeNickname}
                   bg="aliceblue"
+                  _onKeyDown={enterCheckNickname}
+                  _ref={nicknameInput}
                 />
               ) : (
                 <Input
@@ -129,15 +212,46 @@ const Signup = (props) => {
                   placeholder="닉네임을 입력해주세요."
                   _onChange={changeNickname}
                   bg="white"
+                  _onKeyDown={enterCheckNickname}
+                  _ref={nicknameInput}
+                  _onFocus={handleFocus}
                 />
               )}
             </Grid>
 
-            <Grid padding="16px 0px">
+            <Grid padding="16px 0px" position="relative">
+              {isHidden ? (
+                <FontAwesomeIcon
+                  icon={faEye}
+                  onClick={changeBool}
+                  style={{
+                    position: "absolute",
+                    right: "10px",
+                    top: "48px",
+                    cursor: "pointer",
+                  }}
+                />
+              ) : (
+                <FontAwesomeIcon
+                  icon={faEyeSlash}
+                  onClick={changeBool}
+                  style={{
+                    position: "absolute",
+                    right: "10px",
+                    top: "48px",
+                    cursor: "pointer",
+                  }}
+                />
+              )}
+
               <Input
                 label="비밀번호"
-                placeholder="비밀번호를 입력해주세요."
+                placeholder="최소8자이상(대문자,숫자,특수문자 각 1개씩 포함)"
                 _onChange={changePwd}
+                _onKeyDown={enterPwd}
+                _ref={pwdInput}
+                _onFocus={handleFocus}
+                type={pwdMode}
               />
             </Grid>
 
@@ -146,6 +260,9 @@ const Signup = (props) => {
                 label="비밀번호 확인"
                 placeholder="비밀번호를 다시 입력해주세요."
                 _onChange={changePwdcheck}
+                _onKeyDown={enterPwdConfirm}
+                _ref={pwdConfrimInput}
+                type={pwdMode}
               />
             </Grid>
 
@@ -193,4 +310,35 @@ const Image = styled.img`
   }
 `
 
+const ToggleBox = styled.div`
+  position: relative;
+  left: 0px;
+  display: flex;
+  justify-content: right;
+  align-items: center;
+`
+const ToggleButton = styled.div`
+  width: 60px;
+  height: 30px;
+  background-color: ${(props) => (props.isEndFilter ? "#46a1f5;" : "#cccccc;")};
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  padding: 2px;
+`
+
+const Toggle = styled.div`
+  width: 27px;
+  height: 27px;
+  background: white;
+  border-radius: 50px;
+  cursor: pointer;
+  position: relative;
+  left: ${(props) => (props.isEndFilter ? "28px;" : "null")};
+`
+
+const ToggleText = styled.div`
+  position: relative;
+  margin-right: 8px;
+`
 export default Signup

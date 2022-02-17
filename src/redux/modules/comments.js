@@ -36,7 +36,7 @@ const loading = createAction(LOADING, (is_loading) => ({ is_loading }))
 
 const initialState = {
   list: {},
-  is_loading: false,
+  is_loaded: false,
 }
 
 //댓글 조회

@@ -1,6 +1,6 @@
 import React from "react"
 
-import { Grid, Text, Button, Input } from "../elements"
+import { Grid, Text, Button } from "../elements"
 import styled from "styled-components"
 import { history } from "../redux/configureStore"
 import { useDispatch, useSelector } from "react-redux"
@@ -44,6 +44,7 @@ const PostWrite = (props) => {
       $contents.current.value = postOne.contents
       $deadLine.current.value = postOne.deadLine
       $maxMembers.current.value = postOne.maxMembers
+      $category.current.value = postOne.category
     }
   }, [])
 

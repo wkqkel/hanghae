@@ -19,6 +19,8 @@ const Input = (props) => {
     disable,
     bg,
     _onKeyDown,
+    _ref,
+    _onFocus,
   } = props
 
   const styles = {
@@ -37,6 +39,8 @@ const Input = (props) => {
         value={value}
         disabled={disable}
         onKeyDown={_onKeyDown}
+        ref={_ref}
+        onFocus={_onFocus}
       />
     </>
   )
@@ -53,6 +57,8 @@ Input.defaultProps = {
   disable: false,
   bg: "white",
   _onKeyDown: () => {},
+  _ref: () => {},
+  _onFocus: () => {},
 }
 const ElInput = styled.input`
   border: 1px solid #212121;

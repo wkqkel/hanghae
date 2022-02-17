@@ -33,6 +33,7 @@ const deletePost = createAction(DELETE_POST, (postId) => ({
 
 const initialState = {
   list: [],
+  is_loaded: false,
 }
 // 카테고리별 목록 가져오기
 const getPostDB = (category) => {
@@ -58,6 +59,7 @@ const getPostDB = (category) => {
         dispatch(getPost(response.data.post, true))
         console.log(ConsoleCat)
         console.log(ConsoleWelcome, ConsoleWelcomeCss)
+        console.log("https://github.com/borobong2/FE_momin")
       })
       .catch((error) => {
         console.error(error)
@@ -161,10 +163,12 @@ export default handleActions(
       produce(state, (draft) => {
         draft.list = action.payload.postList.reverse()
         draft.checkLoadAll = action.payload.checkLoadAll
+        draft.is_loaded = true
       }),
     [ADD_POST]: (state, action) =>
       produce(state, (draft) => {
         draft.list.unshift(action.payload.post)
+        draft.is_loaded = true
       }),
     [EDIT_POST]: (state, action) =>
       produce(state, (draft) => {
@@ -173,10 +177,12 @@ export default handleActions(
         )
         if (action.payload.isPush) {
           draft.list[idx].curMembers.push(action.payload.post.userName)
+          draft.is_loaded = true
         } else {
           draft.list[idx].curMembers = draft.list[idx].curMembers.filter(
             (e) => e !== action.payload.post.userName
           )
+          draft.is_loaded = true
         }
       }),
     [DELETE_POST]: (state, action) =>
@@ -184,6 +190,7 @@ export default handleActions(
         draft.list = draft.list.filter(
           (e, i) => e.postId !== action.payload.postId
         )
+        draft.is_loaded = true
       }),
   },
   initialState

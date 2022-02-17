@@ -10,7 +10,6 @@ const CommentList = (props) => {
   const dispatch = useDispatch()
 
   const loginUserId = localStorage.getItem("loginUserId")
-  const loginUserName = localStorage.getItem("loginUserName")
 
   const comment_list = useSelector((state) => state.comments.list)
   const { postId } = props
@@ -19,6 +18,7 @@ const CommentList = (props) => {
   React.useEffect(() => {
     dispatch(commentsActions.getCommentFB(postId))
   }, [])
+
   if (!comment_list[postId]) {
     return null
   }
@@ -115,16 +115,18 @@ const CommentItem = (props) => {
         </Grid>
         {props.is_me ? (
           <Grid is_flex width="auto">
-            <FontAwesomeIcon icon={faPen} onClick={editOn} />
+            <FontAwesomeIcon
+              icon={faPen}
+              onClick={editOn}
+              style={{ cursor: "pointer" }}
+            />
             <FontAwesomeIcon
               icon={faTrashCan}
-              style={{ margin: "0px 10px" }}
+              style={{ margin: "0px 10px", cursor: "pointer" }}
               onClick={deleteComment}
             />
           </Grid>
-        ) : (
-          console.log("false")
-        )}
+        ) : null}
       </Grid>
     </React.Fragment>
   )

@@ -6,7 +6,7 @@ const Permit = (props) => {
   const is_session = localStorage.getItem("token") ? true : false
   const is_login = useSelector((state) => state.user.is_login)
 
-  if (is_login || is_session) {
+  if (is_login && is_session) {
     return (
       <React.Fragment>
         <WriteBtn
@@ -41,6 +41,7 @@ const WriteText = styled.div`
   right: 12px;
   font-size: 18px;
   color: white;
+  cursor: pointer;
 
   @media only screen and (max-width: 375px) {
     bottom: 12px;
