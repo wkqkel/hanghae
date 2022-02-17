@@ -18,6 +18,7 @@ const PostDetail = (props) => {
   const dispatch = useDispatch()
   const [comment, setComment] = useState("")
   const id = props.match.params.id
+
   // 마감 지난지 여부알아보기 위해(버튼 비활성화), useLocation통해 주소창에서 props.state로 전달받음
   let gapDay = useLocation().state.gapDay
 

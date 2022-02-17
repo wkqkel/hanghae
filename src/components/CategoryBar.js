@@ -58,8 +58,10 @@ const CategoryBox = styled.div`
   align-items: center;
   flex-wrap: wrap;
   margin-bottom: -10px;
+
   @media only screen and (max-width: 768px) {
-    margin-bottom: 60px;
+    margin-bottom: 35px;
+    padding-bottom: 0px;
   }
 `
 const CategoryCircle = styled.p`
@@ -67,6 +69,11 @@ const CategoryCircle = styled.p`
   font-size: 17px;
   padding: 5px 15px;
   color: #000;
+  background-color: none;
   border-radius: 30px;
+  @media only screen and (max-width: 768px) {
+    padding: 9px 9px;
+    font-size: 14px;
+  }
 `
 export default CategoryBar

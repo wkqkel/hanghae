@@ -11,8 +11,8 @@ const axios = require("axios")
 
 const Main = (props) => {
   const checkId = useSelector((state) => state.user)
-  console.log("checkId", checkId)
   const dispatch = useDispatch()
+
   // 노랑 #f6d617  배민 #2ac1bc
   const is_session = localStorage.getItem("token") ? true : false
 
@@ -22,16 +22,40 @@ const Main = (props) => {
 
   let post_list = useSelector((state) => state.post.list)
 
+  let [isEndFilter, setIsEndFilter] = React.useState(false)
+  const clickEndFilter = () => {
+    setIsEndFilter(!isEndFilter)
+  }
+
   return (
     <>
       <CategoryBar></CategoryBar>
-
       <Banner></Banner>
+
       <Container>
         <Post_container>
-          {post_list.map((e, i) => (
-            <Post key={i} {...e}></Post>
-          ))}
+          <ToggleBox>
+            <ToggleText>현재 진행중만 보기</ToggleText>
+            <ToggleButton onClick={clickEndFilter} isEndFilter={isEndFilter}>
+              <Toggle isEndFilter={isEndFilter}></Toggle>
+            </ToggleButton>
+          </ToggleBox>
+          {isEndFilter
+            ? post_list
+                .filter(
+                  (e, i) =>
+                    Math.ceil(
+                      (new Date(
+                        +e.deadLine.slice(0, 4),
+                        +e.deadLine.slice(5, 7) - 1,
+                        +e.deadLine.slice(8, 10)
+                      ).getTime() -
+                        new Date().getTime()) /
+                        (60 * 1000 * 60 * 24)
+                    ) >= 0 && e.curMembers.length !== e.maxMembers
+                )
+                .map((e, i) => <Post key={i} {...e}></Post>)
+            : post_list.map((e, i) => <Post key={i} {...e}></Post>)}
         </Post_container>
         {/* 
         {is_session && (
@@ -68,35 +92,43 @@ const Post_container = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  padding: 15px;
   @media only screen and (max-width: 768px) {
     width: 100%;
     justify-content: center;
   }
+  position: relative;
 `
-const Footer = styled.div`
-  width: 100%;
-  position: fixed;
-  bottom: 0;
-  left: 0;
+const ToggleBox = styled.div`
+  position: absolute;
+  right: 10vw;
+  top: -10px;
+  z-index: 99;
   display: flex;
-  justify-content: end;
+  justify-content: center;
   align-items: center;
 `
-const WriteBtn = styled.div`
-  width: 0px;
-  height: 0px;
-  border-top: 110px solid transparent;
-  border-right: 140px solid #2ac1bc;
-  position: fixed;
-  bottom: 0;
-  right: 0;
-`
-const WriteText = styled.div`
-  position: fixed;
-  bottom: 25px;
-  right: 12px;
-  font-size: 18px;
-  color: white;
+const ToggleButton = styled.div`
+  width: 60px;
+  height: 30px;
+  background-color: ${(props) => (props.isEndFilter ? "#46a1f5;" : "#cccccc;")}
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  padding: 2px;
 `
 
+const Toggle = styled.div`
+  width: 27px;
+  height: 27px;
+  background: white;
+  border-radius: 50px;
+  position: relative;
+  left: ${(props) => (props.isEndFilter ? "28px;" : "null")};
+`
+
+const ToggleText = styled.div`
+  position: relative;
+  margin-right: 8px;
+`
 export default Main
