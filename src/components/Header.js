@@ -9,6 +9,7 @@ import { actionCreators as userActions } from "../redux/modules/user"
 import { actionCreators as postActions } from "../redux/modules/post"
 
 const Header = (props) => {
+  //
   const dispatch = useDispatch()
   const is_session = localStorage.getItem("token") ? true : false
   const is_login = useSelector((state) => state.user.is_login)

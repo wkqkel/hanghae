@@ -10,6 +10,7 @@ import { Grid, Text, Button } from "../elements"
 const axios = require("axios")
 
 const Main = (props) => {
+  //
   const checkId = useSelector((state) => state.user)
   const dispatch = useDispatch()
 
@@ -84,7 +85,7 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   margin: 0;
-  padding: 1% 10%;
+  padding: 10px 10%;
   position: relative;
   overflow-x: hidden;
 `

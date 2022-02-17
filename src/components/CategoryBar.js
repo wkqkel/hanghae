@@ -4,6 +4,7 @@ import { actionCreators as postActions } from "../redux/modules/post"
 import { useDispatch, useSelector } from "react-redux"
 
 const CategoryBar = () => {
+  //
   const dispatch = useDispatch()
   //#f4f4f4
   const [clickedCategory, changeClicked] = React.useState(0)
