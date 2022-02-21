@@ -27,6 +27,7 @@ const Button = (props) => {
     cursor,
     borderRadius,
     position,
+    text,
     border,
   };
 

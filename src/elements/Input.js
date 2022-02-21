@@ -23,11 +23,16 @@ const Input = (props) => {
     _onFocus,
     Radius,
     border,
+    height,
+    margin,
   } = props;
 
   const styles = {
     width,
     bg,
+    height,
+    margin,
+    border,
   };
 
   return (
@@ -43,6 +48,8 @@ const Input = (props) => {
         onKeyDown={_onKeyDown}
         ref={_ref}
         onFocus={_onFocus}
+        border-radius
+        minheight
       />
     </>
   );
@@ -62,8 +69,11 @@ Input.defaultProps = {
   _ref: () => {},
   _onFocus: () => {},
   padding: "12px 4px",
-  border: "1px solid #212121",
+  border: false,
   Radius: "5px",
+  height: "40px",
+  margin: false,
+  minheight: "7.125rem",
 };
 const ElInput = styled.input`
   border: ${(props) => props.border};
@@ -73,6 +83,9 @@ const ElInput = styled.input`
   border: ${(props) => props.border};
   border-radius: ${(props) => props.Radius};
   background-color: ${(props) => props.bg};
+  height: ${(props) => props.height};
+  margin: ${(props) => props.margin};
+  min-height: ${(props) => props.minheight};
 `;
 export default Input;
 
