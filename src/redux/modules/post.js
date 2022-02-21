@@ -7,6 +7,7 @@ const GET_POST = "SET_POST";
 const ADD_POST = "ADD_POST";
 const EDIT_POST = "EDIT_POST";
 const DELETE_POST = "DELETE_POST";
+
 const axios = require("axios");
 
 const getPost = createAction(GET_POST, (postList) => ({
@@ -28,6 +29,20 @@ const initialState = {
 };
 // 카테고리별 목록 가져오기
 const getPostDB = () => {
+  // 전체목록 가져오기
+  return function (dispatch, getState, { history }) {
+    instance
+      .get("/post")
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+};
+
+const getUrlDB = () => {
   // 전체목록 가져오기
   return function (dispatch, getState, { history }) {
     instance

@@ -1,10 +1,12 @@
 import "./App.css";
-import { Route } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import { ConnectedRouter } from "connected-react-router";
 import { useSelector, useDispatch } from "react-redux";
 import { history } from "../redux/configureStore";
 
+import Header from "../components/Header";
 import Main from "../pages/Main";
+import PostWrite from "../pages/PostWrite";
 
 // import { actionCreators as userActions } from "../redux/modules/user";
 
@@ -14,14 +16,20 @@ function App() {
   const dispatch = useDispatch();
   return (
     <>
-      {/* <Header></Header> */}
       <ConnectedRouter history={history}>
-        <Route path="/" exact component={Main} />
-        {/* <Route path="/login" component={Login} />
-        <Route path="/signup" component={Signup} />
-        <Route path="/write" exact component={PostWrite}></Route>
-        <Route path="/write/:id" exact component={PostWrite}></Route>
-        <Route path="/post/:id" exact component={PostDetail}></Route> */}
+        <Switch>
+          <Route path="/write" exact component={PostWrite}></Route>
+          <>
+            <Header></Header>
+            <Route path="/" exact component={Main} />
+          </>
+
+          {/* <Route path="/login" component={Login} />
+          <Route path="/signup" component={Signup} />
+
+          <Route path="/write/:id" exact component={PostWrite}></Route>
+          <Route path="/post/:id" exact component={PostDetail}></Route> */}
+        </Switch>
       </ConnectedRouter>
     </>
   );

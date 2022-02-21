@@ -11,14 +11,12 @@ const Grid = (props) => {
     children,
     _onClick,
     height,
-    left,
     borderBottom,
-    is_flex_start,
-    // justifyCenter,
-    // justifyRight,
     borderRadius,
     position,
     justifyContent,
+    fontSize,
+    column,
   } = props;
 
   const styles = {
@@ -34,6 +32,8 @@ const Grid = (props) => {
     borderRadius,
     position,
     justifyContent,
+    fontSize,
+    column,
   };
 
   return (
@@ -46,7 +46,7 @@ const Grid = (props) => {
 };
 
 Grid.defaultProps = {
-  chidren: null,
+  children: null,
   is_flex: false,
   width: "100%",
   height: "100%",
@@ -59,6 +59,8 @@ Grid.defaultProps = {
   borderRadius: false,
   position: false,
   justifyContent: false,
+  fontSize: false,
+  column: false,
 };
 
 const GridBox = styled.div`
@@ -68,17 +70,17 @@ const GridBox = styled.div`
   ${(props) => (props.padding ? `padding: ${props.padding};` : "")}
   ${(props) => (props.margin ? `margin: ${props.margin};` : "")}
   ${(props) => (props.bg ? `background-color: ${props.bg};` : "")}
-  ${(props) =>
-    props.is_flex
-      ? `display: flex; align-items: center; justify-content: space-between; `
-      : ""}
+  ${(props) => (props.is_flex ? `display: flex; align-items: center;  ` : "")}
   ${(props) =>
     props.borderBottom ? `border-bottom: ${props.borderBottom};` : ""}
   ${(props) =>
     props.justifyContent
       ? `display: flex; justify-content: ${props.justifyContent};`
       : ""}
-  ${(props) => (props.borderRadius ? `border-radius: 10px` : "")}
+  ${(props) =>
+    props.borderRadius ? `border-radius: ${props.borderRadius}` : ""}
   position: ${(props) => props.position};
+  font-size: ${(props) => props.fontSize};
+  flex-direction: ${(props) => props.column};
 `;
 export default Grid;
