@@ -1,24 +1,49 @@
 import React from "react";
 import { Button, Grid, Input, Text } from "../elements";
+import styled from "styled-components";
+import { FaHeart } from "react-icons/fa";
+import Post from "../components/Post";
+
 const Main = () => {
   return (
-    <React.Fragment>
-      <Grid is_flex>
-        <Grid>
-          <Button text="버튼이다" width="100px"></Button>
-          <Text color="red" margin="20px">
-            justifyContent 이거 어떻게 쓰는거쥬..? 지금 보여지는 상태에서
-            상단정렬을 하고 싶은디
-          </Text>
-          <Input placeholder="이것도 디폴드값 있는데 왜 디폴트로 설정된 텍스트가 안들어가지"></Input>
-        </Grid>
-        <Grid bg="yellow">
-          <Button text="버튼이다" width="100px"></Button>
-          <Text bold>저 테트 한판하고 올게요</Text>
-        </Grid>
-      </Grid>
-    </React.Fragment>
+    <>
+      <Container>
+        <PostList>
+          <Post></Post>
+          <Post></Post>
+          <Post></Post>
+          <Post></Post>
+          <Post></Post>
+          <Post></Post>
+        </PostList>
+      </Container>
+    </>
   );
 };
+const Container = styled.div`
+  width: 100%;
+  background: #f8f9fa;
+  height: 100%;
+  display: flex;
+`;
+const PostList = styled.div`
+  margin: 24px auto;
+  display: grid;
+  grid-template-columns: repeat(5, 320px);
+  @media screen and (max-width: 1720px) {
+    grid-template-columns: repeat(4, 320px);
+  }
+  @media screen and (max-width: 1440px) {
+    grid-template-columns: repeat(3, 320px);
+  }
+  @media screen and (max-width: 1056px) {
+    width: 100%;
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media screen and (max-width: 767px) {
+    width: 100%;
+    grid-template-columns: repeat(1, 1fr);
+  }
+`;
 
 export default Main;
