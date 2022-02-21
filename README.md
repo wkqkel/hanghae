@@ -15,12 +15,15 @@ yarn add connected-react-router@6.8.0
 
 yarn add immer redux-actions
 yarn add redux-logger
+yarn add react-icons --save
+yarn add @material-ui/icons
 
 //설치 완료되면 폴더구조 셋팅
-- components 폴더 생성 (기본구성,ex : 카드,헤더 등등) 
+
+- components 폴더 생성 (기본구성,ex : 카드,헤더 등등)
 - elements 폴더 생성 (최소단위 컴포넌트,ex : 버튼, input,text,Grid 등등)
 - pages 폴더생성 (url 생성되는 페이지)
 - redux 풀더 생성 ( 폴더 : modules,파일: configureStore 만드는 곳)
 - shared 폴더 생성 (App, api,Cookie 등등 )
 
-/이 외 기본 템플릿 Template에서 확인! 
+/이 외 기본 템플릿 Template에서 확인!

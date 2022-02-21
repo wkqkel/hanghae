@@ -5,6 +5,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { history } from "../redux/configureStore";
 
 import Main from "../pages/Main";
+import Login from "../pages/Login";
+import SingUp from "../pages/SignUp";
+import Detail from "../pages/Detail";
 
 // import { actionCreators as userActions } from "../redux/modules/user";
 
@@ -17,11 +20,9 @@ function App() {
       {/* <Header></Header> */}
       <ConnectedRouter history={history}>
         <Route path="/" exact component={Main} />
-        {/* <Route path="/login" component={Login} />
-        <Route path="/signup" component={Signup} />
-        <Route path="/write" exact component={PostWrite}></Route>
-        <Route path="/write/:id" exact component={PostWrite}></Route>
-        <Route path="/post/:id" exact component={PostDetail}></Route> */}
+        <Route path="/login" component={Login} />
+        <Route path="/signup" component={SingUp} />
+        <Route path="/detail" component={Detail} />
       </ConnectedRouter>
     </>
   );
