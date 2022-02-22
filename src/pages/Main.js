@@ -3,18 +3,24 @@ import { Button, Grid, Input, Text } from "../elements";
 import styled from "styled-components";
 import { FaHeart } from "react-icons/fa";
 import Post from "../components/Post";
-
+import { useDispatch, useSelector } from "react-redux";
+import { actionCreators as PostActions } from "../redux/modules/post";
+import { actionCreators as CommonActions } from "../redux/modules/common";
 const Main = () => {
+  const dispatch = useDispatch();
+  const postList = useSelector((state) => state.post.list);
+  React.useEffect(() => {
+    dispatch(PostActions.getPostDB());
+    dispatch(CommonActions.saveParams(""));
+  }, []);
+
   return (
     <>
       <Container>
         <PostList>
-          <Post></Post>
-          <Post></Post>
-          <Post></Post>
-          <Post></Post>
-          <Post></Post>
-          <Post></Post>
+          {postList.map((e, i) => (
+            <Post {...e} key={i}></Post>
+          ))}
         </PostList>
       </Container>
     </>
@@ -27,7 +33,7 @@ const Container = styled.div`
   display: flex;
 `;
 const PostList = styled.div`
-  margin: 24px auto;
+  margin: 14px auto;
   display: grid;
   grid-template-columns: repeat(5, 320px);
   @media screen and (max-width: 1720px) {

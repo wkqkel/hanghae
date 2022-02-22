@@ -3,34 +3,56 @@ import { Button, Grid, Input, Text } from "../elements";
 import styled from "styled-components";
 import { FaHeart } from "react-icons/fa";
 import ProfileImg from "./ProfileImg";
+import { history } from "../redux/configureStore";
 
-const Post = () => {
+const Post = (props) => {
+  const {
+    commentCnt,
+    contents,
+    createAt,
+    introduce,
+    postId,
+    tag,
+    thumbnail,
+    title,
+    userId,
+    pastTime,
+  } = props;
   return (
     <>
-      <PostBox>
-        <Thumnail style={{ cursor: "pointer" }}>
-          <img></img>
+      <PostBox
+        onClick={() => {
+          history.push(`/detail/${postId}`);
+        }}
+      >
+        <Thumnail style={{ cursor: "pointer" }} thumbnail={thumbnail}>
+          {/* <img></img> */}
         </Thumnail>
 
         <CenterBox>
           <div style={{ cursor: "pointer" }}>
-            <Text weight="500" size="16px" color="#212529">
-              안녕하세요, 프론트엔드 신입에 지원...
+            <Text weight="500" size="16px" margin="0 0 2px 0" color="#212529">
+              {title.length > 15 ? title.slice(0, 15) + "..." : title}
             </Text>
-            <Text weight="300" margin="0 0 24px 0">
-              개발자가 되려고 결심한 이유 그리고 신입 프론트엔드 개발자로 취업을
-              준비하며 면접에서 받은 질문과 답변 총정리
+            <Text weight="300" margin="0 0 24px 0" color="#495057">
+              {introduce.length > 55
+                ? introduce.slice(0, 55) + "..."
+                : introduce}
+              {/* {!introduce && contents.length > 55
+                ? contents.slice(0, 55) + "..."
+                : contents} */}
             </Text>
           </div>
-          <Text size="12px" color="#868E96">
-            2022년 2월 10일 · 12개의 댓글
+          <Text size="12px" color="#868E96" weight="200">
+            {`${pastTime} · ${commentCnt}개의 댓글`}
           </Text>
         </CenterBox>
         <BottomBox>
           <ProfileBox style={{ cursor: "pointer" }}>
             <ProfileImg></ProfileImg>
             <Text size="12px">
-              <span style={{ color: "#868E96" }}>by </span>heyiminhye
+              <span style={{ color: "#868E96", fontWeight: "200" }}>by </span>
+              {userId}
             </Text>
           </ProfileBox>
           <LikeBox>
@@ -48,8 +70,9 @@ const Post = () => {
 const PostBox = styled.div`
   background: white;
   border-radius: 4px;
-  height: 360px;
+  height: 340px;
   margin: 16px;
+  box-shadow: 0 0px 20px 1px rgba(0, 0, 0, 0.05);
   &:hover {
     transform: translateY(-5px);
     box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
@@ -61,29 +84,34 @@ const PostBox = styled.div`
 `;
 
 const Thumnail = styled.div`
-  background-image: url("https://media.vlpt.us/images/heekang/post/11cf82da-7c7f-4db4-a57b-9d1bb7ed6bde/Hnet-image.gif?w=640");
+  background-image: ${(props) =>
+    props.thumbnail
+      ? `url(${props.thumbnail})`
+      : `url(
+          "https://media.vlpt.us/images/ohzzi/post/5623ffdb-7aac-4920-b1f5-b6d4fdf044cd/image.png?w=640"
+        )`};
   padding-top: 52%;
   background-size: cover;
+  background-position: center;
   height: 0;
   border-radius: 4px 4px 0px 0px;
 `;
 
 const CenterBox = styled.div`
-  height: 165px;
-  padding: 16px;
+  height: 150px;
+  padding: 14px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 `;
 
 const BottomBox = styled.div`
-  height: 45px;
-  padding: 16px;
+  height: 40px;
+  padding: 14px;
   border-top: 1px solid #f1f3f5;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 16px;
   border-top: 1px solid #f1f3f5;
 `;
 

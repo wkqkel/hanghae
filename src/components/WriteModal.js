@@ -5,10 +5,21 @@ import { BiImages } from "react-icons/bi";
 import { GiEarthAmerica } from "react-icons/gi";
 import { RiLock2Fill } from "react-icons/ri";
 import { BiListPlus } from "react-icons/bi";
-import axios from "axios";
 import instance from "../shared/Request";
+import { useDispatch } from "react-redux";
+import { actionCreators as PostActions } from "../redux/modules/post";
+import { history } from "../redux/configureStore";
 
 const WriteModal = (props) => {
+  const dispatch = useDispatch();
+
+  // 수정모드일때 인풋창 채우기
+  React.useEffect(() => {
+    if (props.edited.is_edit) {
+      setPreviewImg(props.edited.postOne.thumbnail);
+      $introduceInput.current.value = props.edited.postOne.introduce;
+    }
+  }, []);
   //프리뷰 이미지 서버에서 url 받아오기 및 수정, 삭제
   let [previewImg, setPreviewImg] = React.useState();
   const loadPreview = (e) => {
@@ -26,6 +37,24 @@ const WriteModal = (props) => {
         console.log(error);
       });
   };
+  // 포스팅 버튼 클릭
+  const $introduceInput = React.useRef();
+  const clickPostBtn = () => {
+    const post = {
+      title: props.title.current.value,
+      tag: props.tags,
+      contents: props.editorRef.current.getInstance().getMarkdown(),
+      thumbnail: previewImg,
+      introduce: $introduceInput.current.value,
+    };
+    if (props.edited.is_edit) {
+      dispatch(PostActions.editPostDB(post, props.edited.postOne.postId));
+    } else {
+      dispatch(PostActions.addPostDB(post));
+    }
+  };
+
+  // 에디티드 모드일때 인풋값 넣어주기
 
   return (
     <Background>
@@ -62,7 +91,10 @@ const WriteModal = (props) => {
           style={{ display: "none" }}
           onChange={loadPreview}
         />
-        <IntroduceInput placeholder="당신의 포스트를 짧게 소개해보세요"></IntroduceInput>
+        <IntroduceInput
+          placeholder="당신의 포스트를 짧게 소개해보세요"
+          ref={$introduceInput}
+        ></IntroduceInput>
         <Grid justifyContent="end">
           <Text size="12px" margin="5px 0" color="#868E96">
             0/150
@@ -127,7 +159,13 @@ const WriteModal = (props) => {
           >
             취소
           </CancelBtn>
-          <PostBtn>출간하기</PostBtn>
+          <PostBtn
+            onClick={() => {
+              clickPostBtn();
+            }}
+          >
+            {props.edited.is_edit ? "수정하기" : "출간하기"}
+          </PostBtn>
         </Grid>
       </RightBox>
     </Background>
@@ -150,14 +188,6 @@ const Background = styled.div`
     }
     to {
       transform: translateY(0px);
-    }
-  }
-  @keyframes modal-bg-hide {
-    from {
-      transform: translateY(0px);
-    }
-    to {
-      transform: translateY(100vh);
     }
   }
 `;
@@ -189,6 +219,7 @@ const Preview = styled.div`
   align-items: center;
   background-image: ${(props) =>
     props.previewImg ? `url(${props.previewImg})` : null};
+  background-size: cover;
 `;
 const ImgUploadBtn = styled.label`
   width: 140px;
