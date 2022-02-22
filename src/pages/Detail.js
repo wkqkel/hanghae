@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import ShareIcon from "@material-ui/icons/Share";
+import CommentList from "../components/CommentList";
 import { Button, Text, Input, Grid } from "../elements";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as PostActions } from "../redux/modules/post";
@@ -35,6 +36,54 @@ const Detail = (props) => {
             <Text margin="0px 0px 10px 0px" size="2.25rem" weight="600">
               {post.title}
             </Text>
+
+            <Text size="16px">{props.date}</Text>
+          </NicknameLeftBox>
+        </NicknameWrap>
+        <LikeWrap>
+          <LikeContainer>
+            <LikeBox>
+              <Button bg="white" borderRadius="50%">
+                <FavoriteIcon color="action" />
+              </Button>
+              <div>{props.likeCount}</div>
+              <Button bg="white" borderRadius="50%">
+                <ShareIcon color="action" />
+              </Button>
+            </LikeBox>
+          </LikeContainer>
+        </LikeWrap>
+        <img src="/imges/test.png"></img>
+        <div>{props.contents}</div>
+        <CommentWrap>
+          <Text size="15px" bold margin="30px 0px 15px 0px">
+            {props.comment}
+            개의 댓글
+          </Text>
+          <CommentInput
+            type="textarea"
+            placeholder="댓글을 입력하세요"
+          ></CommentInput>
+          <ButtonSpace>
+            <Button
+              bg="#12B886"
+              shape="rectangle"
+              width="100px"
+              padding="5px 1.25rem"
+            >
+              댓글 작성
+            </Button>
+          </ButtonSpace>
+        </CommentWrap>
+
+        {/*댓글리스트부분 */}
+        <CommentList></CommentList>
+        <CommentList></CommentList>
+        <CommentList></CommentList>
+        <CommentList></CommentList>
+        <CommentList></CommentList>
+      </Wrap>
+
           </TitleWrap>
           <NicknameWrap>
             <NicknameLeftBox>
@@ -111,6 +160,7 @@ const Detail = (props) => {
           </CommentWrap>
         </Wrap>
       )}
+
     </React.Fragment>
   );
 };
@@ -130,6 +180,7 @@ Detail.defaultProps = {
 const Wrap = styled.div`
   margin-top: 20px;
   width: 768px;
+  /* width: 100%; */
   margin-left: auto;
   margin-right: auto;
   padding: 40px 0;
@@ -137,7 +188,7 @@ const Wrap = styled.div`
 
 const TitleWrap = styled.div`
   margin-bottom: 2rem;
-  word-break: keep-all;
+  word-break: break-all;
 `;
 
 const NicknameWrap = styled.div`
@@ -183,6 +234,7 @@ const ButtonSpace = styled.div`
   display: flex;
   -webkit-box-pack: end;
   justify-content: flex-end;
+  margin-bottom: 50px;
 `;
 
 const CommentInput = styled.textarea`

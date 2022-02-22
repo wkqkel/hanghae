@@ -1,11 +1,33 @@
 import React from "react";
 import styled from "styled-components";
 import { Button, Text } from "../elements";
-// import { AiFillLock } from "react-icons/ai";
-
 import { history } from "../redux/configureStore";
+import { useDispatch } from "react-redux";
+import { actionCreators as userActions } from "../redux/modules/user";
 
-const SingUp = () => {
+const SingUp = (props) => {
+  const dispatch = useDispatch();
+  // const [userName, setuserName] = React.useState("");
+  const [userMail, setuserMail] = React.useState("");
+  const [userId, setuserId] = React.useState("");
+  const [passWord, setpassWord] = React.useState("");
+  const [passwordCheck, setpasswordCheck] = React.useState("");
+
+  const onClickSignup = () => {
+    if (
+      userMail === "" ||
+      userId === "" ||
+      passWord === "" ||
+      passwordCheck === ""
+    ) {
+      window.alert("입력해주세요");
+      return;
+    }
+
+    dispatch(userActions.signupDB(userMail, userId, passWord));
+    console.log("가입됐다!");
+  };
+
   return (
     <Wrap>
       <Container>
@@ -27,19 +49,47 @@ const SingUp = () => {
           <Text size="1.125rem" bold color="#212529">
             이메일
           </Text>
-          <InputUnderline placeholder="이메일을 입력하세요"></InputUnderline>
+          <InputUnderline
+            placeholder="이메일을 입력하세요"
+            onChange={(e) => {
+              setuserMail(e.target.value);
+            }}
+          ></InputUnderline>
         </SignUpBox>
         <SignUpBox>
           <Text size="1.125rem" bold color="#212529">
             아이디
           </Text>
-          <InputUnderline placeholder="아이디를 입력하세요"></InputUnderline>
+          <InputUnderline
+            placeholder="아이디를 입력하세요"
+            onChange={(e) => {
+              setuserId(e.target.value);
+            }}
+          ></InputUnderline>
         </SignUpBox>
         <SignUpBox>
           <Text size="1.125rem" bold color="#212529">
-            한 줄 소개
+            비밀번호
           </Text>
-          <InputUnderline placeholder="당신을 한 줄로 소개해보세요                      "></InputUnderline>
+          <InputUnderline
+            type="password"
+            placeholder="비밀번호를 입력하세요"
+            onChange={(e) => {
+              setpassWord(e.target.value);
+            }}
+          ></InputUnderline>
+        </SignUpBox>
+        <SignUpBox>
+          <Text size="1.125rem" bold color="#212529">
+            비밀번호 확인
+          </Text>
+          <InputUnderline
+            type="password"
+            placeholder="비밀번호를 다시 입력하세요"
+            onChange={(e) => {
+              setpasswordCheck(e.target.value);
+            }}
+          ></InputUnderline>
         </SignUpBox>
         <ButtonWrap>
           <Button
@@ -61,6 +111,7 @@ const SingUp = () => {
             margin="0px 20px 0px 0px"
             borderRadius="2.0rem"
             size="1.5rem"
+            _onClick={onClickSignup}
           >
             <Text bold size="1.5rem" color="#FFFFFF">
               다음

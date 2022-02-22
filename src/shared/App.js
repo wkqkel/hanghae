@@ -1,7 +1,7 @@
 import "./App.css";
 import { Route, Switch } from "react-router-dom";
 import { ConnectedRouter } from "connected-react-router";
-import { useSelector, useDispatch } from "react-redux";
+
 import { history } from "../redux/configureStore";
 import Header from "../components/Header";
 import Main from "../pages/Main";
@@ -13,7 +13,6 @@ import PostWrite from "../pages/PostWrite";
 // import { actionCreators as userActions } from "../redux/modules/user";
 
 function App() {
-  const dispatch = useDispatch();
   return (
     <>
       <ConnectedRouter history={history}>
