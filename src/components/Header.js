@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Button, Grid, Input, Text } from "../elements";
+import React from "react";
+import { Grid, Text } from "../elements";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowTrendUp } from "@fortawesome/free-solid-svg-icons";
@@ -9,8 +9,15 @@ import { BsFillSunFill, BsSearch, BsThreeDotsVertical } from "react-icons/bs";
 import { IoMdArrowDropdown } from "react-icons/io";
 import ProfileImg from "./ProfileImg";
 import { history } from "../redux/configureStore";
+import { useSelector, useDispatch } from "react-redux";
+import { actionCreators as userActions } from "../redux/modules/user";
 
 const Header = (props) => {
+  const dispatch = useDispatch();
+  const local_token = localStorage.getItem("token") ? true : false;
+  const is_login = useSelector((state) => state.user.is_login);
+  React.useEffect(() => {}, [is_login]);
+
   return (
     <>
       <Container>
@@ -43,6 +50,9 @@ const Header = (props) => {
                   }}
                 />
                 <BsSearch
+                  onClick={() => {
+                    dispatch(userActions.logoutDB());
+                  }}
                   style={{
                     fontSize: "18px",
                     color: "#495057",

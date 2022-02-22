@@ -1,9 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import { Button, Grid, Input, Text } from "../elements";
+import { Button, Input, Text } from "../elements";
 import { Link } from "react-router-dom";
+import { actionCreators as userActions } from "../redux/modules/user";
+import { useDispatch } from "react-redux";
 
-const Register = () => {
+const Login = () => {
+  const dispatch = useDispatch();
+
+  const [userMail, setuserMail] = useState("");
+  const [passWord, setpassWord] = useState("");
+
+  const login = () => {
+    if (userMail === "" || userMail === "") {
+      window.alert("아이디 혹은 비밀번호를 입력해주세요");
+      return;
+    }
+    dispatch(userActions.LoginDB(userMail, passWord));
+  };
+
   return (
     <React.Fragment>
       <Container>
@@ -36,21 +51,32 @@ const Register = () => {
                 <Text color="#868E96" margin="16px 0px">
                   이메일로 로그인
                 </Text>
-                <form>
-                  <Input
-                    Radius="10px"
-                    height="40px"
-                    padding="1rem"
-                    placeholder="이메일을 입력하세요"
-                  ></Input>
-                  <Input
-                    margin="5px 0px"
-                    height="40px"
-                    padding="1rem"
-                    placeholder="비밀번호를 입력하세요"
-                  ></Input>
-                  <Button>로그인</Button>
-                </form>
+                <Input
+                  Radius="10px"
+                  height="40px"
+                  padding="1rem"
+                  placeholder="이메일을 입력하세요"
+                  _onChange={(e) => {
+                    setuserMail(e.target.value);
+                  }}
+                ></Input>
+                <Input
+                  type="password"
+                  margin="5px 0px"
+                  height="40px"
+                  padding="1rem"
+                  placeholder="비밀번호를 입력하세요"
+                  _onChange={(e) => {
+                    setpassWord(e.target.value);
+                  }}
+                ></Input>
+                <Button
+                  _onClick={() => {
+                    login();
+                  }}
+                >
+                  로그인
+                </Button>
               </div>
               <Text color="#868E96" margin="16px 0px">
                 소셜 계정으로 로그인
@@ -90,6 +116,7 @@ const Container = styled.div`
   z-index: 20;
   @media only screen and (max-width: 768px) {
     min-width: 330px;
+  }
 `;
 
 const LoginWrap = styled.div`
@@ -99,6 +126,7 @@ const LoginWrap = styled.div`
   display: flex;
   @media only screen and (max-width: 768px) {
     min-width: 330px;
+  }
 `;
 
 //로그인 왼쪽 스타일
@@ -173,4 +201,4 @@ const Sociallogo = styled.div`
   justify-content: space-between;
   margin: 24px 40px 0px;
 `;
-export default Register;
+export default Login;

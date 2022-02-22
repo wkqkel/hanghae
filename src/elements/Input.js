@@ -8,12 +8,7 @@ const Input = (props) => {
     placeholder,
     type,
     value,
-    is_submit,
-    onSubmit,
-    is_radio,
-    name,
-    checked,
-    multiline,
+
     label,
     width,
     disable,
@@ -21,7 +16,7 @@ const Input = (props) => {
     _onKeyDown,
     _ref,
     _onFocus,
-    Radius,
+
     border,
     height,
     margin,
