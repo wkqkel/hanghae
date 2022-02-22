@@ -30,7 +30,7 @@ FlexibleTextarea.defaultProps = {
 const Textarea = styled.textarea`
   width: ${(props) => props.width};
   font-size: ${(props) => props.size};
-  padding: ${(props) => props.padding}
+  padding: ${(props) => props.padding};
   border: none;
   resize: none;
   &:focus {
