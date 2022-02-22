@@ -1,4 +1,3 @@
-
 import React, { useEffect } from "react";
 import { Button, Grid, Input, Text } from "../elements";
 import styled from "styled-components";
@@ -12,8 +11,6 @@ import ProfileImg from "./ProfileImg";
 import { history } from "../redux/configureStore";
 import { useSelector, useDispatch } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/user";
-
-import { useDispatch, useSelector } from "react-redux";
 
 const Header = (props) => {
   const dispatch = useDispatch();
