@@ -2,62 +2,115 @@ import React from "react";
 import styled from "styled-components";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import ShareIcon from "@material-ui/icons/Share";
-import { Button, Text, Input } from "../elements";
+import { Button, Text, Input, Grid } from "../elements";
+import { useDispatch, useSelector } from "react-redux";
+import { actionCreators as PostActions } from "../redux/modules/post";
+import { actionCreators as CommonActions } from "../redux/modules/common";
+import { Viewer } from "@toast-ui/react-editor";
+import { history } from "../redux/configureStore";
 
 const Detail = (props) => {
+  const postId = props.match.params.postId;
+  const postList = useSelector((state) => state.post.list);
+  const post = postList.filter((e, i) => e.postId === postId)[0];
+  const dispatch = useDispatch();
+  React.useEffect(() => {
+    if (!post) {
+      dispatch(PostActions.getOnePostDB(postId));
+    }
+  }, [post]);
+  React.useEffect(() => {
+    dispatch(CommonActions.saveParams("detail"));
+  }, []);
+
+  const clickRemove = () => {
+    dispatch(PostActions.removePostDB(postId));
+  };
+
   return (
     <React.Fragment>
-      {/*헤더부분 추가하기 */}
-      <Wrap>
-        <TitleWrap>
-          <Text margin="0px 0px 10px 0px" size="2.25rem" weight="600">
-            {props.Title}
-          </Text>
-        </TitleWrap>
-        <NicknameWrap>
-          <NicknameLeftBox>
-            <Text margin="0px 20px 0px 0px" size="16px">
-              {props.user_name}
+      {post && (
+        <Wrap>
+          <TitleWrap>
+            <Text margin="0px 0px 10px 0px" size="2.25rem" weight="600">
+              {post.title}
             </Text>
-            <Text size="16px">{props.date}</Text>
-          </NicknameLeftBox>
-        </NicknameWrap>
-        <LikeWrap>
-          <LikeContainer>
-            <LikeBox>
-              <Button bg="white" borderRadius="50%">
-                <FavoriteIcon fontSize="large" color="action" />
+          </TitleWrap>
+          <NicknameWrap>
+            <NicknameLeftBox>
+              <Text margin="0px 20px 0px 0px" size="16px">
+                {post.userId}
+              </Text>
+              <Text size="16px">{post.pastTime}</Text>
+            </NicknameLeftBox>
+            <Grid is_flex justifyContent="end" width="20%">
+              <Text color="#868E96" weight="300" size="15px">
+                통계
+              </Text>
+              <Text
+                margin="0 10px"
+                color="#868E96"
+                weight="300"
+                size="15px"
+                _onClick={() => {
+                  history.push(`/write/${postId}`);
+                }}
+                cursor="pointer"
+              >
+                수정
+              </Text>
+              <Text
+                color="#868E96"
+                weight="300"
+                size="15px"
+                _onClick={() => {
+                  clickRemove();
+                }}
+                cursor="pointer"
+              >
+                삭제
+              </Text>
+            </Grid>
+          </NicknameWrap>
+          <LikeWrap>
+            <LikeContainer>
+              <LikeBox>
+                <Button bg="white" borderRadius="50%">
+                  <FavoriteIcon fontSize="large" color="action" />
+                </Button>
+                <div>{props.likeCount}</div>
+                <Button bg="white" borderRadius="50%">
+                  <ShareIcon fontSize="large" color="action" />
+                </Button>
+              </LikeBox>
+            </LikeContainer>
+          </LikeWrap>
+          {post.thumbnail && <img src={post.thumbnail}></img>}
+          {/* <div>{post.content}</div> */}
+          <Viewer initialValue={post.contents} />
+
+          <CommentWrap>
+            <Text size="15px" bold margin="30px 0px 15px 0px">
+              {post.commentCnt}
+              개의 댓글
+            </Text>
+            <CommentInput
+              type="textarea"
+              placeholder="댓글을 입력하세요"
+            ></CommentInput>
+            <ButtonSpace>
+              <Button
+                bg="#12B886"
+                shape="rectangle"
+                width="100px"
+                padding="5px 1.25rem"
+              >
+                댓글 작성
               </Button>
-              <div>{props.likeCount}</div>
-              <Button bg="white" borderRadius="50%">
-                <ShareIcon fontSize="large" color="action" />
-              </Button>
-            </LikeBox>
-          </LikeContainer>
-        </LikeWrap>
-        <img src="/imges/test.png"></img>
-        <div>{props.contents}</div>
-        <CommentWrap>
-          <Text size="15px" bold margin="30px 0px 15px 0px">
-            {props.comment}
-            개의 댓글
-          </Text>
-          <CommentInput
-            type="textarea"
-            placeholder="댓글을 입력하세요"
-          ></CommentInput>
-          <ButtonSpace>
-            <Button
-              bg="#12B886"
-              shape="rectangle"
-              width="100px"
-              padding="5px 1.25rem"
-            >
-              댓글 작성
-            </Button>
-          </ButtonSpace>
-        </CommentWrap>
-      </Wrap>
+            </ButtonSpace>
+          </CommentWrap>
+        </Wrap>
+      )}
     </React.Fragment>
   );
 };

@@ -12,8 +12,6 @@ import PostWrite from "../pages/PostWrite";
 
 // import { actionCreators as userActions } from "../redux/modules/user";
 
-import { Button, Grid, Input, Text } from "../elements";
-
 function App() {
   const dispatch = useDispatch();
   return (
@@ -21,12 +19,13 @@ function App() {
       <ConnectedRouter history={history}>
         <Switch>
           <Route path="/write" exact component={PostWrite}></Route>
+          <Route path="/write/:postId" exact component={PostWrite}></Route>
           <>
             <Header></Header>
             <Route path="/" exact component={Main} />
             <Route path="/login" component={Login} />
             <Route path="/signup" component={SingUp} />
-            <Route path="/detail" component={Detail} />
+            <Route path="/detail/:postId" component={Detail} />
           </>
         </Switch>
       </ConnectedRouter>

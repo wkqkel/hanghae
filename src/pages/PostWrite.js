@@ -3,20 +3,23 @@ import styled, { keyframes } from "styled-components";
 import { Grid, Text } from "../elements";
 import "@toast-ui/editor/dist/toastui-editor.css";
 import { Editor } from "@toast-ui/react-editor";
-
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import WriteModal from "../components/WriteModal";
 import { history } from "../redux/configureStore";
 import axios from "axios";
-import instance from "../shared/Request";
-const PostWrite = () => {
-  // 토스트에디터 사용
+import { useDispatch, useSelector } from "react-redux";
+
+const PostWrite = (props) => {
+  //  주소창에서 postId값 받아와서 수정모드인지 구분
+  const post_id = props.match.params.postId;
+  const is_edit = post_id ? true : false;
+  const post_list = useSelector((state) => state.post.list);
+  const postOne = post_list.find((p) => p.postId === post_id);
 
   // 태그 데이터 관리 및 추가 함수
   const $tagInputGuide = React.useRef();
   const [isModal, setIsModal] = React.useState(false);
   const [tagData, setTagData] = React.useState([]);
-  const [title, setTitle] = React.useState();
   const addTag = (e) => {
     if (
       (e.keyCode === 13 || e.keyCode === 188) &&
@@ -26,11 +29,13 @@ const PostWrite = () => {
       e.target.value = "";
     }
   };
+
   // 모달창 구현 함수
   const clickModal = () => {
     setIsModal(!isModal);
   };
 
+  //기존 에디터 base64로 이미지url을 인코딩해줘서 너무 길어서, 우리 서버에서 만든 이미지url로 교체하는 작업
   const editorRef = React.useRef();
   React.useEffect(() => {
     if (editorRef.current) {
@@ -53,9 +58,6 @@ const PostWrite = () => {
               //   header: { "content-type": "multipart/formdata" },
               // }
             );
-            // .then((response) => {
-            //   console.log(response);
-            // });
             const imageUrl = filename.url;
             // // Image 를 가져올 수 있는 URL 을 callback 메서드에 넣어주면 자동으로 이미지를 가져온다.
             callback(imageUrl, "image");
@@ -66,15 +68,35 @@ const PostWrite = () => {
     return () => {};
   }, [editorRef]);
 
+  const $titleInput = React.useRef();
+
+  // 에디티드 모드일때 인풋에 값넣어주기
+
+  React.useEffect(() => {
+    if (is_edit) {
+      $titleInput.current.value = postOne.title;
+      setTagData(postOne.tag);
+    }
+  }, []);
   return (
     <>
       <Container>
         {isModal && (
-          <WriteModal isModal={isModal} clickModal={clickModal}></WriteModal>
+          <WriteModal
+            isModal={isModal}
+            clickModal={clickModal}
+            tags={tagData}
+            title={$titleInput}
+            editorRef={editorRef}
+            edited={{ is_edit, postOne }}
+          ></WriteModal>
         )}
         {/* <Left> */}
         <LeftTop>
-          <TitleInput placeholder="제목을 입력하세요"></TitleInput>
+          <TitleInput
+            placeholder="제목을 입력하세요"
+            ref={$titleInput}
+          ></TitleInput>
           <div
             style={{
               width: "54px",
@@ -133,11 +155,7 @@ const PostWrite = () => {
           height="80vh"
           initialEditType="markdown"
           useCommandShortcut={true}
-          onChange={() => {
-            const innerTxt = editorRef.current.getInstance().getMarkdown();
-            console.log(innerTxt);
-            // setText(innerTxt);
-          }}
+          initialValue={is_edit ? postOne.contents : ""}
           ref={editorRef}
         />
         <BottomBar>
@@ -154,7 +172,9 @@ const PostWrite = () => {
             </QuitBtn>
             <Grid is_flex justifyContent="end">
               <SaveBtn>임시저장</SaveBtn>
-              <PostBtn onClick={clickModal}>출간하기</PostBtn>
+              <PostBtn onClick={clickModal}>
+                {is_edit ? "수정하기" : "출간하기"}
+              </PostBtn>
             </Grid>
           </Grid>
         </BottomBar>

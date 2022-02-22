@@ -14,6 +14,8 @@ const Text = (props) => {
     alignCenter,
     font,
     underline,
+    _onClick,
+    cursor,
   } = props;
 
   const styles = {
@@ -27,10 +29,13 @@ const Text = (props) => {
     alignCenter,
     font,
     underline,
+    cursor,
   };
   return (
     <>
-      <P {...styles}>{children}</P>
+      <P {...styles} onClick={_onClick}>
+        {children}
+      </P>
     </>
   );
 };
@@ -46,6 +51,7 @@ Text.defaultProps = {
   is_break: false,
   alignCenter: false,
   underline: false,
+  cursor: false,
 };
 
 const P = styled.p`
@@ -59,6 +65,7 @@ const P = styled.p`
   ${(props) => (props.alignCenter ? `text-align: center;` : "")}
   ${(props) => (props.font ? `font-family: ${props.font};` : "")}
   ${(props) => (props.underline ? `text-decoration: underline;` : "")}
+  cursor: ${(props) => props.cursor};
 `;
 
 export default Text;

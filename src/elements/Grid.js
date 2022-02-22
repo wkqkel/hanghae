@@ -15,7 +15,6 @@ const Grid = (props) => {
     borderRadius,
     position,
     justifyContent,
-    fontSize,
     column,
   } = props;
 
@@ -32,7 +31,6 @@ const Grid = (props) => {
     borderRadius,
     position,
     justifyContent,
-    fontSize,
     column,
   };
 
@@ -59,7 +57,6 @@ Grid.defaultProps = {
   borderRadius: false,
   position: false,
   justifyContent: false,
-  fontSize: false,
   column: false,
 };
 
@@ -80,7 +77,6 @@ const GridBox = styled.div`
   ${(props) =>
     props.borderRadius ? `border-radius: ${props.borderRadius}` : ""}
   position: ${(props) => props.position};
-  font-size: ${(props) => props.fontSize};
   flex-direction: ${(props) => props.column};
 `;
 export default Grid;

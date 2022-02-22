@@ -1,21 +1,26 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { Button, Grid, Input, Text } from "../elements";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowTrendUp } from "@fortawesome/free-solid-svg-icons";
 import { faClock } from "@fortawesome/free-solid-svg-icons";
-import { faSun } from "@fortawesome/free-solid-svg-icons";
+
 import { BsFillSunFill, BsSearch, BsThreeDotsVertical } from "react-icons/bs";
 import { IoMdArrowDropdown } from "react-icons/io";
 import ProfileImg from "./ProfileImg";
 import { history } from "../redux/configureStore";
 
+import { useDispatch, useSelector } from "react-redux";
+
 const Header = (props) => {
+  const dispatch = useDispatch();
+  const params = useSelector((state) => state.common.params);
+
   return (
     <>
-      <Container>
+      <Container params={params}>
         <GridBox>
-          <Grid>
+          <Grid margin="-2px 0 0 0">
             <Grid is_flex height="64px" justifyContent="space-between">
               <span
                 style={{
@@ -28,7 +33,7 @@ const Header = (props) => {
                   history.push("/");
                 }}
               >
-                Velog
+                velog
               </span>
               <Grid
                 is_flex
@@ -70,65 +75,67 @@ const Header = (props) => {
               </Grid>
             </Grid>
 
-            <Grid
-              is_flex
-              justifyContent="space-between"
-              height="48px"
-              margin="14px 0 0 0px"
-            >
-              <Grid is_flex position="relative">
-                <TrendBtnLine></TrendBtnLine>
-                <Grid
-                  is_flex
-                  width="100px"
-                  justifyContent="center"
-                  height="42px"
-                >
-                  <FontAwesomeIcon
-                    icon={faArrowTrendUp}
-                    style={{
-                      fontSize: "16px",
-                      marginRight: "8px",
-                      cursor: "pointer",
-                    }}
-                  />
-                  <Text size="17px" bold weight="300">
-                    트렌딩
-                  </Text>
+            {params !== "detail" && (
+              <Grid
+                is_flex
+                justifyContent="space-between"
+                height="48px"
+                margin="14px 0 0 0px"
+              >
+                <Grid is_flex position="relative">
+                  <TrendBtnLine></TrendBtnLine>
+                  <Grid
+                    is_flex
+                    width="100px"
+                    justifyContent="center"
+                    height="42px"
+                  >
+                    <FontAwesomeIcon
+                      icon={faArrowTrendUp}
+                      style={{
+                        fontSize: "16px",
+                        marginRight: "8px",
+                        cursor: "pointer",
+                      }}
+                    />
+                    <Text size="17px" bold weight="300">
+                      트렌딩
+                    </Text>
+                  </Grid>
+                  <Grid width="100px" is_flex justifyContent="center">
+                    <FontAwesomeIcon
+                      icon={faClock}
+                      style={{
+                        fontSize: "18px",
+                        marginRight: "8px",
+                        color: "#868E96",
+                        cursor: "pointer",
+                      }}
+                    />
+                    <Text size="18px" color="#868E96" weight="300">
+                      최신
+                    </Text>
+                  </Grid>
+                  <RecentBtn>
+                    이번 주
+                    <IoMdArrowDropdown
+                      style={{
+                        marginLeft: "10px",
+                        fontSize: "16px",
+                        color: "#495057",
+                      }}
+                    ></IoMdArrowDropdown>
+                  </RecentBtn>
                 </Grid>
-                <Grid width="100px" is_flex justifyContent="center">
-                  <FontAwesomeIcon
-                    icon={faClock}
-                    style={{
-                      fontSize: "18px",
-                      marginRight: "8px",
-                      color: "#868E96",
-                      cursor: "pointer",
-                    }}
-                  />
-                  <Text size="18px" color="#868E96" weight="300">
-                    최신
-                  </Text>
-                </Grid>
-                <RecentBtn>
-                  이번 주
-                  <IoMdArrowDropdown
-                    style={{
-                      marginLeft: "10px",
-                      fontSize: "16px",
-                      color: "#495057",
-                    }}
-                  ></IoMdArrowDropdown>
-                </RecentBtn>
+                <BsThreeDotsVertical
+                  style={{
+                    fontSize: "18px",
+                    color: "#868E96",
+                    cursor: "pointer",
+                  }}
+                ></BsThreeDotsVertical>
               </Grid>
-              <BsThreeDotsVertical
-                style={{
-                  fontSize: "18px",
-                  color: "#868E96",
-                  cursor: "pointer",
-                }}
-              ></BsThreeDotsVertical>
-            </Grid>
+            )}
           </Grid>
         </GridBox>
       </Container>
@@ -137,7 +144,7 @@ const Header = (props) => {
 };
 const Container = styled.div`
   width: 100%;
-  background: #f8f9fa;
+  background: ${(props) => (props.params === "detail" ? "white;" : "#f8f9fa;")}
   display: flex;
   align-items: center;
   @media screen and (max-width: 1440px) {
@@ -182,14 +189,14 @@ const WriteBtn = styled.div`
   justify-content: center;
   border: 1px solid black;
   border-radius: 30px;
-  font-size: 14px;
-  font-weight: 400;
   cursor: pointer;
   &:hover {
     background: black;
     color: white;
     transition: 0.2s, background ease-out;
   }
+  font-size: 15px;
+  font-weight: 500;
 `;
 
 const RecentBtn = styled.div`
