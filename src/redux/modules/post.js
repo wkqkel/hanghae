@@ -25,9 +25,8 @@ const deletePost = createAction(DELETE_POST, (postId) => ({
 const initialState = {
   list: [],
 };
-// 카테고리별 목록 가져오기
+
 const getPostDB = () => {
-  // 전체목록 가져오기
   return function (dispatch, getState, { history }) {
     instance
       .get("/post")
@@ -54,7 +53,6 @@ const getOnePostDB = (postId) => {
 };
 
 const addPostDB = (post) => {
-  // 전체목록 가져오기
   return function (dispatch, getState, { history }) {
     instance
       .post("/post", post)
@@ -69,7 +67,6 @@ const addPostDB = (post) => {
 };
 
 const editPostDB = (post, postId) => {
-  // 전체목록 가져오기
   return function (dispatch, getState, { history }) {
     instance
       .patch(`/post/${postId}`, post)

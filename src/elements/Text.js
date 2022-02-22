@@ -51,7 +51,7 @@ Text.defaultProps = {
   is_break: false,
   alignCenter: false,
   underline: false,
-  cursor: false,
+  cursor: "",
 };
 
 const P = styled.p`

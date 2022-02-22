@@ -7,7 +7,7 @@ import user from "./modules/user";
 
 import Post from "./modules/post";
 import Common from "./modules/common";
-
+import Like from "./modules/like";
 
 // import Post from "./modules/post" // 리듀서 연결위해 모듈스파일 임포트
 
@@ -19,6 +19,7 @@ const rootReducer = combineReducers({
   user: user,
   post: Post,
   common: Common,
+  like: Like,
   router: connectRouter(history),
 });
 

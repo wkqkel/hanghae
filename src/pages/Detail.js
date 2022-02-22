@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import FavoriteIcon from "@material-ui/icons/Favorite";
 import ShareIcon from "@material-ui/icons/Share";
 import CommentList from "../components/CommentList";
 import { Button, Text, Input, Grid } from "../elements";
@@ -9,19 +8,22 @@ import { actionCreators as PostActions } from "../redux/modules/post";
 import { actionCreators as CommonActions } from "../redux/modules/common";
 import { Viewer } from "@toast-ui/react-editor";
 import { history } from "../redux/configureStore";
+import LikeBtn from "../components/LikeBtn";
+import { actionCreators as LikeActions } from "../redux/modules/like";
 
 const Detail = (props) => {
   const postId = props.match.params.postId;
   const postList = useSelector((state) => state.post.list);
   const post = postList.filter((e, i) => e.postId === postId)[0];
   const dispatch = useDispatch();
+  const likeList = useSelector((state) => state.like.list);
   React.useEffect(() => {
+    // 게시물 삭제하고 바로 또 불러옴.
     if (!post) {
       dispatch(PostActions.getOnePostDB(postId));
     }
-  }, [post]);
-  React.useEffect(() => {
     dispatch(CommonActions.saveParams("detail"));
+    dispatch(LikeActions.getLikeDB());
   }, []);
 
   const clickRemove = () => {
@@ -77,9 +79,9 @@ const Detail = (props) => {
             <LikeContainer>
               <LikeBox>
                 <Button bg="white" borderRadius="50%">
-                  <FavoriteIcon fontSize="large" color="action" />
+                  <LikeBtn likeList={likeList} postId={postId}></LikeBtn>
                 </Button>
-                <div>{props.likeCount}</div>
+                <div>{post.likeCount}</div>
                 <Button bg="white" borderRadius="50%">
                   <ShareIcon fontSize="large" color="action" />
                 </Button>
