@@ -36,7 +36,7 @@ const LoginDB = (userMail, passWord) => {
         localStorage.setItem("token", response.data.token);
         dispatch(setUser(response.data.userId));
         console.log(response.data);
-        // window.location.replace("/");
+        window.location.replace("/");
       })
       .catch((response) => {
         window.alert("아이디 혹은 비밀번호가 틀렸습니다.");
@@ -63,7 +63,7 @@ const signupDB = (userMail, userId, passWord) => {
         history.push("/login");
       })
       .catch((response) => {
-        console.log(response);
+        console.log("hi");
         console.log(response.data.message);
       });
   };

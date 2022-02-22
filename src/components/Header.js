@@ -151,7 +151,7 @@ const Header = (props) => {
 };
 const Container = styled.div`
   width: 100%;
-  background: ${(props) => (props.params === "detail" ? "white;" : "#f8f9fa;")}
+  background: ${(props) => (props.params === "detail" ? "white;" : "#f8f9fa;")};
   display: flex;
   align-items: center;
   @media screen and (max-width: 1440px) {

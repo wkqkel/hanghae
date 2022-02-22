@@ -6,6 +6,8 @@ import { Button, Text, Input, Grid } from "../elements";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as PostActions } from "../redux/modules/post";
 import { actionCreators as CommonActions } from "../redux/modules/common";
+import { actionCreators as commentActions } from "../redux/modules/comment";
+
 import { Viewer } from "@toast-ui/react-editor";
 import { history } from "../redux/configureStore";
 import LikeBtn from "../components/LikeBtn";
@@ -28,6 +30,31 @@ const Detail = (props) => {
 
   const clickRemove = () => {
     dispatch(PostActions.removePostDB(postId));
+  };
+
+  // 서버에 있는 데이터를 가져와서 store에 저장하고 "useSelector" 활용!
+  React.useEffect(() => {
+    dispatch(PostActions.getPostDB());
+  }, []);
+
+  //코멘트부분
+  //useSelector store에 저장된 state를 가져올 수 있는 역할
+  // state.comment.list > 여기서 comment는 configureStore 에 저장된값
+  // ㄴlist의 경우, modules > comment 에서 list!!!!
+  const comment_list = useSelector((state) => state.comment.list);
+  console.log(comment_list);
+  // 첫번째 comment는 input 박스 입력되어있는값, setComment는 새로 입력한값
+  const [comment, setComment] = React.useState();
+
+  const onChangeComment = (e) => {
+    setComment(e.target.value);
+    console.log("코멘트작성");
+  };
+
+  const onClickComment = () => {
+    dispatch(commentActions.addCommentDB(comment, postId));
+    console.log("작성!!");
+    // history.replace("/");
   };
 
   return (
@@ -100,6 +127,7 @@ const Detail = (props) => {
             <CommentInput
               type="textarea"
               placeholder="댓글을 입력하세요"
+              onChange={onChangeComment}
             ></CommentInput>
             <ButtonSpace>
               <Button
@@ -107,14 +135,14 @@ const Detail = (props) => {
                 shape="rectangle"
                 width="100px"
                 padding="5px 1.25rem"
+                _onClick={onClickComment}
               >
                 댓글 작성
               </Button>
             </ButtonSpace>
-            <CommentList></CommentList>
-            <CommentList></CommentList>
-            <CommentList></CommentList>
-            <CommentList></CommentList>
+            {comment_list.map((c, idx) => {
+              return <CommentList key={idx} {...c} />;
+            })}
           </CommentWrap>
         </Wrap>
       )}
