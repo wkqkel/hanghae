@@ -1,16 +1,16 @@
 import React from "react";
 import styled from "styled-components";
 import ShareIcon from "@material-ui/icons/Share";
-import CommentList from "../components/CommentList";
+
 import { Button, Text, Input, Grid } from "../elements";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as PostActions } from "../redux/modules/post";
 import { actionCreators as CommonActions } from "../redux/modules/common";
-import { actionCreators as commentActions } from "../redux/modules/comment";
 
 import { Viewer } from "@toast-ui/react-editor";
 import { history } from "../redux/configureStore";
 import LikeBtn from "../components/LikeBtn";
+import CommentWrite from "../components/CommentWrite";
 import { actionCreators as LikeActions } from "../redux/modules/like";
 
 const Detail = (props) => {
@@ -125,34 +125,9 @@ const Detail = (props) => {
           {post.thumbnail && <img src={post.thumbnail}></img>}
           {/* <div>{post.content}</div> */}
           <Viewer initialValue={post.contents} />
-
-          <CommentWrap>
-            <Text size="15px" bold margin="30px 0px 15px 0px">
-              {post.commentCnt}
-              개의 댓글
-            </Text>
-            <CommentInput
-              type="textarea"
-              placeholder="댓글을 입력하세요"
-              onChange={onChangeComment}
-            ></CommentInput>
-            <ButtonSpace>
-              <Button
-                bg="#12B886"
-                shape="rectangle"
-                width="100px"
-                padding="5px 1.25rem"
-                _onClick={onClickComment}
-              >
-                댓글 작성
-              </Button>
-            </ButtonSpace>
-            {/* {comment_list.map((c, idx) => {
-              return <CommentList key={idx} {...c} />;
-            })} */}
-          </CommentWrap>
         </Wrap>
       )}
+      <CommentWrite postId={postId} />
     </React.Fragment>
   );
 };
@@ -217,28 +192,6 @@ const LikeBox = styled.div`
   }
 `;
 
-const CommentWrap = styled.div`
-  width: 767px;
-  margin: auto;
-`;
-
-const ButtonSpace = styled.div`
-  display: flex;
-  -webkit-box-pack: end;
-  justify-content: flex-end;
-  margin-bottom: 50px;
-`;
-
-const CommentInput = styled.textarea`
-  font-size: 16px;
-  width: 100%;
-  padding: 10px 0 0 16px;
-  margin: 16px 0 24px 0;
-  height: 7.125rem;
-  resize: none;
-  display: flex;
-`;
-
 const TagCircle = styled.div`
   display: inline-block;
   padding: 5px 14px;
@@ -248,4 +201,5 @@ const TagCircle = styled.div`
   margin: 3px;
   font-size: 14px;
 `;
+
 export default Detail;
