@@ -26,16 +26,27 @@ const initialState = {
   list: [],
 };
 
-const getPostDB = () => {
+const getPostDB = (category) => {
   return function (dispatch, getState, { history }) {
-    instance
-      .get("/post")
-      .then((response) => {
-        dispatch(getPost(response.data.posts));
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    if (category) {
+      instance
+        .get(`/post?category=${category}`)
+        .then((response) => {
+          dispatch(getPost(response.data.posts));
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    } else {
+      instance
+        .get("/post")
+        .then((response) => {
+          dispatch(getPost(response.data.posts));
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
   };
 };
 
@@ -98,7 +109,7 @@ export default handleActions(
   {
     [GET_POST]: (state, action) =>
       produce(state, (draft) => {
-        draft.list = action.payload.postList.reverse();
+        draft.list = action.payload.postList;
       }),
     [ADD_POST]: (state, action) =>
       produce(state, (draft) => {
@@ -125,6 +136,7 @@ export default handleActions(
 
 const actionCreators = {
   getPost,
+  editPost,
   getOnePostDB,
   getPostDB,
   addPostDB,

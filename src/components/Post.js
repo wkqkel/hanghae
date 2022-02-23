@@ -17,6 +17,7 @@ const Post = (props) => {
     title,
     userId,
     pastTime,
+    likeCount,
   } = props;
   return (
     <>
@@ -58,7 +59,7 @@ const Post = (props) => {
           <LikeBox>
             <FaHeart />
             <Text margin="0 0  0 5px  " size="12px" weight="300">
-              141
+              {likeCount}
             </Text>
           </LikeBox>
         </BottomBox>

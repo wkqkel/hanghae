@@ -154,7 +154,7 @@ const Lolgimg = styled.img`
   }
 `;
 
-const Welcome = styled.text`
+const Welcome = styled.div`
   font-size: 1.75rem;
   margin-top: 1.5rem;
   color: #495057;

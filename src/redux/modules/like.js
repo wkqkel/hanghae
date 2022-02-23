@@ -1,7 +1,7 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import instance from "../../shared/Request";
-
+import { actionCreators as PostActions } from "./post";
 const GET_LIKE = "SET_LIKE";
 const ADD_LIKE = "ADD_LIKE";
 const DELETE_LIKE = "DELETE_LIKE";
@@ -32,6 +32,15 @@ const addLikeDB = (postId) => {
       .post(`/like/${postId}`)
       .then((response) => {
         dispatch(addLike(postId));
+        const post = getState().post.list.find((e) => e.id === postId);
+        dispatch(
+          PostActions.editPost(
+            {
+              likeCount: parseInt(post.likeCount) + 1,
+            },
+            postId
+          )
+        );
       })
       .catch((error) => {
         console.error(error);
@@ -44,6 +53,15 @@ const deleteLikeDB = (postId) => {
       .delete(`/like/${postId}`)
       .then((response) => {
         dispatch(deleteLike(postId));
+        const post = getState().post.list.find((e) => e.id === postId);
+        dispatch(
+          PostActions.editPost(
+            {
+              likeCount: parseInt(post.likeCount) - 1,
+            },
+            postId
+          )
+        );
       })
       .catch((error) => {
         console.error(error);

@@ -10,7 +10,7 @@ const Main = () => {
   const dispatch = useDispatch();
   const postList = useSelector((state) => state.post.list);
   React.useEffect(() => {
-    dispatch(PostActions.getPostDB());
+    dispatch(PostActions.getPostDB("week"));
     dispatch(CommonActions.saveParams(""));
   }, []);
 
@@ -31,6 +31,7 @@ const Container = styled.div`
   background: #f8f9fa;
   height: 100%;
   display: flex;
+  min-height: 85vh;
 `;
 const PostList = styled.div`
   margin: 14px auto;

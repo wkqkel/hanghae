@@ -16,6 +16,7 @@ const Text = (props) => {
     underline,
     _onClick,
     cursor,
+    className,
   } = props;
 
   const styles = {
@@ -33,7 +34,7 @@ const Text = (props) => {
   };
   return (
     <>
-      <P {...styles} onClick={_onClick}>
+      <P {...styles} onClick={_onClick} className={className}>
         {children}
       </P>
     </>

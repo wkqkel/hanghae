@@ -32,17 +32,17 @@ const Detail = (props) => {
     dispatch(PostActions.removePostDB(postId));
   };
 
-  // 서버에 있는 데이터를 가져와서 store에 저장하고 "useSelector" 활용!
-  React.useEffect(() => {
-    dispatch(PostActions.getPostDB());
-  }, []);
+  // // 서버에 있는 데이터를 가져와서 store에 저장하고 "useSelector" 활용!
+  // React.useEffect(() => {
+  //   dispatch(PostActions.getPostDB());
+  // }, []);
 
   //코멘트부분
   //useSelector store에 저장된 state를 가져올 수 있는 역할
   // state.comment.list > 여기서 comment는 configureStore 에 저장된값
   // ㄴlist의 경우, modules > comment 에서 list!!!!
-  const comment_list = useSelector((state) => state.comment.list);
-  console.log(comment_list);
+  // const comment_list = useSelector((state) => state.comment.list);
+  // console.log(comment_list);
   // 첫번째 comment는 input 박스 입력되어있는값, setComment는 새로 입력한값
   const [comment, setComment] = React.useState();
 
@@ -102,11 +102,18 @@ const Detail = (props) => {
               </Text>
             </Grid>
           </NicknameWrap>
+          {post.tag.map((e) => (
+            <TagCircle>{e}</TagCircle>
+          ))}
           <LikeWrap>
             <LikeContainer>
               <LikeBox>
                 <Button bg="white" borderRadius="50%">
-                  <LikeBtn likeList={likeList} postId={postId}></LikeBtn>
+                  <LikeBtn
+                    likeList={likeList}
+                    post={post}
+                    postId={postId}
+                  ></LikeBtn>
                 </Button>
                 <div>{post.likeCount}</div>
                 <Button bg="white" borderRadius="50%">
@@ -140,9 +147,9 @@ const Detail = (props) => {
                 댓글 작성
               </Button>
             </ButtonSpace>
-            {comment_list.map((c, idx) => {
+            {/* {comment_list.map((c, idx) => {
               return <CommentList key={idx} {...c} />;
-            })}
+            })} */}
           </CommentWrap>
         </Wrap>
       )}
@@ -232,4 +239,13 @@ const CommentInput = styled.textarea`
   display: flex;
 `;
 
+const TagCircle = styled.div`
+  display: inline-block;
+  padding: 5px 14px;
+  background: #f5f5f5;
+  color: #12b886;
+  border-radius: 20px;
+  margin: 3px;
+  font-size: 14px;
+`;
 export default Detail;

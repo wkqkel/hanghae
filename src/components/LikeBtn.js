@@ -23,7 +23,7 @@ const LikeBtn = (props) => {
     if (props.likeList.includes(props.postId)) {
       setIsLike(true);
     }
-  }, []);
+  }, [props.likeList]);
   return (
     <div>
       <FavoriteIcon
