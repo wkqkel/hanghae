@@ -1,16 +1,16 @@
 import React from "react";
 import styled from "styled-components";
 import ShareIcon from "@material-ui/icons/Share";
-import CommentList from "../components/CommentList";
+
 import { Button, Text, Input, Grid } from "../elements";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as PostActions } from "../redux/modules/post";
 import { actionCreators as CommonActions } from "../redux/modules/common";
-import { actionCreators as commentActions } from "../redux/modules/comment";
 
 import { Viewer } from "@toast-ui/react-editor";
 import { history } from "../redux/configureStore";
 import LikeBtn from "../components/LikeBtn";
+import CommentWrite from "../components/CommentWrite";
 import { actionCreators as LikeActions } from "../redux/modules/like";
 
 const Detail = (props) => {
@@ -30,31 +30,6 @@ const Detail = (props) => {
 
   const clickRemove = () => {
     dispatch(PostActions.removePostDB(postId));
-  };
-
-  // 서버에 있는 데이터를 가져와서 store에 저장하고 "useSelector" 활용!
-  React.useEffect(() => {
-    dispatch(PostActions.getPostDB());
-  }, []);
-
-  //코멘트부분
-  //useSelector store에 저장된 state를 가져올 수 있는 역할
-  // state.comment.list > 여기서 comment는 configureStore 에 저장된값
-  // ㄴlist의 경우, modules > comment 에서 list!!!!
-  const comment_list = useSelector((state) => state.comment.list);
-  console.log(comment_list);
-  // 첫번째 comment는 input 박스 입력되어있는값, setComment는 새로 입력한값
-  const [comment, setComment] = React.useState();
-
-  const onChangeComment = (e) => {
-    setComment(e.target.value);
-    console.log("코멘트작성");
-  };
-
-  const onClickComment = () => {
-    dispatch(commentActions.addCommentDB(comment, postId));
-    console.log("작성!!");
-    // history.replace("/");
   };
 
   return (
@@ -118,34 +93,9 @@ const Detail = (props) => {
           {post.thumbnail && <img src={post.thumbnail}></img>}
           {/* <div>{post.content}</div> */}
           <Viewer initialValue={post.contents} />
-
-          <CommentWrap>
-            <Text size="15px" bold margin="30px 0px 15px 0px">
-              {post.commentCnt}
-              개의 댓글
-            </Text>
-            <CommentInput
-              type="textarea"
-              placeholder="댓글을 입력하세요"
-              onChange={onChangeComment}
-            ></CommentInput>
-            <ButtonSpace>
-              <Button
-                bg="#12B886"
-                shape="rectangle"
-                width="100px"
-                padding="5px 1.25rem"
-                _onClick={onClickComment}
-              >
-                댓글 작성
-              </Button>
-            </ButtonSpace>
-            {comment_list.map((c, idx) => {
-              return <CommentList key={idx} {...c} />;
-            })}
-          </CommentWrap>
         </Wrap>
       )}
+      <CommentWrite postId={postId} />
     </React.Fragment>
   );
 };
@@ -208,28 +158,6 @@ const LikeBox = styled.div`
   & > :nth-child(2) {
     margin: 8px 0 16px 0;
   }
-`;
-
-const CommentWrap = styled.div`
-  width: 767px;
-  margin: auto;
-`;
-
-const ButtonSpace = styled.div`
-  display: flex;
-  -webkit-box-pack: end;
-  justify-content: flex-end;
-  margin-bottom: 50px;
-`;
-
-const CommentInput = styled.textarea`
-  font-size: 16px;
-  width: 100%;
-  padding: 10px 0 0 16px;
-  margin: 16px 0 24px 0;
-  height: 7.125rem;
-  resize: none;
-  display: flex;
 `;
 
 export default Detail;
