@@ -6,6 +6,7 @@ import Post from "../components/Post";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as PostActions } from "../redux/modules/post";
 import { actionCreators as CommonActions } from "../redux/modules/common";
+
 const Main = () => {
   const dispatch = useDispatch();
   const postList = useSelector((state) => state.post.list);
