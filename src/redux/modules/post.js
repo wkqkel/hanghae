@@ -32,6 +32,7 @@ const getPostDB = (category) => {
       instance
         .get(`/post?category=${category}`)
         .then((response) => {
+          console.log("44444444", response.data);
           dispatch(getPost(response.data.posts));
         })
         .catch((error) => {

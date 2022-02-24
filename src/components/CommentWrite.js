@@ -16,7 +16,8 @@ const CommentWrite = (props) => {
   // useSelector store에 저장된 state를 가져올 수 있는 역할
   // state.comment.list > 여기서 comment는 configureStore 에 저장된값
   // ㄴlist의 경우, modules > comment 에서 commentList!!!!
-  const comment_list = useSelector((state) => state.comment);
+  const comment_list = useSelector((state) => state.comment.commentList);
+  console.log("리스트길이값", comment_list);
   //   console.log(commentList);
 
   // 첫번째 comment는 input 박스 입력되어있는값, setComment는 새로 입력한값
@@ -29,7 +30,6 @@ const CommentWrite = (props) => {
   //ㄴ 원래 이렇게 사용했는데, 아래처럼 바꿔준 이유! postId가 Detail 컴포넌트에서 부모요소이기 때문에 아래처럼 바꿔준거야!
   const { postId } = props;
   const userId = localStorage.getItem("userId");
-  const is_login = useSelector((state) => state.user.is_login);
 
   // 서버에 있는 데이터를 가져와서 store에 저장하고 "useSelector" 활용!
   // 저장된 댓글리스트를 가져오는 것 (이부분이 주석처리되면 새로고침해야지만 이전 댓글리스트가 나옴!)
@@ -56,16 +56,14 @@ const CommentWrite = (props) => {
     // string 부분에는 프론트에서 사용자가 입력한 값의 변수를 넣어줘야함
     // 여기는 댓글 인풋박스가 content 변수로 되어있으니깐 content로 넣어준거야
     const comment = { comment: content };
-    // dispatch(commentActions.getCommentDB(postId));
     dispatch(commentActions.addCommentDB(postId, comment, userId));
-
     setContent("");
   };
 
   return (
     <CommentWrap>
       <Text size="15px" bold margin="30px 0px 15px 0px">
-        {/* {commentList?.length} */}
+        {comment_list?.length}
         개의 댓글
       </Text>
       <CommentInput
@@ -85,7 +83,7 @@ const CommentWrite = (props) => {
           댓글 작성
         </Button>
       </ButtonSpace>
-      <CommentList />
+      <CommentList setContent={setContent} />
     </CommentWrap>
   );
 };

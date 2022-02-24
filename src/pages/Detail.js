@@ -17,9 +17,11 @@ import Alert from "../components/Alert";
 const Detail = (props) => {
   const postId = props.match.params.postId;
   const postList = useSelector((state) => state.post.list);
+  console.log("포스트!!!!!!!!", postList);
   const post = postList.filter((e, i) => e.postId === postId)[0];
   const dispatch = useDispatch();
   const likeList = useSelector((state) => state.like.list);
+
   React.useEffect(() => {
     // 게시물 삭제하고 바로 또 불러옴.
     if (!post) {
@@ -47,6 +49,13 @@ const Detail = (props) => {
   // console.log(comment_list);
   // 첫번째 comment는 input 박스 입력되어있는값, setComment는 새로 입력한값
 
+  const [comment, setComment] = React.useState();
+
+  //로그인 및 유저ID 같을 때 수정/삭제 버튼 보이게 하는 역할
+  // const userId = post.list.userId;
+  const local_userId = localStorage.getItem("userId");
+
+
   return (
     <React.Fragment>
       {isAlert && <Alert setIsAlert={setIsAlert}></Alert>}
@@ -64,34 +73,37 @@ const Detail = (props) => {
               </Text>
               <Text size="16px">{post.pastTime}</Text>
             </NicknameLeftBox>
-            <Grid is_flex justifyContent="end" width="20%">
-              <Text color="#868E96" weight="300" size="15px">
-                통계
-              </Text>
-              <Text
-                margin="0 10px"
-                color="#868E96"
-                weight="300"
-                size="15px"
-                _onClick={() => {
-                  history.push(`/write/${postId}`);
-                }}
-                cursor="pointer"
-              >
-                수정
-              </Text>
-              <Text
-                color="#868E96"
-                weight="300"
-                size="15px"
-                _onClick={() => {
-                  clickRemove();
-                }}
-                cursor="pointer"
-              >
-                삭제
-              </Text>
-            </Grid>
+            {/* 게시물 작성 한 사람과 현재 로그인 된 유저가 같을때에만 보임*/}
+            {post["userId"] == local_userId && (
+              <Grid is_flex justifyContent="end" width="20%">
+                <Text color="#868E96" weight="300" size="15px">
+                  통계
+                </Text>
+                <Text
+                  margin="0 10px"
+                  color="#868E96"
+                  weight="300"
+                  size="15px"
+                  _onClick={() => {
+                    history.push(`/write/${postId}`);
+                  }}
+                  cursor="pointer"
+                >
+                  수정
+                </Text>
+                <Text
+                  color="#868E96"
+                  weight="300"
+                  size="15px"
+                  _onClick={() => {
+                    clickRemove();
+                  }}
+                  cursor="pointer"
+                >
+                  삭제
+                </Text>
+              </Grid>
+            )}
           </NicknameWrap>
           {post.tag.map((e) => (
             <TagCircle>{e}</TagCircle>
