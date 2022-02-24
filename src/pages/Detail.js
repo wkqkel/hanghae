@@ -5,6 +5,7 @@ import ShareIcon from "@material-ui/icons/Share";
 import { Button, Text, Input, Grid } from "../elements";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as PostActions } from "../redux/modules/post";
+
 import { actionCreators as CommonActions } from "../redux/modules/common";
 
 import { Viewer } from "@toast-ui/react-editor";
@@ -12,7 +13,7 @@ import { history } from "../redux/configureStore";
 import LikeBtn from "../components/LikeBtn";
 import CommentWrite from "../components/CommentWrite";
 import { actionCreators as LikeActions } from "../redux/modules/like";
-
+import Alert from "../components/Alert";
 const Detail = (props) => {
   const postId = props.match.params.postId;
   const postList = useSelector((state) => state.post.list);
@@ -31,7 +32,8 @@ const Detail = (props) => {
   const clickRemove = () => {
     dispatch(PostActions.removePostDB(postId));
   };
-
+  const [isAlert, setIsAlert] = React.useState();
+  const isLogin = localStorage.getItem("userId");
   // // 서버에 있는 데이터를 가져와서 store에 저장하고 "useSelector" 활용!
   // React.useEffect(() => {
   //   dispatch(PostActions.getPostDB());
@@ -44,21 +46,10 @@ const Detail = (props) => {
   // const comment_list = useSelector((state) => state.comment.list);
   // console.log(comment_list);
   // 첫번째 comment는 input 박스 입력되어있는값, setComment는 새로 입력한값
-  const [comment, setComment] = React.useState();
-
-  const onChangeComment = (e) => {
-    setComment(e.target.value);
-    console.log("코멘트작성");
-  };
-
-  const onClickComment = () => {
-    dispatch(commentActions.addCommentDB(comment, postId));
-    console.log("작성!!");
-    // history.replace("/");
-  };
 
   return (
     <React.Fragment>
+      {isAlert && <Alert setIsAlert={setIsAlert}></Alert>}
       {post && (
         <Wrap>
           <TitleWrap>
@@ -110,6 +101,8 @@ const Detail = (props) => {
               <LikeBox>
                 <Button bg="white" borderRadius="50%">
                   <LikeBtn
+                    isLogin={isLogin}
+                    setIsAlert={setIsAlert}
                     likeList={likeList}
                     post={post}
                     postId={postId}

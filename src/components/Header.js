@@ -4,7 +4,7 @@ import styled, { keyframes, css } from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowTrendUp } from "@fortawesome/free-solid-svg-icons";
 import { faClock } from "@fortawesome/free-solid-svg-icons";
-
+import Login from "./Login";
 import { BsFillSunFill, BsSearch, BsThreeDotsVertical } from "react-icons/bs";
 import { IoMdArrowDropdown } from "react-icons/io";
 import ProfileImg from "./ProfileImg";
@@ -44,8 +44,12 @@ const Header = (props) => {
       window.removeEventListener("click", handleClose);
     };
   });
+
+  // 로그인 모달 토글
+  const [checkLoginAni, setLoginAni] = React.useState(true);
   return (
     <>
+      <Login setLoginAni={setLoginAni} checkLoginAni={checkLoginAni}></Login>
       <Container params={params}>
         <GridBox>
           <Grid margin="-2px 0 0 0">
@@ -100,7 +104,7 @@ const Header = (props) => {
                 {!isLogin && (
                   <LoginBtn
                     onClick={() => {
-                      history.push("/login");
+                      setLoginAni("on");
                     }}
                   >
                     로그인

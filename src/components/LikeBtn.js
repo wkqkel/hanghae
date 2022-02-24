@@ -10,6 +10,10 @@ const LikeBtn = (props) => {
   // 좋아요 토글
   const [isLike, setIsLike] = React.useState(false);
   const clickLike = () => {
+    if (!props.isLogin) {
+      props.setIsAlert(true);
+      return;
+    }
     if (isLike) {
       dispatch(LikeActions.deleteLikeDB(props.postId));
       // 좋아요취소

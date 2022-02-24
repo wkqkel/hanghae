@@ -1,17 +1,17 @@
 import React, { useState } from "react";
-import styled from "styled-components";
+import styled, { keyframes, css } from "styled-components";
 import { Button, Input, Text } from "../elements";
 import { Link } from "react-router-dom";
 import { actionCreators as userActions } from "../redux/modules/user";
 import { useDispatch } from "react-redux";
 
-const Login = () => {
+const Login = (props) => {
   const dispatch = useDispatch();
-
+  const { checkLoginAni, setLoginAni } = props;
   const [userMail, setuserMail] = useState("");
   const [passWord, setpassWord] = useState("");
 
-  const login = () => {
+  const login = (props) => {
     if (userMail === "" || userMail === "") {
       window.alert("아이디 혹은 비밀번호를 입력해주세요");
       return;
@@ -21,12 +21,21 @@ const Login = () => {
 
   return (
     <React.Fragment>
-      <Container>
-        <LoginWrap>
+      <Container checkLoginAni={checkLoginAni}>
+        <LoginWrap checkLoginAni={checkLoginAni}>
           {/*로그인 왼쪽 이미지*/}
           <GrayBlock>
-            <div>
-              <Lolgimg src="https://static.velog.io/static/media/undraw_joyride_hnno.fae6b95e.svg"></Lolgimg>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
+              <Lolgimg
+                style={{ width: "150px" }}
+                src="https://static.velog.io/static/media/undraw_joyride_hnno.fae6b95e.svg"
+              ></Lolgimg>
               <Welcome> 환영합니다!</Welcome>
             </div>
           </GrayBlock>
@@ -41,6 +50,9 @@ const Login = () => {
                 height="1em"
                 width="1em"
                 xmlns="http://www.w3.org/2000/svg"
+                onClick={() => {
+                  setLoginAni(false);
+                }}
               >
                 <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
               </ExitSvg>
@@ -102,6 +114,7 @@ const Login = () => {
     </React.Fragment>
   );
 };
+
 const Container = styled.div`
   position: fixed;
   top: 0px;
@@ -117,6 +130,29 @@ const Container = styled.div`
   @media only screen and (max-width: 768px) {
     min-width: 330px;
   }
+  background: rgba(255, 255, 255, 0.8);
+  visibility: ${(props) =>
+    props.checkLoginAni === "on" ? "visible;" : "hidden;"}
+  transition: ${(props) =>
+    props.checkLoginAni ? "" : "visibility 0s linear 300ms"};
+`;
+
+const loginAni = keyframes` 
+  from {
+    transform: translateY(500px) scale(0.4);
+  }
+  to {
+    transform: translateY(0px) scale(1);
+  }
+`;
+
+const logoutAni = keyframes` 
+  100% {
+    transform: translateY(500px) scale(0.4);
+  }
+  0% {
+    transform: translateY(0px) scale(1);
+  }
 `;
 
 const LoginWrap = styled.div`
@@ -127,6 +163,17 @@ const LoginWrap = styled.div`
   @media only screen and (max-width: 768px) {
     min-width: 330px;
   }
+  ${(props) => {
+    if (props.checkLoginAni === "on") {
+      return css`
+        animation: ${loginAni} 0.4s forwards;
+      `;
+    } else {
+      return css`
+        animation: ${logoutAni} 0.4s forwards;
+      `;
+    }
+  }}
 `;
 
 //로그인 왼쪽 스타일

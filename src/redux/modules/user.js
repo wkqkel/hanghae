@@ -60,7 +60,7 @@ const signupDB = (userMail, userId, passWord) => {
       .then((response) => {
         console.log("잘되고있나욤");
         window.alert(response.data.message);
-        history.push("/login");
+        history.push("/");
       })
       .catch((response) => {
         console.log("hi");
