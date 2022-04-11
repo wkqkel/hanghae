@@ -11,7 +11,7 @@
 
 - BackEnd => [ BackEndRepo 바로가기 ](https://github.com/jaejeonglee/people_of_gathering-BE)    
 
-      
+- 시연영상 => [ 유튜브 바로가기 ](https://youtu.be/q4Bl6uqkuXc)
       
 ## 프로젝트 타임 테이블      
       
