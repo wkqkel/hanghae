@@ -218,7 +218,7 @@ const Videoplayer = React.forwardRef((props, ref) => {
     }
 
     function makeConnection(remoteSocketId, remoteNickname) {
-      myPeerConnection = new RTCPeerConnection({
+      const myPeerConnection = new RTCPeerConnection({
         iceServers: [
           {
             urls: [
@@ -228,6 +228,11 @@ const Videoplayer = React.forwardRef((props, ref) => {
               "stun:stun3.l.google.com:19302",
               "stun:stun4.l.google.com:19302",
             ],
+          },
+          {
+            urls: "turn:3.39.58.56:3478?transport=tcp",
+            username: "test",
+            credential: "test123",
           },
         ],
       });
