@@ -53,7 +53,7 @@ const Header = (props) => {
         <img
           src={Logo}
           alt="홈트게더 로고"
-          style={{ width: '130px', height: '32px', cursor: 'pointer' }}
+          style={{ width: "130px", height: "32px", cursor: "pointer" }}
           onClick={() => {
             window.location.reload();
           }}
@@ -65,12 +65,22 @@ const Header = (props) => {
             {showModal && <MoreInfoModal openModal={openModal} />}
           </Icons>
           <Icons>
-            <img src={HeaderIcon_person} alt="회원정보 버튼" onClick={openMyInfoModal} style={{ width: '24px' }} />
+            <img
+              src={HeaderIcon_person}
+              alt="회원정보 버튼"
+              onClick={openMyInfoModal}
+              style={{ width: "24px" }}
+            />
             {myModal && <MyInfoModal openMyInfoModal={openMyInfoModal} />}
           </Icons>
           <Icons>
-            <img src={HeaderIcon_manualBtn} alt="서비스 메뉴얼 버튼" style={{ width: '24px' }} onClick={openManual} />
-            {!isLocal
+            <img
+              src={HeaderIcon_manualBtn}
+              alt="서비스 메뉴얼 버튼"
+              style={{ width: "24px" }}
+              onClick={openManual}
+            />
+            {/* {!isLocal
               ? bubble && (
                   <BubbleWrap>
                     <Contents>
@@ -80,7 +90,14 @@ const Header = (props) => {
                     </Contents>
                   </BubbleWrap>
                 )
-              : null}
+              : null} */}
+            {/* 서버 종료 기간 동안 안내메시지 */}
+            <BubbleWrap>
+              <Contents>
+                지금은 서버 종료로 인해, <br />
+                정상적인 이용이 불가능해요.
+              </Contents>
+            </BubbleWrap>
             {guideModal && <ManualModal openManual={openManual} />}
           </Icons>
         </IconsWrap>
