@@ -39,7 +39,7 @@ jobs:
       # Install packages
       - name: Install packages
         run: |
-          npm install
+          npm install --legacy-peer-deps
       # Build an optimized production build
       # - name: Setting .env
       #   run: |
