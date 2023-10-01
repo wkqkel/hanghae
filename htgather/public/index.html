@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="%PUBLIC_URL%/logoIcon.svg" />
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1" , minimum-scale=1, maximum-scale=1, user-scalable=yes" /> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1" user-scalable="no" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="description" content="Web site created using create-react-app" />
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+
+    <!--
+      manifest.json provides metadata used when your web app is installed on a
+      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
+    -->
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <!--
+      Notice the use of %PUBLIC_URL% in the tags above.
+      It will be replaced with the URL of the `public` folder during the build.
+      Only files inside the `public` folder can be referenced from the HTML.
+
+      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
+      work correctly both with client-side routing and a non-root public URL.
+      Learn how to configure a non-root public URL by running `npm run build`.
+    -->
+    <!-- 해당 스크립트는 카카오가 제공하는 SDK 다운로드 경로이고, 이를 통해 항상 최신 버전을 사용할 수 있다. -->
+    <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+
+    <script>
+      Kakao.init('e3f51643326871e9cd549c9cb83634b9');
+      // Kakao.init(process.env.REACT_APP_KAKAO_INIT_KEY);
+      // Kakao.init('fecb7b82b7ca64b9a9fa789fd4b0737c'); //정호님
+    </script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-M8Z1G79VXY"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
+
+      gtag('config', 'G-M8Z1G79VXY');
+    </script>
+
+    <title>홈트게더</title>
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://htgather.com/" />
+    <meta property="og:title" content="집에서도 같이, 홈트게더" />
+    <meta property="og:image" content="https://media.vlpt.us/images/rilee/post/8ec20047-7ac2-43b9-abf0-add709eeec4e/Instagram%20profile.png" />
+    <meta property="og:description" content="홈트게더에서 함께 홈트해요!" />
+    <meta property="og:site_name" content="홈트게더" />
+    <!-- <meta property="og:locale" content="en_US" /> -->
+    <!-- 다음의 태그는 필수는 아니지만, 포함하는 것을 추천함 -->
+    <!-- <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" /> -->
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+    <!--
+      This HTML file is a template.
+      If you open it directly in the browser, you will see an empty page.
+
+      You can add webfonts, meta tags, or analytics to this file.
+      The build step will place the bundled scripts into the <body> tag.
+
+      To begin the development, run `npm start` or `yarn start`.
+      To create a production bundle, use `npm run build` or `yarn build`.
+    -->
+    <!-- <script src="https://developers.kakao.com/sdk/js/kakao.js"></script> -->
+  </body>
+  <!-- <script src="https://developers.kakao.com/sdk/js/kakao.js"></script> -->
+</html>
