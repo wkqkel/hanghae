@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!--    &lt;!&ndash; Bootstrap CSS &ndash;&gt;-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+
+    <!--    폰트-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+
+    <title>마이 마운틴 - 마이 페이지</title>
+
+    <style>
+        * {
+            font-family: 'Jua', sans-serif;
+        }
+        .header {
+            height: 250px;
+            background-image: url("https://cdn.pixabay.com/photo/2016/05/24/16/48/mountains-1412683__480.png");
+            background-size: cover;
+            background-position: center;
+            padding: 30px;
+            position: relative;
+        }
+
+        .user {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            color: white;
+            margin-right: 30px;
+        }
+
+        .visited {
+            padding: 30px;
+        }
+
+        .mt100 {
+            padding: 30px;
+        }
+
+        .mountainCards {
+            margin-bottom: 50px;
+        }
+    </style>
+
+    <script>
+        $(document).ready(function () {
+            showVisited();
+            show100mt();
+        });
+
+        function deleteReview(name) {
+            $.ajax({
+                type: "POST",
+                url: "/review/delete",
+                data: {
+                    name_give: name,
+                    id_give: $('#user').text()
+                },
+                success: function (response) { // 성공하면
+                    alert(response["msg"]);
+                    window.location.reload();
+                }
+            })
+        }
+
+        function showVisited() {
+            $.ajax({
+                    type: "GET",
+                    url: "/visited?id_give=" + $('#user').text(),
+                    data: {},
+                    success: function (response) {
+                        let mt100 = response['mt100']
+                        let user_review = response['user_review']
+                        for (let i = 0; i < mt100.length; i++) {
+                            let name = mt100[i]['name']
+                            let height = mt100[i]['height']
+                            let desc = mt100[i]['desc']
+                            let course = mt100[i]['course']
+                            let imgurl = mt100[i]['imgurl']
+                            let star = user_review[i]['star']
+                            let comment = user_review[i]['comment']
+                            let temp_url = `<div class="card mountainCards item">
+                                                <img class="card-img-top" src="${imgurl}" alt="Card image cap">
+                                                <div class="card-body">
+                                                    <h5 class="card-title name">${name}</h5>
+                                                    <p class="card-text">높이: ${height}m</p>
+                                                    <p class="card-text">${desc}</p>
+                                                </div>
+                                                <ul class="list-group list-group-flush">
+                                                    <li class="list-group-item">
+                                                        <h6>코스 정보</h6>
+                                                        ${course}
+                                                        </li>
+                                                    <li class="list-group-item">
+                                                        <h6>별점</h6>
+                                                        <p id="${name}star">${star}</p>
+                                                        <h6>코멘트</h6>
+                                                        <p id="${name}comment">${comment}</p>
+                                                        <button type="button" class="btn btn-light" style="float: right" onclick="deleteReview('${name}')">기록 삭제</button>
+                                                    </li>
+                                                </ul>
+                                            </div>`
+                            $('#visited').append(temp_url)
+                        }
+                    }
+                }
+            )
+        }
+
+        function show100mt() {
+            $.ajax({
+                    type: "GET",
+                    url: "/mt100?id_give=" + $('#user').text(),
+                    data: {},
+                    success: function (response) {
+                        let mt100 = response['mt100']
+                        let user_review = response['user_review']
+                        let visited_mt = []
+                        for (let i = 0; i < user_review.length; i++) {
+                            visited_mt.push(user_review[i]['name'])
+                        }
+                        for (let i = 0; i < mt100.length; i++) {
+                            let name = mt100[i]['name']
+                            let height = mt100[i]['height']
+                            let desc = mt100[i]['desc']
+                            let course = mt100[i]['course']
+                            let imgurl = mt100[i]['imgurl']
+                            if (visited_mt.includes(name) == false) {
+                                let temp_url = `<div class="card mountainCards item">
+                                            <img class="card-img-top" src="${imgurl}" alt="Card image cap">
+                                            <div class="card-body">
+                                                <h5 class="card-title name">${name}</h5>
+                                                <p class="card-text">높이: ${height}m</p>
+                                                <p class="card-text">${desc}</p>
+                                            </div>
+                                            <ul class="list-group list-group-flush">
+                                                <li class="list-group-item">
+                                                    <h6>코스 정보</h6>
+                                                    ${course}
+                                                    </li>
+                                                <li class="list-group-item">
+                                                    <div class="input-group mb-3">
+                                                        <div class="input-group-prepend">
+                                                            <label class="input-group-text" for="month">별점</label>
+                                                        </div>
+                                                        <select class="custom-select" id="${name}star">
+                                                            <option selected>이 산이 얼마나 좋았나요?</option>
+                                                            <option value=5>⭐️⭐️⭐️⭐️⭐️</option>
+                                                            <option value=4>⭐⭐️⭐️⭐️️</option>
+                                                            <option value=3>⭐️⭐️⭐️</option>
+                                                            <option value=2>⭐️⭐️</option>
+                                                            <option value=1>⭐️</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="input-group mb-3">
+                                                      <input id="${name}comment" type="text" class="form-control" placeholder="코멘트를 입력해주세요." aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                                      <div class="input-group-append">
+                                                        <button class="btn btn-outline-secondary" type="button" onclick="postReview('${name}')">별점과 코멘트 등록</button>
+                                                      </div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>`
+                                $('#mt100').append(temp_url)
+                            }
+
+                        }
+                    }
+                }
+            )
+        }
+
+        function postReview(name) {
+            $.ajax({
+                type: "POST",
+                url: "/review",
+                data: {
+                    id_give: $('#user').text(),
+                    name_give: name,
+                    star_give: $('#' + name + 'star').val(),
+                    comment_give: $('#' + name + 'comment').val()
+                },
+                success: function (response) { // 성공하면
+                    alert(response["msg"]);
+                    window.location.reload();
+                }
+            })
+        }
+
+        function filter() {
+
+            var value, name, item, i;
+
+            value = document.getElementById("value").value.toUpperCase();
+            item = document.getElementsByClassName("item");
+
+            for (i = 0; i < item.length; i++) {
+                name = item[i].getElementsByClassName("name");
+                if (name[0].innerHTML.toUpperCase().indexOf(value) > -1) {
+                    item[i].style.display = "flex";
+                } else {
+                    item[i].style.display = "none";
+                }
+            }
+        }
+    </script>
+</head>
+
+<body>
+<div class="header">
+    <h1>마이 마운틴</h1>
+    <span class="user">
+        <p><span id="user">김정호</span>님 환영합니다!</p>
+        <p>로그아웃</p>
+    </span>
+</div>
+<div class="input-group mb-3">
+    <div class="input-group-prepend">
+        <span class="input-group-text" id="basic-addon1">검색</span>
+    </div>
+    <input id="value" onkeyup="filter()" type="text" class="form-control" placeholder="내가 올랐던 산이 산림청 100대 명산이라고?"
+           aria-label="Username"
+           aria-describedby="basic-addon1">
+</div>
+<h2 style="margin: 30px 0 0 30px">방문한 산</h2>
+<div class="visited">
+    <div class="card-columns" id="visited">
+    </div>
+</div>
+<hr>
+<h2 style="margin: 30px 0 0 30px">100대 명산</h2>
+<div class="mt100">
+    <div class="card-columns" id="mt100">
+    </div>
+</div>
+
+</body>
+
+</html>

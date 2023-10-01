@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+
+    <!-- JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+
+    <!-- 구글폰트 -->
+    <link href="https://fonts.googleapis.com/css?family=Stylish&display=swap" rel="stylesheet">
+    <title>날씨</title>
+
+    <style type="text/css">
+
+
+    </style>
+
+</head>
+</html>
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .mytitle {
+            color: white;
+            width: 375px;
+            height: 812px;
+            background-image: url('https://blog.kakaocdn.net/dn/oaLYY/btqHgrWNysB/mmKqc7GcEMEuq4pdR254sK/cloud2.jpg?attach=1&knm=img.jpg');
+            background-position: center;
+            background-size: cover;
+
+            border-radius: 10px;
+            text-align: center;
+            padding-top: 200px;
+            z-index: -2;
+        }
+
+        * {
+            padding: 0;
+            margin: 0
+        }
+
+        body {
+            width: 100%;
+            height: 100vh
+        }
+
+
+        .temp {
+            font-size: 100px;
+            position: relative;
+        }
+
+        .wrap {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .status {
+            width: 150px;
+            height: 130px;
+            background-position: center;
+            background-size: cover;
+            position: absolute;
+            margin: auto -25px;
+            bottom: 600px;
+            z-index: -1;
+            opacity: 65%;
+        }
+
+        .clude {
+            background-image: url('https://cdn-icons-png.flaticon.com/512/1779/1779806.png');
+            width: 150px;
+            height: 130px;
+            background-position: center;
+            background-size: cover;
+            position: absolute;
+            margin: auto -35px;
+            bottom: 550px;
+            z-index: -1;
+            opacity: 65%;
+        }
+
+        .sun {
+            background-image: url('https://cdn-icons-png.flaticon.com/512/5903/5903477.png');
+            width: 140px;
+            height: 140px;
+            background-position: center;
+            background-size: cover;
+            position: absolute;
+            margin: auto 160px;
+            bottom: 500px;
+            z-index: -1;
+            opacity: 65%;
+        }
+
+        .blur {
+            background-image: url('https://image.flaticon.com/icons/png/512/777/777595.png');
+            width: 130px;
+            height: 130px;
+            background-position: center;
+            background-size: cover;
+            position: absolute;
+            margin: auto 160px;
+            bottom: 500px;
+            z-index: -1;
+            opacity: 65%;
+        }
+
+        .rain {
+            background-image: url('https://cdn-icons-png.flaticon.com/512/578/578139.png');
+            width: 130px;
+            height: 130px;
+            background-position: center;
+            background-size: cover;
+            position: absolute;
+            margin: auto 160px;
+            bottom: 500px;
+            z-index: -1;
+            opacity: 65%;
+        }
+
+        .snow {
+            background-image: url('https://cdn-icons-png.flaticon.com/512/6277/6277678.png');
+            width: 130px;
+            height: 130px;
+            background-position: center;
+            background-size: cover;
+            position: absolute;
+            margin: auto 160px;
+            bottom: 480px;
+            z-index: -1;
+            opacity: 65%;
+        }
+
+        .weather {
+            font-size: 50px;
+        }
+
+        .dust-box {
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+        }
+
+        .dust {
+            margin-left: 10px;
+        }
+        .mdust {
+            margin-left: 10px;
+        }
+    </style>
+    <script>
+        $(document).ready(function () {
+            temp();
+        })
+
+        function temp() {
+            $.ajax({
+                type: "POST",
+                url: "/memo",
+                data: {},
+                success: function (response) {
+                    $('.temp').text(response["온도"])
+                    $('.weather').text(response["날씨"])
+                    $('.dust').text(response["미세먼지"].split('\n')[1])
+                    $('.mdust').text(response["초미세먼지"].split('\n')[1])
+                    if ($(".dust").text() == "매우나쁨") {
+                        $(".dust").css("color", "red")
+                    } else if ($(".dust").text() == "나쁨") {
+                        $(".dust").css("color", "Orange")
+                    } else if ($(".dust").text() == "좋음") {
+                        $(".dust").css("color", "cyan")
+                    } else if ($(".dust").text() == "매우좋음"){
+                        $(".dust").css("color", "chartreuse")
+                    }
+
+                    if ($(".mdust").text() == "매우나쁨") {
+                        $(".mdust").css("color", "red")
+                    } else if ($(".mdust").text() == "나쁨") {
+                        $(".mdust").css("color", "Orange")
+                    } else if ($(".mdust").text() == "좋음") {
+                        $(".mdust").css("color", "cyan")
+                    } else if ($(".mdust").text() == "매우좋음"){
+                        $(".mdust").css("color", "chartreuse")
+                    }
+
+
+
+
+
+                    if ($(".weather").text() == "맑음") {
+                        $(".status").attr("src", "https://cdn-icons-png.flaticon.com/512/5903/5903477.png")
+                    } else if ($(".weather").text() == "구름많음") {
+                        $(".status").attr("src", "https://cdn-icons-png.flaticon.com/512/1779/1779806.png")
+                    } else if ($(".weather").text() == "흐림") {
+                        $(".status").attr("src", "https://image.flaticon.com/icons/png/512/777/777595.png")
+                    } else if ($(".weather").text() == "비") {
+                        $(".status").attr("src", "https://cdn-icons-png.flaticon.com/512/578/578139.png")
+                    } else if ($(".weather").text() == "눈") {
+                        $(".status").attr("src", "https://cdn-icons-png.flaticon.com/512/6277/6277678.png")
+                    }
+                }
+            })
+        }
+
+
+    </script>
+</head>
+
+<body>
+<div class="wrap">
+    <div class="mytitle">
+        <img class="status">
+        <h1 class="temp"></h1>
+        <h2 class="weather"></h2>
+        <div class="dust-box">
+            <p>미세먼지</p>
+            <p class="dust"></p>
+        </div>
+        <div class="dust-box">
+            <p>초미세먼지</p>
+            <p class="mdust"></p>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>
