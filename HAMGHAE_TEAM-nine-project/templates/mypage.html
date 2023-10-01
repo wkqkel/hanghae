@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+    <!-- Bulma CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+    <!--타이틀폰트-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jua&family=Kirang+Haerang&family=Nanum+Gothic&family=Nanum+Myeongjo:wght@800&family=Song+Myung&family=Stylish&family=Yeon+Sung&display=swap"
+          rel="stylesheet">
+    <!--기본폰트-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kirang+Haerang&family=Nanum+Gothic&family=Yeon+Sung&display=swap"
+          rel="stylesheet">
+
+
+    <title>전시 리스트 | 전시어</title>
+
+    <style>
+        * {
+            font-family: "Stylish", sans-serif;
+        }
+
+        .level {
+            padding-top: 20px;
+            flood-color: black;
+        }
+
+        .title {
+            color: #ce7f3d;
+            font-family: 'Stylish', sans-serif;
+        }
+
+        .mainImage {
+            width: 1000px;
+            height: 250px;
+            background-image: url("https://bit.ly/3t9vpoY");
+            background-size: cover;
+            background-position: top;
+            border-radius: 10px;
+            margin: auto;
+        }
+
+        .card-title {
+            font-size: 25px;
+            writing-mode: tb-rl;
+            position: relative;
+            width: 10px;
+        }
+
+        .bottom-box {
+            height: 100px;
+            width: 100%;
+            display: flex;
+            margin-bottom: 50px;
+            justify-content: center;
+        }
+
+        .bottom-text {
+            height: 80px;
+            padding: 40px;
+        }
+
+        .dir-top {
+            font-family: 'Nanum Gothic', sans-serif;
+            font-family: 'Yeon Sung', cursive;
+            cursor: pointer;
+            width: 100px;
+            height: 40px;
+            background-color: #ce7f3d;;
+            color: #000000;
+            font-size: 15px;
+            text-align: center;
+            border-radius: 20px;
+            padding: 5px 20px 5px 20px;
+            margin: 10px;
+
+        }
+
+        .scrap-title {
+            padding-left: 20px;
+            padding-top: 10px;
+            font-size: 30px;
+        }
+
+
+        .scrap-contents {
+            max-width: 100%;
+            min-height: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            padding: 20px 0px;
+            margin-left: 30px;
+        }
+
+        .card-box {
+            width: 250px;
+            height: 350px;
+            background-color: white;
+            box-shadow: 5px 0px 10px rgba(0, 0, 0, 0.3);
+            margin: 10px 20px 30px 10px;
+            position: relative;
+        }
+
+        .card-img {
+            width: 240px;
+            height: 330px;
+            background-image: url("//ticketimage.interpark.com/Play/image/large/21/21012026_p.gif");
+            background-position: center;
+            background-size: cover;
+        }
+
+
+        .bookmark-btn {
+            width: 36px;
+            height: 54px;
+            position: absolute;
+            background-image: url("https://ifh.cc/g/TWpMsS.png");
+            background-position: center;
+            background-size: cover;
+            top: -10px;
+            left: -5px;
+        }
+
+        .card-content {
+            position: absolute;
+            width: 250px;
+            height: 350px;
+            background-color: rgba(0, 0, 0, 0.6);
+            top: 0;
+            color: white;
+            justify-content: space-between;
+            padding: 10px;
+            display: none;
+        }
+
+
+        .card-title {
+            font-size: 25px;
+            writing-mode: tb-rl;
+            position: relative;
+            width: 10px;
+
+        }
+
+        .card-desc {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+
+        .card-date {
+            font-size: 14px;
+            opacity: 0.7;
+        }
+
+        .card-place {
+            font-size: 16px;
+            opacity: 0.4;
+        }
+
+        .card-box:hover .card-content {
+            display: flex;
+        }
+
+        .color {
+            background-color: moccasin;
+            margin: auto;
+        }
+
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        // 페이지 로드시 북마크 불러오기
+        document.addEventListener("DOMContentLoaded", () => {
+            mypage_load()
+        })
+
+        // 북마크 불러오는 함수 정의
+        // 서버에서 사용자id값의 북마크 db를 찾아서 전시정보를 제공받아 화면에 출력
+        function mypage_load() {
+            $.ajax({
+                type: "GET",
+                url: "/mypage/load_bookmark",
+                data: {},
+                success: function (response) {
+                    let results = response["exhibitions"].reverse();
+                    console.log(results)
+                    for (let i = 0; i < results.length; i++) {
+                        let title = results[i]["title"];
+                        let date = results[i]["date"];
+                        let img = results[i]["img"];
+                        let place = results[i]["place"];
+                        let temp_html = `  <div class="card-box">
+                                                  <img class="card-img"  src=${img}>
+                                                  <div class="card-content" onclick="location.href='/detail?${title}'" >
+                                                    <div class="card-desc">
+                                                          <div class="card-date"}>${date}</div>
+                                                          <div class="card-place"}>${place}</div>
+                                                    </div>
+                                                    <div class="card-title" id="${title}">${title}</div>
+                                                  </div>
+                                                    <div class="bookmark-btn"></div>
+                                                </div>`;
+                        $(".scrap-contents").append(temp_html);
+                    }
+                }
+            })
+        }
+
+        // 북마트 버튼 클릭시 디비에서 삭제 후 페이지 리로드
+        // 북마크 버튼 클릭 시 해당 클릭한 버튼의 제목을 서버로 보냄.
+        $(document).ready(function () {
+            $(document).on("click", ".bookmark-btn", function (event) {
+                let selected_title = $(this).siblings('.card-content').children(".card-title").text()
+                $.ajax({
+                    type: "POST",
+                    url: "/mypage/remove_bookmark",
+                    data: {title_give: selected_title},
+                    success: function (response) {
+                        window.location.reload()
+                        alert(response["result"])
+                    },
+                });
+            });
+
+        });
+
+        // 로그아웃 버튼 클릭시 쿠키 삭제후 로그인 페이지로
+        let logout = function (name) {
+            document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+            alert('다음에 또 만나요!!')
+            window.location.href = '/login'
+        };
+
+
+    </script>
+
+</head>
+<body>
+<nav class="level">
+    <p class="level-item has-text-centered">
+        <a onclick='window.location.href = "/main"' class="link is-info">홈페이지</a>
+    </p>
+    <p class="level-item has-text-centered">
+        <a onclick='window.location.href = "/detail"' class="link is-info">리뷰페이지</a>
+    </p>
+    <p class="level-item has-text-centered">
+        <a class="title" href="/main">
+            <strong class="is-sparta"
+                    style="font-family: 'Stylish', sans-serif;font-size: 45px;">전시어때</strong>
+        </a>
+    </p>
+    <p class="level-item has-text-centered">
+        <a onclick='window.location.href = "/mypage"' class="btn-top">마이페이지</a>
+    </p>
+    <p class="level-item has-text-centered">
+        <a class="btn-top" id=btn3 onclick="logout('mytoken')">{{user_info}}님 로그아웃</a>
+    </p>
+</nav>
+<div class="color">
+    <div class="scrap-title">스크랩한 전시</div>
+    <div class="scrap-contents">
+    </div>
+    <div class="bottom-box">
+        <p class="bottom-text">전시목록이 끝났습니다.
+            <span class="dir-top" onclick="window.scrollTo(0,0);">위로 올라가기</span>
+        </p>
+    </div>
+</div>
+
+
+</body>
+</html>
