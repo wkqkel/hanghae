@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        display: block;
+        line-height: 1.5;
+        font-family: sans-serif;
+        color: #fff;
+        background: wheat;
+        /* word-wrap: break-word;
+        font-size: 1rem;
+      */
+        height: 100vh;
+        width: 100%;
+      }
+
+      .cover {
+        margin-left: 2rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding-bottom: 20px;
+        white-space: nowrap;
+      }
+
+      .container {
+        flex-wrap: wrap;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        justify-content: flex-start;
+        height: 300px;
+        width: 100%;
+        overflow-x: scroll;
+        white-space: nowrap;
+        position: fixed;
+        bottom: 0;
+      }
+
+      .coverImg {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 150px;
+        width: 150px;
+        overflow: hidden;
+        box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.6);
+      }
+
+      .coverImgLink {
+        object-fit: cover;
+      }
+
+      .coverImg > img {
+        transition: all 0.3s;
+        width: 100%;
+        height: 100%;
+      }
+
+      .coverImg:hover > img {
+        width: 107%;
+        height: 107%;
+      }
+
+      .coverImg:hover > .overlay {
+        opacity: 0.3;
+      }
+
+      .overlay {
+        opacity: 0;
+        transition: opacity 0.2s;
+        position: absolute;
+        height: 150px;
+        width: 150px;
+        background: black;
+        z-index: 2;
+      }
+
+      .coverImg:hover > .control {
+        opacity: 1;
+      }
+
+      .control > img {
+        display: block;
+        position: absolute;
+        height: 6.5rem;
+        width: 6.5rem;
+        z-index: 6;
+        cursor: pointer;
+        transition: all 0.3s;
+      }
+
+      .control > img:hover {
+        display: block;
+        position: absolute;
+        height: 7.5rem;
+        width: 7.5rem;
+        z-index: 6;
+      }
+
+      .control {
+        z-index: 6;
+        transition: opacity 0.3s;
+        opacity: 0;
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 15rem;
+        width: 15rem;
+      }
+
+      .cdText {
+        line-height: 5px;
+        text-align: center;
+      }
+
+      .cdRank {
+        font-size: 16px;
+        margin-bottom: 20px;
+      }
+
+      .cdTitle {
+        margin-top: 30px;
+        font-size: 14px;
+      }
+
+      .cdArtist {
+        font-size: 12px;
+      }
+      /* 스크롤바 전체영역 css */
+      /* ::-webkit-scrollbar {
+        
+        width: 1px;
+        height: 1px;
+      } */
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="cover">
+        <div class="cdText">
+          <p class="cdRank">1</p>
+        </div>
+        <div class="coverImg">
+          <img
+            class="coverImgLink"
+            src="https://i.ytimg.com/vi/gset79KMmt0/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLA-hzH8zOQLp8GjFJoqM7s7wlvwqg"
+            alt=""
+          />
+
+          <div class="control">
+            <img
+              src="https://daks2k3a4ib2z.cloudfront.net/58f90f6926084219da25751c/592ded5785d88658e4985055_play-icon.png"
+              alt=""
+            />
+          </div>
+          <div class="overlay"></div>
+        </div>
+        <div class="cdText">
+          <p class="cdTitle">Counting Stars (Feat. Beenzino)</p>
+          <p class="cdArtist">BE'O (비오)</p>
+        </div>
+      </div>
+      <div class="cover">
+        <div class="cdText">
+          <p class="cdRank">1</p>
+        </div>
+        <div class="coverImg">
+          <img
+            class="coverImgLink"
+            src="https://i.ytimg.com/vi/gset79KMmt0/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLA-hzH8zOQLp8GjFJoqM7s7wlvwqg"
+            alt=""
+          />
+
+          <div class="control">
+            <img
+              src="https://daks2k3a4ib2z.cloudfront.net/58f90f6926084219da25751c/592ded5785d88658e4985055_play-icon.png"
+              alt=""
+            />
+          </div>
+          <div class="overlay"></div>
+        </div>
+        <div class="cdText">
+          <p class="cdTitle">Counting Stars (Feat. Beenzino)</p>
+          <p class="cdArtist">BE'O (비오)</p>
+        </div>
+      </div>
+      <div class="cover">
+        <div class="cdText">
+          <p class="cdRank">1</p>
+        </div>
+        <div class="coverImg">
+          <img
+            class="coverImgLink"
+            src="https://i.ytimg.com/vi/gset79KMmt0/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLA-hzH8zOQLp8GjFJoqM7s7wlvwqg"
+            alt=""
+          />
+
+          <div class="control">
+            <img
+              src="https://daks2k3a4ib2z.cloudfront.net/58f90f6926084219da25751c/592ded5785d88658e4985055_play-icon.png"
+              alt=""
+            />
+          </div>
+          <div class="overlay"></div>
+        </div>
+        <div class="cdText">
+          <p class="cdTitle">Counting Stars (Feat. Beenzino)</p>
+          <p class="cdArtist">BE'O (비오)</p>
+        </div>
+      </div>
+      <div class="cover">
+        <div class="cdText">
+          <p class="cdRank">1</p>
+        </div>
+        <div class="coverImg">
+          <img
+            class="coverImgLink"
+            src="https://i.ytimg.com/vi/gset79KMmt0/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLA-hzH8zOQLp8GjFJoqM7s7wlvwqg"
+            alt=""
+          />
+
+          <div class="control">
+            <img
+              src="https://daks2k3a4ib2z.cloudfront.net/58f90f6926084219da25751c/592ded5785d88658e4985055_play-icon.png"
+              alt=""
+            />
+          </div>
+          <div class="overlay"></div>
+        </div>
+        <div class="cdText">
+          <p class="cdTitle">Counting Stars (Feat. Beenzino)</p>
+          <p class="cdArtist">BE'O (비오)</p>
+        </div>
+      </div>
+      <div class="cover">
+        <div class="cdText">
+          <p class="cdRank">1</p>
+        </div>
+        <div class="coverImg">
+          <img
+            class="coverImgLink"
+            src="https://i.ytimg.com/vi/gset79KMmt0/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLA-hzH8zOQLp8GjFJoqM7s7wlvwqg"
+            alt=""
+          />
+
+          <div class="control">
+            <img
+              src="https://daks2k3a4ib2z.cloudfront.net/58f90f6926084219da25751c/592ded5785d88658e4985055_play-icon.png"
+              alt=""
+            />
+          </div>
+          <div class="overlay"></div>
+        </div>
+        <div class="cdText">
+          <p class="cdTitle">Counting Stars (Feat. Beenzino)</p>
+          <p class="cdArtist">BE'O (비오)</p>
+        </div>
+      </div>
+      <div class="cover">
+        <div class="cdText">
+          <p class="cdRank">1</p>
+        </div>
+        <div class="coverImg">
+          <img
+            class="coverImgLink"
+            src="https://i.ytimg.com/vi/gset79KMmt0/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLA-hzH8zOQLp8GjFJoqM7s7wlvwqg"
+            alt=""
+          />
+
+          <div class="control">
+            <img
+              src="https://daks2k3a4ib2z.cloudfront.net/58f90f6926084219da25751c/592ded5785d88658e4985055_play-icon.png"
+              alt=""
+            />
+          </div>
+          <div class="overlay"></div>
+        </div>
+        <div class="cdText">
+          <p class="cdTitle">Counting Stars (Feat. Beenzino)</p>
+          <p class="cdArtist">BE'O (비오)</p>
+        </div>
+      </div>
+      <div class="cover">
+        <div class="cdText">
+          <p class="cdRank">1</p>
+        </div>
+        <div class="coverImg">
+          <img
+            class="coverImgLink"
+            src="https://i.ytimg.com/vi/gset79KMmt0/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLA-hzH8zOQLp8GjFJoqM7s7wlvwqg"
+            alt=""
+          />
+
+          <div class="control">
+            <img
+              src="https://daks2k3a4ib2z.cloudfront.net/58f90f6926084219da25751c/592ded5785d88658e4985055_play-icon.png"
+              alt=""
+            />
+          </div>
+          <div class="overlay"></div>
+        </div>
+        <div class="cdText">
+          <p class="cdTitle">Counting Stars (Feat. Beenzino)</p>
+          <p class="cdArtist">BE'O (비오)</p>
+        </div>
+      </div>
+      <div class="cover">
+        <div class="cdText">
+          <p class="cdRank">1</p>
+        </div>
+        <div class="coverImg">
+          <img
+            class="coverImgLink"
+            src="https://i.ytimg.com/vi/gset79KMmt0/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLA-hzH8zOQLp8GjFJoqM7s7wlvwqg"
+            alt=""
+          />
+
+          <div class="control">
+            <img
+              src="https://daks2k3a4ib2z.cloudfront.net/58f90f6926084219da25751c/592ded5785d88658e4985055_play-icon.png"
+              alt=""
+            />
+          </div>
+          <div class="overlay"></div>
+        </div>
+        <div class="cdText">
+          <p class="cdTitle">Counting Stars (Feat. Beenzino)</p>
+          <p class="cdArtist">BE'O (비오)</p>
+        </div>
+      </div>
+      <div class="cover">
+        <div class="cdText">
+          <p class="cdRank">1</p>
+        </div>
+        <div class="coverImg">
+          <img
+            class="coverImgLink"
+            src="https://i.ytimg.com/vi/gset79KMmt0/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLA-hzH8zOQLp8GjFJoqM7s7wlvwqg"
+            alt=""
+          />
+
+          <div class="control">
+            <img
+              src="https://daks2k3a4ib2z.cloudfront.net/58f90f6926084219da25751c/592ded5785d88658e4985055_play-icon.png"
+              alt=""
+            />
+          </div>
+          <div class="overlay"></div>
+        </div>
+        <div class="cdText">
+          <p class="cdTitle">Counting Stars (Feat. Beenzino)</p>
+          <p class="cdArtist">BE'O (비오)</p>
+        </div>
+      </div>
+      <div class="cover">
+        <div class="cdText">
+          <p class="cdRank">1</p>
+        </div>
+        <div class="coverImg">
+          <img
+            class="coverImgLink"
+            src="https://i.ytimg.com/vi/gset79KMmt0/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLA-hzH8zOQLp8GjFJoqM7s7wlvwqg"
+            alt=""
+          />
+
+          <div class="control">
+            <img
+              src="https://daks2k3a4ib2z.cloudfront.net/58f90f6926084219da25751c/592ded5785d88658e4985055_play-icon.png"
+              alt=""
+            />
+          </div>
+          <div class="overlay"></div>
+        </div>
+        <div class="cdText">
+          <p class="cdTitle">Counting Stars (Feat. Beenzino)</p>
+          <p class="cdArtist">BE'O (비오)</p>
+        </div>
+      </div>
+      <div class="cover">
+        <div class="cdText">
+          <p class="cdRank">1</p>
+        </div>
+        <div class="coverImg">
+          <img
+            class="coverImgLink"
+            src="https://i.ytimg.com/vi/gset79KMmt0/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLA-hzH8zOQLp8GjFJoqM7s7wlvwqg"
+            alt=""
+          />
+
+          <div class="control">
+            <img
+              src="https://daks2k3a4ib2z.cloudfront.net/58f90f6926084219da25751c/592ded5785d88658e4985055_play-icon.png"
+              alt=""
+            />
+          </div>
+          <div class="overlay"></div>
+        </div>
+        <div class="cdText">
+          <p class="cdTitle">Counting Stars (Feat. Beenzino)</p>
+          <p class="cdArtist">BE'O (비오)</p>
+        </div>
+      </div>
+      <div class="cover">
+        <div class="cdText">
+          <p class="cdRank">1</p>
+        </div>
+        <div class="coverImg">
+          <img
+            class="coverImgLink"
+            src="https://i.ytimg.com/vi/gset79KMmt0/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLA-hzH8zOQLp8GjFJoqM7s7wlvwqg"
+            alt=""
+          />
+
+          <div class="control">
+            <img
+              src="https://daks2k3a4ib2z.cloudfront.net/58f90f6926084219da25751c/592ded5785d88658e4985055_play-icon.png"
+              alt=""
+            />
+          </div>
+          <div class="overlay"></div>
+        </div>
+        <div class="cdText">
+          <p class="cdTitle">Counting Stars (Feat. Beenzino)</p>
+          <p class="cdArtist">BE'O (비오)</p>
+        </div>
+      </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://rawgit.com/jquery/jquery-mousewheel/master/jquery.mousewheel.js"></script>
+    <script>
+      scrollVert();
+      var scrollLeft = 0;
+
+      function scrollVert() {
+        $("html, body, *")
+          .off("mousewheel")
+          .mousewheel(function (e, delta) {
+            this.scrollTop -= delta * 40;
+            e.preventDefault();
+            setTimeout(function () {
+              if (
+                $(window).scrollTop() + $(window).height() ==
+                $(document).height()
+              )
+                scrollHoriz();
+            }, 0);
+          });
+      }
+      function scrollHoriz() {
+        $("html, body, *")
+          .off("mousewheel")
+          .mousewheel(function (e, delta) {
+            this.scrollLeft -= delta * 40;
+            e.preventDefault();
+            scrollLeft = this.scrollLeft;
+          });
+      }
+    </script>
+  </body>
+</html>

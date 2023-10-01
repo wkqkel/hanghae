@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>jQuery UI Resizable - Default functionality</title>
+    <!-- <link
+      rel="stylesheet"
+      href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css"
+    /> -->
+    <!-- <link rel="stylesheet" href="/resources/demos/style.css" /> -->
+    <style>
+      * {
+        width: 100%;
+        height: 100%;
+      }
+      #resizable {
+        width: 150px;
+        height: 150px;
+        padding: 0.5em;
+        border: none;
+        background-color: black;
+      }
+      #resizable h3 {
+        text-align: center;
+        margin: 0;
+      }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <!-- <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script> -->
+    <script>
+      let stringCount = 1;
+      $(function () {
+        var pressed;
+        var start;
+        var startY;
+        var startWidth;
+        // var wrapper = $("div#wrapper");
+        // var container = $("table#container");
+        // var initialWidths = new Array();
+        // console.log($("table th").length);
+        $("#resizable").mousedown(function (e) {
+          //선택
+          start = $(this);
+          startY = e.pageY;
+          startWidth = $(this).height();
+          //   $(start).addClass("resizing");
+          pressed = true;
+          //   var index = $(this).index();
+          //   if (!initialWidths[index]) {
+          //     initialWidths[index] = startWidth;
+          //   }
+        });
+        //   .dblclick(function (e) {
+        //     var index = $(this).index();
+        //     if (initialWidths[index]) {
+        //       start.height(initialWidths[index]);
+        //     }
+        //   });
+
+        $(document).mousemove(function (e) {
+          //드래그
+          if (pressed) {
+            var newWidth = startWidth + (e.pageY - startY);
+            start.height(newWidth);
+            // wrapper.height(container.height() + 10);
+          }
+        });
+
+        $(document).mouseup(function () {
+          //놓음
+          if (pressed) {
+            $(start).removeClass("resizing");
+            start.height(startWidth);
+            pressed = false;
+            if (count % 2 === 0) {
+              player.pauseVideo();
+            } else {
+              player.playVideo();
+            }
+          }
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <div id="resizable" class="ui-widget-content">
+      <h3 class="ui-widget-header"></h3>
+    </div>
+  </body>
+</html>

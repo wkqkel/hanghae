@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style></style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://www.youtube.com/iframe_api"></script>
+  </head>
+
+  <body>
+    adsd
+    <iframe
+      id="player"
+      width="560"
+      height="315"
+      src="https://www.youtube.com/embed/?autoplay=1&loop=1&enablejsapi=1&version=3&playerapiid=ytplayer&playlist=9uxYuIpvsjw,ZcGB8Yc_SlE,3lwTql6YlSE,LKQ-18LoFQk"
+      frameborder="0"
+      allow="accelerometer; autoplay; fullscreen; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen=""
+    ></iframe>
+    <button id="play">재생</button>
+    <button id="pause">일시정지</button>
+    <script>
+      var tag = document.createElement("script");
+
+      tag.src = "https://www.youtube.com/iframe_api";
+      var firstScriptTag = document.getElementsByTagName("script")[0];
+      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+      $("#pause").click(function () {
+        $("#player")[0].comtentWindow.postMessage(
+          '{"event":"command","func":pauseVideo","args":""}',
+          "*"
+        );
+      });
+    </script>
+  </body>
+</html>

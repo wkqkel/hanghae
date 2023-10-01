@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        height: 100%;
+      }
+      body {
+        background-color: wheat;
+        height: 100%;
+        width: 100%;
+      }
+      .cdWrap {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .cdCover {
+        width: 220px;
+        height: 220px;
+        background-color: white;
+        z-index: 35;
+        box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.6);
+      }
+
+      .cdImg {
+        width: 200px;
+        height: 200px;
+        background-image: url("https://i.ytimg.com/vi/UhY0x9jN_uE/hqdefault.jpg?sqp=-oaymwEcCOADEI4CSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCzrKTCy8OPgcmWNusZrGuUtPP4OQ");
+        background-size: cover;
+        background-position: center;
+        border-radius: 50%;
+        z-index: 31;
+        position: relative;
+        right: 83px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.6);
+      }
+
+      .cdHollShadow {
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        z-index: 34;
+        box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.3);
+      }
+      .cdHoll {
+        width: 40px;
+        height: 40px;
+        background-color: wheat;
+        border-radius: 50%;
+        z-index: 33;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="cdWrap">
+      <div class="cdCover">
+        <p>1</p>
+        <p>Counting Stars (Feat. Beenzino)</p>
+        <p>BE'O (비오)</p>
+      </div>
+      <div class="cdImg">
+        <div class="cdHoll">
+          <div class="cdHollShadow"></div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
